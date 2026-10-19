@@ -23,10 +23,9 @@
             onyx: {
               DEFAULT: '#07090e',
               950: '#040508',
-              900: '#0b0e15',
-              850: '#111520',
-              800: '#161c2b',
-              700: '#1e2638',
+              900: '#07090e',
+              850: '#0b0e15',
+              800: '#111520',
             },
             cyan: {
               accent: '#38bdf8',
@@ -49,24 +48,66 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
+    /* Base Body: Single Unified Luxury Obsidian Background */
+    html, body {
       background-color: #07090e;
       color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
       overflow-x: hidden;
+      margin: 0;
+      padding: 0;
     }
 
-    /* Minimal Pill Buttons */
+    /* Fixed Canvas: Always present in background */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Continuous Vertical Fading Overlay:
+       Bright at the top (Hero), gracefully dims through About,
+       deepening into pure solid obsidian black as you scroll down.
+       NO harsh block colors or visible horizontal section stripes! */
+    .continuous-dark-fade {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba(7, 9, 14, 0.12) 0%,
+        rgba(7, 9, 14, 0.35) 600px,
+        rgba(7, 9, 14, 0.72) 1300px,
+        rgba(4, 5, 8, 0.94) 2100px,
+        #040508 100%
+      );
+    }
+
+    /* Content Layer placed safely above the canvas and fade overlay */
+    .content-layer {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Pill Buttons */
     .pill-btn {
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 9999px;
       padding: 0.65rem 1.6rem;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #ffffff;
-      background-color: rgba(11, 14, 21, 0.6);
+      background-color: rgba(255, 255, 255, 0.03);
       backdrop-filter: blur(8px);
       transition: all 0.25s ease;
       display: inline-flex;
@@ -77,29 +118,29 @@
     .pill-btn:hover {
       border-color: #38bdf8;
       color: #38bdf8;
+      background-color: rgba(56, 189, 248, 0.08);
       box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
       transform: translateY(-2px);
     }
 
-    /* Primary Accent Button */
     .pill-btn-primary {
       background-color: #38bdf8;
       border: 1px solid #38bdf8;
       color: #040508;
-      font-weight: 600;
+      font-weight: 700;
     }
     .pill-btn-primary:hover {
       background-color: #7dd3fc;
       border-color: #7dd3fc;
       color: #000000;
-      box-shadow: 0 0 24px rgba(56, 189, 248, 0.45);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.45);
     }
 
     /* Skill Slider Tracks */
     .skill-track {
       position: relative;
       height: 4px;
-      background-color: rgba(255, 255, 255, 0.12);
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 9999px;
       margin-top: 0.5rem;
     }
@@ -122,671 +163,660 @@
       box-shadow: 0 0 10px #38bdf8;
     }
 
-    /* Connected Vertical Timeline */
-    .timeline-rail {
+    /* Ambient Hero Radial Glow (Behind Portrait) */
+    .hero-glow-orb {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 70%);
+      filter: blur(50px);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Cutout Portrait Mask: Seamless bottom fade into page background */
+    .portrait-seamless {
+      mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
+      filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.95));
       position: relative;
-      padding-left: 2.2rem;
-    }
-    .timeline-rail::before {
-      content: '';
-      position: absolute;
-      top: 0.85rem;
-      bottom: 0.85rem;
-      left: 0.75rem;
-      width: 2px;
-      background-color: rgba(56, 189, 248, 0.3);
-    }
-    .timeline-node {
-      position: absolute;
-      left: 0.3rem;
-      top: 0.25rem;
-      width: 1.1rem;
-      height: 1.1rem;
-      border-radius: 50%;
-      background-color: #0b0e15;
-      border: 2px solid #38bdf8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .timeline-node::after {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: #38bdf8;
-    }
-
-    /* Hero Portrait Mask & Shadow */
-    .hero-portrait-mask {
-      filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.85));
-      mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-    }
-
-    /* Subtle Animated Glow Orbs in Background */
-    .ambient-glow-1 {
-      position: absolute;
-      top: 15%;
-      left: 10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
-      filter: blur(60px);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .ambient-glow-2 {
-      position: absolute;
-      top: 40%;
-      right: 5%;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
-      filter: blur(70px);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
+      z-index: 2;
     }
   </style>
 </head>
 <body class="selection:bg-cyan-accent selection:text-black relative">
 
-  <!-- Interactive Background Canvas (Lightweight, 60fps, Zero Jitter) -->
-  <canvas id="bg-canvas" class="fixed inset-0 w-full h-full pointer-events-none -z-10"></canvas>
-  <div class="ambient-glow-1"></div>
-  <div class="ambient-glow-2"></div>
+  <!-- Fixed Interactive Background Canvas (Lightweight, 60fps) -->
+  <canvas id="bg-canvas"></canvas>
 
-  <!-- ======================================================== -->
-  <!-- TOP NAVIGATION BAR                                       -->
-  <!-- ======================================================== -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-onyx-950/80 border-b border-white/[0.06] transition-all">
-    <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-4 flex items-center justify-between">
-      
-      <!-- Left Navigation Links -->
-      <nav class="flex items-center space-x-6 sm:space-x-10 text-xs sm:text-sm font-mono uppercase tracking-wider text-slate-300">
-        <a href="#home" class="text-cyan-accent font-semibold hover:text-white transition-colors">Home</a>
-        <a href="#about" class="hover:text-cyan-accent transition-colors">About</a>
-        <a href="#resume" class="hover:text-cyan-accent transition-colors">Resume & Skills</a>
-        <a href="#contact" class="hover:text-cyan-accent transition-colors">Connect</a>
-      </nav>
+  <!-- Continuous Vertical Darkening Gradient (Seamless throughout page) -->
+  <div class="continuous-dark-fade"></div>
 
-      <!-- Right Action Items -->
-      <div class="flex items-center gap-4">
-        <div class="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-300 bg-white/[0.04] px-3.5 py-1.5 rounded-full border border-white/[0.08]">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Available for Leadership Roles</span>
-        </div>
-        <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="pill-btn !py-1.5 !px-3.5 !text-xs text-cyan-accent border-cyan-accent/40 hover:border-cyan-accent">
-          <span>LinkedIn ↗</span>
-        </a>
-      </div>
+  <!-- Main Scrollable Content Container -->
+  <div class="content-layer">
 
-    </div>
-  </header>
-
-  <!-- ======================================================== -->
-  <!-- SCREEN 1: HERO SECTION WITH PROFILE PHOTO NEXT TO NAME    -->
-  <!-- ======================================================== -->
-  <section id="home" class="relative min-h-[92vh] flex items-center py-16 sm:py-24 z-10">
-    <div class="w-full max-w-7xl mx-auto px-6 lg:px-12">
-      
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+    <!-- ======================================================== -->
+    <!-- TOP NAVIGATION BAR                                       -->
+    <!-- ======================================================== -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#07090e]/75 border-b border-white/[0.06] transition-all">
+      <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-4 flex items-center justify-between">
         
-        <!-- Left Column: Name & Executive Proposition -->
-        <div class="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1">
-          
-          <!-- Category Badge -->
-          <div class="inline-flex items-center gap-2 text-cyan-accent font-mono text-xs tracking-widest uppercase mb-4 px-3.5 py-1 rounded-full bg-cyan-accent/10 border border-cyan-accent/20 w-fit">
-            <span>Healthcare Application Support & Operations Professional</span>
+        <!-- Left Nav Links -->
+        <nav class="flex items-center space-x-6 sm:space-x-10 text-xs sm:text-sm font-mono uppercase tracking-wider text-slate-300">
+          <a href="#home" class="text-cyan-accent font-semibold hover:text-white transition-colors">Home</a>
+          <a href="#about" class="hover:text-cyan-accent transition-colors">About</a>
+          <a href="#resume" class="hover:text-cyan-accent transition-colors">Experience & Skills</a>
+          <a href="#contact" class="hover:text-cyan-accent transition-colors">Connect</a>
+        </nav>
+
+        <!-- Right Action Items -->
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-300 bg-white/[0.03] px-3.5 py-1.5 rounded-full border border-white/[0.08]">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Available for Leadership Roles</span>
           </div>
-
-          <!-- Bold Name Header -->
-          <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white uppercase font-display leading-[0.92] mb-5">
-            VIGHNESH<br>
-            <span class="text-white">CHOPRA</span>
-          </h1>
-
-          <!-- Role Title -->
-          <div class="text-slate-200 font-mono tracking-widest text-sm sm:text-lg uppercase mb-6 flex items-center gap-3">
-            <span class="w-6 h-0.5 bg-cyan-accent"></span>
-            <span class="font-bold text-cyan-accent">EMR Support Manager</span>
-          </div>
-
-          <!-- Executive Summary Lead -->
-          <p class="text-slate-300 text-sm sm:text-base font-normal leading-relaxed max-w-2xl mb-8">
-            <strong class="text-white font-semibold">7+ years directing L1/L2 application support</strong>, clinical workflow optimization, and high-stakes engineering escalation bridges across <strong class="text-white font-semibold">30+ multi-site healthcare facilities</strong>. Single Point of Contact (SPOC) driving zero live charting disruption and strict SLA compliance.
-          </p>
-
-          <!-- Action Buttons -->
-          <div class="flex flex-wrap items-center gap-4 mb-10">
-            <a href="Vighnesh_Chopra_Resume.pdf" download class="pill-btn pill-btn-primary">
-              <span>Download CV (PDF)</span>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-            </a>
-            <a href="#resume" class="pill-btn">
-              <span>Explore Skills & History</span>
-              <svg class="w-3.5 h-3.5 text-cyan-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </a>
-            <a href="#contact" class="pill-btn">
-              <span>Let's Connect</span>
-              <svg class="w-3.5 h-3.5 text-cyan-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
-          </div>
-
-          <!-- Quick Metric Badges -->
-          <div class="grid grid-cols-3 gap-3 max-w-lg pt-6 border-t border-white/[0.1]">
-            <div class="p-3 rounded-xl bg-onyx-900/80 border border-white/[0.08]">
-              <div class="text-xl sm:text-2xl font-black text-white font-display">30+</div>
-              <div class="text-[11px] font-mono text-slate-400 uppercase mt-0.5">Facilities</div>
-            </div>
-            <div class="p-3 rounded-xl bg-onyx-900/80 border border-white/[0.08]">
-              <div class="text-xl sm:text-2xl font-black text-cyan-accent font-display">200+</div>
-              <div class="text-[11px] font-mono text-slate-400 uppercase mt-0.5">Staff Trained</div>
-            </div>
-            <div class="p-3 rounded-xl bg-onyx-900/80 border border-white/[0.08]">
-              <div class="text-xl sm:text-2xl font-black text-emerald-400 font-display">7+ Yrs</div>
-              <div class="text-[11px] font-mono text-slate-400 uppercase mt-0.5">SLA Governance</div>
-            </div>
-          </div>
-
+          <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="pill-btn !py-1.5 !px-3.5 !text-xs text-cyan-accent border-cyan-accent/40 hover:border-cyan-accent">
+            <span>LinkedIn Profile ↗</span>
+          </a>
         </div>
 
-        <!-- Right Column: Profile Photo Next to Name -->
-        <div class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2">
-          <div class="relative w-full max-w-sm sm:max-w-md">
-            
-            <!-- Soft Ambient Backlight -->
-            <div class="absolute -inset-4 bg-gradient-to-tr from-cyan-accent/20 via-sky-500/10 to-indigo-500/20 blur-2xl rounded-3xl -z-10"></div>
+      </div>
+    </header>
 
-            <!-- Portrait Frame -->
-            <div class="relative rounded-3xl bg-onyx-900/60 border border-white/[0.12] p-4 sm:p-6 overflow-hidden shadow-2xl backdrop-blur-sm">
+    <!-- ======================================================== -->
+    <!-- SCREEN 1: HERO SECTION (SEAMLESS BORDERLESS PORTRAIT)     -->
+    <!-- ======================================================== -->
+    <section id="home" class="relative min-h-[92vh] flex items-center py-16 sm:py-24">
+      <div class="w-full max-w-7xl mx-auto px-6 lg:px-12">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          
+          <!-- Left Column: Name & Value Proposition -->
+          <div class="lg:col-span-7 flex flex-col justify-center order-2 lg:order-1">
+            
+            <!-- Category Tag -->
+            <div class="inline-flex items-center gap-2 text-cyan-accent font-mono text-xs tracking-widest uppercase mb-4 px-3.5 py-1 rounded-full bg-cyan-accent/10 border border-cyan-accent/20 w-fit">
+              <span>Healthcare Application Support & Operations Professional</span>
+            </div>
+
+            <!-- Big Bold Name -->
+            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white uppercase font-display leading-[0.95] mb-5">
+              VIGHNESH<br>
+              <span class="text-white">CHOPRA</span>
+            </h1>
+
+            <!-- Updated Title -->
+            <div class="text-slate-200 font-mono tracking-widest text-base sm:text-xl uppercase mb-6 flex items-center gap-3">
+              <span class="w-6 h-0.5 bg-cyan-accent"></span>
+              <span class="font-bold text-cyan-accent">EMR Support Manager</span>
+            </div>
+
+            <!-- Executive Value Proposition -->
+            <p class="text-slate-300 text-sm sm:text-base font-normal leading-relaxed max-w-2xl mb-8">
+              <strong class="text-white font-semibold">7+ years directing L1/L2 application support</strong>, clinical workflow optimization, and high-stakes engineering escalation bridges across <strong class="text-white font-semibold">30+ multi-site healthcare facilities</strong>. Single Point of Contact (SPOC) driving zero live charting disruption and strict SLA compliance.
+            </p>
+
+            <!-- Pill Action Buttons -->
+            <div class="flex flex-wrap items-center gap-4 mb-10">
+              <a href="Vighnesh_Chopra_Resume.pdf" download class="pill-btn pill-btn-primary">
+                <span>Download CV (PDF)</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+              </a>
+              <a href="#resume" class="pill-btn">
+                <span>Experience & Skills</span>
+                <svg class="w-3.5 h-3.5 text-cyan-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </a>
+              <a href="#contact" class="pill-btn">
+                <span>Let's Connect</span>
+                <svg class="w-3.5 h-3.5 text-cyan-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+              </a>
+            </div>
+
+            <!-- Quick Metrics Grid -->
+            <div class="grid grid-cols-3 gap-3 max-w-lg pt-6 border-t border-white/[0.08]">
+              <div class="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.07]">
+                <div class="text-xl sm:text-2xl font-black text-white font-display">30+</div>
+                <div class="text-[11px] font-mono text-slate-400 uppercase mt-0.5">Facilities</div>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.07]">
+                <div class="text-xl sm:text-2xl font-black text-cyan-accent font-display">200+</div>
+                <div class="text-[11px] font-mono text-slate-400 uppercase mt-0.5">Staff Trained</div>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.07]">
+                <div class="text-xl sm:text-2xl font-black text-emerald-400 font-display">7+ Yrs</div>
+                <div class="text-[11px] font-mono text-slate-400 uppercase mt-0.5">SLA Governance</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Seamless Borderless Profile Cutout -->
+          <div class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 relative">
+            <div class="relative w-full max-w-sm sm:max-w-md flex justify-center items-center">
+              
+              <!-- Subtle Ambient Radial Backglow -->
+              <div class="hero-glow-orb"></div>
+
+              <!-- Cutout Image with Zero Border, Melting Naturally into Dark Canvas -->
               <img 
                 src="profile_cutout.png" 
                 alt="Vighnesh Chopra - EMR Support Manager" 
-                class="w-full h-auto max-h-[460px] object-contain hero-portrait-mask mx-auto"
+                class="w-full h-auto max-h-[500px] object-contain portrait-seamless"
                 onerror="this.onerror=null; this.src='profile.png';"
               />
 
-              <!-- Floating Micro-Badge -->
-              <div class="mt-4 pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono text-slate-400">
-                <span class="text-slate-300 font-medium">Dubai, UAE</span>
-                <span class="text-cyan-accent">Global Deployments</span>
-              </div>
             </div>
-
           </div>
+
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- SCREEN 2: ABOUT SECTION (Full Editorial Clarity)         -->
-  <!-- ======================================================== -->
-  <section id="about" class="min-h-screen bg-onyx-950 py-20 sm:py-28 border-t border-white/[0.08] flex items-center relative z-10">
-    <div class="w-full max-w-7xl mx-auto px-6 lg:px-12">
-      
-      <div class="max-w-4xl">
+    <!-- ======================================================== -->
+    <!-- SCREEN 2: ABOUT SECTION (SEAMLESS CONTINUOUS BACKGROUND) -->
+    <!-- ======================================================== -->
+    <section id="about" class="min-h-screen py-24 sm:py-32 flex items-center relative">
+      <div class="w-full max-w-7xl mx-auto px-6 lg:px-12">
         
-        <!-- Section Header -->
-        <div class="mb-8">
-          <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-display mb-2">
-            ABOUT VIGHNESH CHOPRA
-          </h2>
-          <div class="w-16 h-1 bg-cyan-accent mb-4"></div>
-          <p class="text-slate-400 text-sm font-mono">
-            Bridging Clinical End-Users, Hospital Administrators, and Software Engineering Teams
-          </p>
-        </div>
-
-        <!-- Narrative Content -->
-        <div class="space-y-6 text-sm sm:text-base text-slate-300 font-normal leading-relaxed mb-12">
-          <p>
-            Performance-driven <strong class="text-white font-semibold">Healthcare SaaS & EHR/EMR Application Support Specialist</strong> with over <strong class="text-white font-semibold">7 years of expertise in L1/L2 production support</strong>, high-severity incident resolution, clinical workflow optimization, and SLA adherence across multi-site global healthcare systems.
-          </p>
-          <p>
-            Proven track record acting as the <strong class="text-cyan-accent font-semibold">Single Point of Contact (SPOC)</strong> bridging clinical end-users, software vendors, and backend software engineering teams to isolate chronic software bugs, replicate defects from server logs, and deliver reliable technical workarounds during scheduled maintenance windows.
-          </p>
-          <p>
-            Deep operational mastery safeguarding healthcare compliance frameworks (<strong class="text-white font-semibold">DHA, HIPAA, CMS documentation rules</strong>) and optimizing Health Information Management (HIM) workflows, chart corrections, scanning/indexing interfaces, and clinical documentation logic (<strong class="text-white font-semibold">ICD-10, CPT-4, DRG/APC Logic</strong>).
-          </p>
-          <p>
-            Extensive hands-on execution connecting regional Health Information Exchanges—including <strong class="text-cyan-accent font-semibold">Malaffi</strong> (Abu Dhabi) and <strong class="text-cyan-accent font-semibold">NABIDH</strong> (Dubai)—delivering user training to over <strong class="text-white font-semibold">200+ healthcare staff</strong>, authoring audit-ready SOPs and system runbooks, and integrating modern Anthropic AI tooling for automated support diagnostics.
-          </p>
-        </div>
-
-        <!-- Focus Pillars Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/[0.08]">
-          <div class="p-5 rounded-2xl bg-onyx-900 border border-white/[0.08]">
-            <div class="text-cyan-accent text-2xl mb-2">🏥</div>
-            <h3 class="text-white font-semibold text-sm font-mono uppercase mb-1">Clinical Continuity</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              Diagnosing high-urgency workflow deadlocks and implementing reliable workarounds maintaining live charting continuity.
-            </p>
-          </div>
-
-          <div class="p-5 rounded-2xl bg-onyx-900 border border-white/[0.08]">
-            <div class="text-cyan-accent text-2xl mb-2">⚡</div>
-            <h3 class="text-white font-semibold text-sm font-mono uppercase mb-1">Engineering Bridge</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              Translating clinical incidents into clean defect telemetry, reproducible bug steps, and rollback plans for software developers.
-            </p>
-          </div>
-
-          <div class="p-5 rounded-2xl bg-onyx-900 border border-white/[0.08]">
-            <div class="text-cyan-accent text-2xl mb-2">🛡️</div>
-            <h3 class="text-white font-semibold text-sm font-mono uppercase mb-1">Compliance & HIE</h3>
-            <p class="text-slate-400 text-xs leading-relaxed">
-              Full structural alignment with HIPAA, DHA standards, Malaffi, NABIDH, and diagnostic coding frameworks.
-            </p>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- SCREEN 3: 3-COLUMN SYSTEM DASHBOARD (AUDITED & ENLARGED) -->
-  <!-- ======================================================== -->
-  <section id="resume" class="min-h-screen bg-onyx-900 py-20 sm:py-28 border-t border-white/[0.08] relative z-10">
-    <div class="w-full max-w-7xl mx-auto px-6 lg:px-12">
-      
-      <!-- Section Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-8 mb-12 border-b border-white/[0.1] gap-4">
-        <div>
-          <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-display">
-            OPERATIONAL EXPERTISE & EXPERIENCE
-          </h2>
-          <div class="w-12 h-1 bg-cyan-accent mt-2"></div>
-        </div>
-        <div class="flex items-center gap-3">
-          <a href="Vighnesh_Chopra_Resume.pdf" download class="pill-btn !py-2 !px-4 !text-xs">
-            <span>Download Updated CV (PDF) ↗</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- 3-Column Structured Layout -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
-        
-        <!-- ==================================================== -->
-        <!-- COLUMN 1: AUDITED CORE PROFICIENCY & LANGUAGES       -->
-        <!-- ==================================================== -->
-        <div class="lg:col-span-4 space-y-10">
+        <div class="max-w-4xl">
           
-          <!-- Audited Clean Technical Proficiencies -->
-          <div>
-            <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6 flex items-center justify-between">
-              <span>SYSTEM PROFICIENCY</span>
-              <span class="text-slate-400 text-[11px]">BENCHMARK</span>
-            </h3>
-
-            <div class="space-y-6 text-sm font-mono">
-              
-              <!-- Skill Item 1 -->
-              <div>
-                <div class="flex justify-between text-white font-medium">
-                  <span>HIS / EMR Application Support</span>
-                  <span class="text-cyan-accent font-bold">98%</span>
-                </div>
-                <div class="skill-track">
-                  <div class="skill-fill" style="width: 98%;"></div>
-                  <div class="skill-dot" style="left: 98%;"></div>
-                </div>
-              </div>
-
-              <!-- Skill Item 2 -->
-              <div>
-                <div class="flex justify-between text-white font-medium">
-                  <span>Root Cause Analysis & Bug Isolation</span>
-                  <span class="text-cyan-accent font-bold">96%</span>
-                </div>
-                <div class="skill-track">
-                  <div class="skill-fill" style="width: 96%;"></div>
-                  <div class="skill-dot" style="left: 96%;"></div>
-                </div>
-              </div>
-
-              <!-- Skill Item 3 -->
-              <div>
-                <div class="flex justify-between text-white font-medium">
-                  <span>Engineering Escalation Bridge</span>
-                  <span class="text-cyan-accent font-bold">95%</span>
-                </div>
-                <div class="skill-track">
-                  <div class="skill-fill" style="width: 95%;"></div>
-                  <div class="skill-dot" style="left: 95%;"></div>
-                </div>
-              </div>
-
-              <!-- Skill Item 4 -->
-              <div>
-                <div class="flex justify-between text-white font-medium">
-                  <span>Malaffi & NABIDH HIE Workflows</span>
-                  <span class="text-cyan-accent font-bold">92%</span>
-                </div>
-                <div class="skill-track">
-                  <div class="skill-fill" style="width: 92%;"></div>
-                  <div class="skill-dot" style="left: 92%;"></div>
-                </div>
-              </div>
-
-              <!-- Skill Item 5 -->
-              <div>
-                <div class="flex justify-between text-white font-medium">
-                  <span>Release Validation & UAT Testing</span>
-                  <span class="text-cyan-accent font-bold">94%</span>
-                </div>
-                <div class="skill-track">
-                  <div class="skill-fill" style="width: 94%;"></div>
-                  <div class="skill-dot" style="left: 94%;"></div>
-                </div>
-              </div>
-
-            </div>
+          <!-- Section Header -->
+          <div class="mb-10">
+            <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-display mb-3">
+              ABOUT VIGHNESH CHOPRA
+            </h2>
+            <div class="w-16 h-1 bg-cyan-accent mb-4"></div>
+            <p class="text-slate-400 text-sm font-mono">
+              Bridging Clinical End-Users, Hospital Administrators, and Software Engineering Teams
+            </p>
           </div>
 
-          <!-- Regulatory & Compliance Frameworks -->
-          <div class="pt-6 border-t border-white/[0.08]">
-            <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-4">
-              COMPLIANCE & CODING FRAMEWORKS
-            </h3>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1.5 rounded-lg bg-onyx-950 border border-white/[0.1] text-slate-300">HIPAA Privacy</span>
-              <span class="px-3 py-1.5 rounded-lg bg-onyx-950 border border-white/[0.1] text-slate-300">DHA Standards</span>
-              <span class="px-3 py-1.5 rounded-lg bg-onyx-950 border border-white/[0.1] text-slate-300">ICD-10 Coding</span>
-              <span class="px-3 py-1.5 rounded-lg bg-onyx-950 border border-white/[0.1] text-slate-300">CPT-4 Framework</span>
-              <span class="px-3 py-1.5 rounded-lg bg-onyx-950 border border-white/[0.1] text-slate-300">DRG / APC Logic</span>
-              <span class="px-3 py-1.5 rounded-lg bg-onyx-950 border border-white/[0.1] text-slate-300">CMS Documentation</span>
-            </div>
+          <!-- Narrative Content -->
+          <div class="space-y-6 text-sm sm:text-base text-slate-300 font-normal leading-relaxed mb-12">
+            <p>
+              Performance-driven <strong class="text-white font-semibold">Healthcare SaaS & EHR/EMR Application Support Specialist</strong> with over <strong class="text-white font-semibold">7 years of expertise in L1/L2 production support</strong>, high-severity incident resolution, clinical workflow optimization, and SLA adherence across multi-site global healthcare systems.
+            </p>
+            <p>
+              Proven track record acting as the <strong class="text-cyan-accent font-semibold">Single Point of Contact (SPOC)</strong> bridging clinical end-users, software vendors, and backend software engineering teams to isolate chronic software bugs, replicate defects from server logs, and deliver reliable technical workarounds during scheduled maintenance windows.
+            </p>
+            <p>
+              Deep operational mastery safeguarding healthcare compliance frameworks (<strong class="text-white font-semibold">DHA, HIPAA, CMS documentation rules</strong>) and optimizing Health Information Management (HIM) workflows, chart corrections, scanning/indexing interfaces, and clinical documentation logic (<strong class="text-white font-semibold">ICD-10, CPT-4, DRG/APC Logic</strong>).
+            </p>
+            <p>
+              Extensive hands-on execution connecting regional Health Information Exchanges—including <strong class="text-cyan-accent font-semibold">Malaffi</strong> (Abu Dhabi) and <strong class="text-cyan-accent font-semibold">NABIDH</strong> (Dubai)—delivering user training to over <strong class="text-white font-semibold">200+ healthcare staff</strong>, authoring audit-ready SOPs and system runbooks, and integrating modern Anthropic AI tooling for automated support diagnostics.
+            </p>
           </div>
 
-          <!-- Clean Languages Section (Pill Badges, No Percentages) -->
-          <div class="pt-6 border-t border-white/[0.08]">
-            <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-4">
-              LANGUAGES
-            </h3>
-            <div class="grid grid-cols-1 gap-2.5 text-xs font-mono">
-              <div class="p-3 rounded-xl bg-onyx-950 border border-white/[0.08] flex items-center justify-between">
-                <span class="text-white font-medium text-sm">English</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-cyan-accent/10 border border-cyan-accent/30 text-cyan-accent font-semibold text-xs">Fluent</span>
-              </div>
-              <div class="p-3 rounded-xl bg-onyx-950 border border-white/[0.08] flex items-center justify-between">
-                <span class="text-white font-medium text-sm">Hindi</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-cyan-accent/10 border border-cyan-accent/30 text-cyan-accent font-semibold text-xs">Fluent</span>
-              </div>
-              <div class="p-3 rounded-xl bg-onyx-950 border border-white/[0.08] flex items-center justify-between">
-                <span class="text-white font-medium text-sm">Bengali</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-white/[0.06] border border-white/[0.12] text-slate-300 text-xs">Conversational</span>
-              </div>
+          <!-- Focus Pillars Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
+            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.07]">
+              <div class="text-cyan-accent text-2xl mb-2">🏥</div>
+              <h3 class="text-white font-semibold text-sm font-mono uppercase mb-2">Clinical Continuity</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Diagnosing high-urgency workflow deadlocks and implementing reliable workarounds maintaining live charting continuity.
+              </p>
             </div>
-          </div>
 
-        </div>
-
-        <!-- ==================================================== -->
-        <!-- COLUMN 2: EXPERIENCE TIMELINE & EDUCATION (ENLARGED) -->
-        <!-- ==================================================== -->
-        <div class="lg:col-span-4 space-y-10">
-          
-          <div>
-            <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6">
-              CAREER TIMELINE
-            </h3>
-
-            <!-- Connected Vertical Timeline with Large Fonts -->
-            <div class="timeline-rail space-y-10">
-              
-              <!-- Role 1: Medicworks -->
-              <div class="relative">
-                <div class="timeline-node"></div>
-                <div class="text-xs font-mono text-cyan-accent font-bold mb-1">FEB 2019 – PRESENT (7+ YEARS)</div>
-                <h4 class="font-extrabold text-white text-base uppercase tracking-wide font-display">
-                  Medicworks Healthcare Informatics
-                </h4>
-                <div class="text-xs text-slate-300 font-mono mb-3">Business Relations & Customer Support Manager</div>
-                <ul class="text-sm text-slate-300 font-normal leading-relaxed space-y-2 mb-4">
-                  <li>• <strong class="text-white">Client SPOC & Incident Management:</strong> Primary SPOC for all UAE clients, investigating and resolving critical incidents in multi-site clinical EMR databases.</li>
-                  <li>• <strong class="text-white">Escalation Bridge:</strong> Operational liaison between clinical leads, administrators, and backend software developers to deploy bug fixes during maintenance windows.</li>
-                  <li>• <strong class="text-white">HIM Configuration:</strong> Configured clinical workflows, templates, and reliable frontline workarounds for engineering escalation.</li>
-                  <li>• <strong class="text-white">Change Management:</strong> Coordinated software rollouts, impact analysis, test servers during UAT, and database rollback planning.</li>
-                  <li>• <strong class="text-white">Regulatory & HIE Compliance:</strong> Integrated EMR records with regional Health Information Exchanges (Malaffi, NABIDH).</li>
-                  <li>• <strong class="text-white">Knowledge Management:</strong> Authored SOPs and system runbooks; trained 200+ healthcare professionals.</li>
-                </ul>
-                <div class="text-xs font-mono text-slate-400">Dubai, UAE • Global Exposure</div>
-              </div>
-
-              <!-- Role 2: ITC Grand Bharat -->
-              <div class="relative">
-                <div class="timeline-node"></div>
-                <div class="text-xs font-mono text-cyan-accent font-bold mb-1">JUL 2015 – JUL 2018 (3 YEARS)</div>
-                <h4 class="font-extrabold text-white text-base uppercase tracking-wide font-display">
-                  ITC Grand Bharat
-                </h4>
-                <div class="text-xs text-slate-300 font-mono mb-3">Guest Service Associate • WelcomLEAD Program</div>
-                <ul class="text-sm text-slate-300 font-normal leading-relaxed space-y-2 mb-4">
-                  <li>• Served on the foundational opening team for an award-winning luxury property.</li>
-                  <li>• Managed enterprise software workflows and cross-department communications via integrated POS applications (MICROS VICAS, OPERA).</li>
-                  <li>• Maintained strict operational quality benchmarks and standard operating procedures (SOPs).</li>
-                </ul>
-                <div class="text-xs font-mono text-slate-400">Gurgaon, India</div>
-              </div>
-
+            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.07]">
+              <div class="text-cyan-accent text-2xl mb-2">⚡</div>
+              <h3 class="text-white font-semibold text-sm font-mono uppercase mb-2">Engineering Bridge</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Translating clinical incidents into clean defect telemetry, reproducible bug steps, and rollback plans for software developers.
+              </p>
             </div>
-          </div>
 
-          <!-- Education Section -->
-          <div class="pt-6 border-t border-white/[0.08]">
-            <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-4">
-              EDUCATION
-            </h3>
-            <div class="p-4 rounded-2xl bg-onyx-950 border border-white/[0.08]">
-              <div class="text-xs font-mono text-cyan-accent font-semibold mb-1">GRADUATED 2018</div>
-              <h4 class="font-bold text-white text-sm sm:text-base">Indira Gandhi National Open University (IGNOU)</h4>
-              <p class="text-xs text-slate-400 font-mono mt-1">New Delhi, India</p>
-              <p class="text-sm text-slate-300 font-normal mt-2">
-                Bachelor of Arts, Tourism Studies — Grade: First Division.
+            <div class="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.07]">
+              <div class="text-cyan-accent text-2xl mb-2">🛡️</div>
+              <h3 class="text-white font-semibold text-sm font-mono uppercase mb-2">Compliance & HIE</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Full structural alignment with HIPAA, DHA standards, Malaffi, NABIDH, and diagnostic coding frameworks.
               </p>
             </div>
           </div>
 
         </div>
 
-        <!-- ==================================================== -->
-        <!-- COLUMN 3: WHAT I DELIVER & ANTHROPIC CERTIFICATIONS  -->
-        <!-- ==================================================== -->
-        <div class="lg:col-span-4 space-y-10">
-          
-          <!-- What Do I Deliver Section -->
-          <div>
-            <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6">
-              WHAT DO I DELIVER?
-            </h3>
-
-            <div class="space-y-4 text-sm text-slate-300 font-normal">
-              
-              <div class="p-4 rounded-2xl bg-onyx-950 border border-white/[0.08]">
-                <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">1. Multi-Site EMR Onboarding</strong>
-                <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
-                  Driving end-user adoption across hospital wings, coordinating clinician training, permissions, and go-live workflows.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-onyx-950 border border-white/[0.08]">
-                <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">2. Live Clinical Charting Continuity</strong>
-                <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
-                  Diagnosing and resolving workflow deadlocks with rapid technical workarounds to prevent clinical downtime.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-onyx-950 border border-white/[0.08]">
-                <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">3. Technical Escalation Bridge</strong>
-                <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
-                  Single point of contact translating clinical issues into clean defect telemetry and replication steps for developers.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-onyx-950 border border-white/[0.08]">
-                <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">4. SLA & Retention Governance</strong>
-                <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
-                  Rigid SLA adherence, proactive health reviews, and authoring audit-ready SOPs that reduce recurring tickets.
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Anthropic AI Certifications Section -->
-          <div>
-            <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6 flex items-center justify-between">
-              <span>AI LICENSES & CERTIFICATIONS</span>
-              <span class="text-emerald-400 text-xs font-bold">VERIFIED</span>
-            </h3>
-
-            <div class="space-y-3 font-mono text-xs">
-              
-              <div class="p-3.5 rounded-xl bg-onyx-950 border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
-                <div>
-                  <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
-                  <span class="text-white font-medium text-xs sm:text-sm">AI Fluency Framework & Foundations</span>
-                </div>
-                <a href="https://verify.skilljar.com/c/9zmqmf6xzcke" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
-              </div>
-
-              <div class="p-3.5 rounded-xl bg-onyx-950 border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
-                <div>
-                  <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
-                  <span class="text-white font-medium text-xs sm:text-sm">Claude Cowork & Capabilities</span>
-                </div>
-                <a href="https://verify.skilljar.com/c/jv3xb5axts5w" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
-              </div>
-
-              <div class="p-3.5 rounded-xl bg-onyx-950 border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
-                <div>
-                  <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
-                  <span class="text-white font-medium text-xs sm:text-sm">Claude 101</span>
-                </div>
-                <a href="https://verify.skilljar.com/c/n9jdknkaaaig" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
-              </div>
-
-              <div class="p-3.5 rounded-xl bg-onyx-950 border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
-                <div>
-                  <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
-                  <span class="text-white font-medium text-xs sm:text-sm">AI Capabilities & Limitations</span>
-                </div>
-                <a href="https://verify.skilljar.com/c/crjhy9a8eo6x" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- SCREEN 4: FUNCTIONAL CONNECT SECTION (EMAIL PRIVACY SAFE) -->
-  <!-- ======================================================== -->
-  <section id="contact" class="min-h-screen bg-onyx-950 py-20 sm:py-28 border-t border-white/[0.08] flex items-center relative z-10">
-    <div class="w-full max-w-4xl mx-auto px-6 lg:px-8">
-      
-      <!-- Section Header -->
-      <div class="text-center mb-12">
-        <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-display mb-3">
-          LET'S CONNECT
-        </h2>
-        <div class="w-16 h-1 bg-cyan-accent mx-auto mb-4"></div>
-        <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto font-normal">
-          Available for Healthcare Application Support Management, Customer Success, and Technical Escalation Leadership.
-        </p>
-      </div>
-
-      <!-- Contact Box -->
-      <div class="p-6 sm:p-10 rounded-3xl bg-onyx-900 border border-white/[0.1] shadow-2xl backdrop-blur-md">
+    <!-- ======================================================== -->
+    <!-- SCREEN 3: 3-COLUMN SYSTEM DASHBOARD (CLEAN & RESTYLED)   -->
+    <!-- ======================================================== -->
+    <section id="resume" class="min-h-screen py-24 sm:py-32 relative">
+      <div class="w-full max-w-7xl mx-auto px-6 lg:px-12">
         
-        <!-- Status Notification Banner -->
-        <div id="contact-alert" class="hidden mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed"></div>
-
-        <!-- Secure Contact Form (Zero Plaintext Email in HTML) -->
-        <form id="contact-form" class="space-y-6">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_subject" value="New Portfolio Inquiry for Vighnesh Chopra">
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label for="name" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Your Name</label>
-              <input type="text" id="name" name="name" required placeholder="Hiring Manager / Healthcare Leader" class="w-full px-4 py-3 rounded-xl bg-onyx-950 border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all">
-            </div>
-            <div>
-              <label for="email" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Your Email Address</label>
-              <input type="email" id="email" name="email" required placeholder="contact@organization.com" class="w-full px-4 py-3 rounded-xl bg-onyx-950 border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all">
-            </div>
-          </div>
-
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-8 mb-12 border-b border-white/[0.08] gap-4">
           <div>
-            <label for="subject" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Inquiry Focus / Role</label>
-            <input type="text" id="subject" name="subject" required placeholder="Healthcare Support Management / Operations Opportunity" class="w-full px-4 py-3 rounded-xl bg-onyx-950 border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all">
+            <h2 class="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white font-display">
+              OPERATIONAL EXPERTISE & CAREER TIMELINE
+            </h2>
+            <div class="w-12 h-1 bg-cyan-accent mt-2"></div>
           </div>
-
-          <div>
-            <label for="message" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Message</label>
-            <textarea id="message" name="message" rows="4" required placeholder="What are you connecting for? (e.g., EMR Support / Client Operations opportunity, workflow consultation, or general inquiry...)" class="w-full px-4 py-3 rounded-xl bg-onyx-950 border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all"></textarea>
-          </div>
-
-          <div class="pt-2 flex flex-col sm:flex-row gap-4">
-            <button type="submit" id="submit-btn" class="flex-1 py-3.5 px-6 rounded-xl bg-cyan-accent text-black font-bold text-xs uppercase tracking-wider hover:bg-sky-400 active:scale-[0.99] transition-all flex items-center justify-center gap-2 font-mono">
-              <span id="btn-label">Send Message</span>
-              <svg id="btn-spinner" class="hidden w-4 h-4 text-black animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            </button>
-
-            <button type="button" onclick="sendViaMailClient()" class="py-3.5 px-6 rounded-xl bg-onyx-950 border border-white/[0.15] text-slate-200 hover:text-white hover:border-cyan-accent font-semibold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 font-mono">
-              <span>Open in Email App ↗</span>
-            </button>
-          </div>
-        </form>
-
-        <!-- Direct Social & CV Links (No Plaintext Email Output) -->
-        <div class="mt-8 pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 gap-4">
-          <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span>Direct Relay Active • Monitored Daily</span>
-          </div>
-          <div class="flex items-center space-x-4">
-            <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline font-semibold">LinkedIn Profile ↗</a>
-            <span class="text-slate-600">•</span>
-            <a href="Vighnesh_Chopra_Resume.pdf" download class="text-cyan-accent hover:underline font-semibold">Download CV (PDF) ↗</a>
+          <div class="flex items-center gap-3">
+            <a href="Vighnesh_Chopra_Resume.pdf" download class="pill-btn !py-2 !px-4 !text-xs">
+              <span>Download Updated CV (PDF) ↗</span>
+            </a>
           </div>
         </div>
 
+        <!-- 3-Column Structured Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
+          
+          <!-- ==================================================== -->
+          <!-- COLUMN 1: AUDITED CORE PROFICIENCY & LANGUAGES       -->
+          <!-- ==================================================== -->
+          <div class="lg:col-span-4 space-y-10">
+            
+            <!-- Audited Clean Technical Proficiencies -->
+            <div>
+              <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6 flex items-center justify-between">
+                <span>SYSTEM PROFICIENCY</span>
+                <span class="text-slate-400 text-[11px]">BENCHMARK</span>
+              </h3>
+
+              <div class="space-y-6 text-sm font-mono">
+                
+                <!-- Skill Item 1 -->
+                <div>
+                  <div class="flex justify-between text-white font-medium">
+                    <span>HIS / EMR Application Support</span>
+                    <span class="text-cyan-accent font-bold">98%</span>
+                  </div>
+                  <div class="skill-track">
+                    <div class="skill-fill" style="width: 98%;"></div>
+                    <div class="skill-dot" style="left: 98%;"></div>
+                  </div>
+                </div>
+
+                <!-- Skill Item 2 -->
+                <div>
+                  <div class="flex justify-between text-white font-medium">
+                    <span>Root Cause Analysis & Bug Isolation</span>
+                    <span class="text-cyan-accent font-bold">96%</span>
+                  </div>
+                  <div class="skill-track">
+                    <div class="skill-fill" style="width: 96%;"></div>
+                    <div class="skill-dot" style="left: 96%;"></div>
+                  </div>
+                </div>
+
+                <!-- Skill Item 3 -->
+                <div>
+                  <div class="flex justify-between text-white font-medium">
+                    <span>Engineering Escalation Bridge</span>
+                    <span class="text-cyan-accent font-bold">95%</span>
+                  </div>
+                  <div class="skill-track">
+                    <div class="skill-fill" style="width: 95%;"></div>
+                    <div class="skill-dot" style="left: 95%;"></div>
+                  </div>
+                </div>
+
+                <!-- Skill Item 4 -->
+                <div>
+                  <div class="flex justify-between text-white font-medium">
+                    <span>Malaffi & NABIDH HIE Workflows</span>
+                    <span class="text-cyan-accent font-bold">92%</span>
+                  </div>
+                  <div class="skill-track">
+                    <div class="skill-fill" style="width: 92%;"></div>
+                    <div class="skill-dot" style="left: 92%;"></div>
+                  </div>
+                </div>
+
+                <!-- Skill Item 5 -->
+                <div>
+                  <div class="flex justify-between text-white font-medium">
+                    <span>Release Validation & UAT Testing</span>
+                    <span class="text-cyan-accent font-bold">94%</span>
+                  </div>
+                  <div class="skill-track">
+                    <div class="skill-fill" style="width: 94%;"></div>
+                    <div class="skill-dot" style="left: 94%;"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Compliance Frameworks -->
+            <div class="pt-6 border-t border-white/[0.08]">
+              <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-4">
+                COMPLIANCE & CODING FRAMEWORKS
+              </h3>
+              <div class="flex flex-wrap gap-2 text-xs font-mono">
+                <span class="px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.08] text-slate-300">HIPAA Privacy</span>
+                <span class="px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.08] text-slate-300">DHA Standards</span>
+                <span class="px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.08] text-slate-300">ICD-10 Coding</span>
+                <span class="px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.08] text-slate-300">CPT-4 Framework</span>
+                <span class="px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.08] text-slate-300">DRG / APC Logic</span>
+                <span class="px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.08] text-slate-300">CMS Rules</span>
+              </div>
+            </div>
+
+            <!-- Clean Languages Section (Badges, Zero Sliders) -->
+            <div class="pt-6 border-t border-white/[0.08]">
+              <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-4">
+                LANGUAGES
+              </h3>
+              <div class="grid grid-cols-1 gap-2.5 text-xs font-mono">
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between">
+                  <span class="text-white font-medium text-sm">English</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-cyan-accent/10 border border-cyan-accent/30 text-cyan-accent font-semibold text-xs">Fluent</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between">
+                  <span class="text-white font-medium text-sm">Hindi</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-cyan-accent/10 border border-cyan-accent/30 text-cyan-accent font-semibold text-xs">Fluent</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between">
+                  <span class="text-white font-medium text-sm">Bengali</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.1] text-slate-300 text-xs">Conversational</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ==================================================== -->
+          <!-- COLUMN 2: RESTRUCTURED TIMELINE (ZERO TEXT OVERLAP)  -->
+          <!-- ==================================================== -->
+          <div class="lg:col-span-4 space-y-10">
+            
+            <div>
+              <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6">
+                CAREER TIMELINE
+              </h3>
+
+              <!-- Dedicated Two-Column Flex Timeline (Dot column is completely separated from Text column) -->
+              <div class="space-y-10">
+                
+                <!-- Role 1: Medicworks -->
+                <div class="flex gap-4 items-start">
+                  
+                  <!-- Left Rail Column: Node Circle & Vertical Track -->
+                  <div class="flex flex-col items-center flex-shrink-0 w-5 pt-1">
+                    <div class="w-4 h-4 rounded-full bg-[#07090e] border-2 border-cyan-accent flex items-center justify-center flex-shrink-0 shadow-[0_0_8px_#38bdf8]">
+                      <div class="w-1.5 h-1.5 rounded-full bg-cyan-accent"></div>
+                    </div>
+                    <div class="w-[2px] bg-cyan-accent/25 flex-grow mt-2 min-h-[220px]"></div>
+                  </div>
+
+                  <!-- Right Text Column: Perfectly Padded & Spaced -->
+                  <div class="flex-1 pb-4">
+                    <div class="text-xs font-mono text-cyan-accent font-bold tracking-wider mb-1">
+                      FEB 2019 – PRESENT (7+ YEARS)
+                    </div>
+                    <h4 class="font-extrabold text-white text-base uppercase tracking-wide font-display mb-1">
+                      Medicworks Healthcare Informatics
+                    </h4>
+                    <div class="text-xs text-slate-400 font-mono mb-3">
+                      Business Relations & Customer Support Manager
+                    </div>
+
+                    <ul class="text-sm text-slate-300 space-y-2.5 leading-relaxed">
+                      <li>• <strong class="text-white">Client SPOC & Incident Triage:</strong> Single Point of Contact for UAE client networks, investigating and resolving critical incidents in multi-site clinical EMR databases.</li>
+                      <li>• <strong class="text-white">Escalation Bridge:</strong> Operational liaison bridging clinical leads, administrators, and backend software developers to deploy bug fixes during maintenance windows.</li>
+                      <li>• <strong class="text-white">HIM Configuration:</strong> Configured clinical workflows, templates, and reliable frontline workarounds for engineering escalation.</li>
+                      <li>• <strong class="text-white">Change Management:</strong> Coordinated software rollouts, impact analysis, test servers during UAT, and database rollback planning.</li>
+                      <li>• <strong class="text-white">Regulatory & HIE Compliance:</strong> Integrated EMR records with regional Health Information Exchanges (Malaffi, NABIDH).</li>
+                      <li>• <strong class="text-white">Knowledge Management:</strong> Authored SOPs and system runbooks; trained 200+ healthcare professionals.</li>
+                    </ul>
+
+                    <div class="text-xs font-mono text-slate-500 mt-3">Dubai, UAE • Global Exposure</div>
+                  </div>
+
+                </div>
+
+                <!-- Role 2: ITC Grand Bharat -->
+                <div class="flex gap-4 items-start">
+                  
+                  <!-- Left Rail Column -->
+                  <div class="flex flex-col items-center flex-shrink-0 w-5 pt-1">
+                    <div class="w-4 h-4 rounded-full bg-[#07090e] border-2 border-cyan-accent flex items-center justify-center flex-shrink-0 shadow-[0_0_8px_#38bdf8]">
+                      <div class="w-1.5 h-1.5 rounded-full bg-cyan-accent"></div>
+                    </div>
+                  </div>
+
+                  <!-- Right Text Column -->
+                  <div class="flex-1">
+                    <div class="text-xs font-mono text-cyan-accent font-bold tracking-wider mb-1">
+                      JUL 2015 – JUL 2018 (3 YEARS)
+                    </div>
+                    <h4 class="font-extrabold text-white text-base uppercase tracking-wide font-display mb-1">
+                      ITC Grand Bharat
+                    </h4>
+                    <div class="text-xs text-slate-400 font-mono mb-3">
+                      Guest Service Associate • WelcomLEAD Program
+                    </div>
+
+                    <ul class="text-sm text-slate-300 space-y-2.5 leading-relaxed">
+                      <li>• Served on the foundational opening team for an award-winning luxury property.</li>
+                      <li>• Managed enterprise software workflows and cross-department communications via integrated POS applications (MICROS VICAS, OPERA).</li>
+                      <li>• Maintained strict operational quality benchmarks and standard operating procedures (SOPs).</li>
+                    </ul>
+
+                    <div class="text-xs font-mono text-slate-500 mt-3">Gurgaon, India</div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="pt-6 border-t border-white/[0.08]">
+              <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-4">
+                EDUCATION
+              </h3>
+              <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
+                <div class="text-xs font-mono text-cyan-accent font-semibold mb-1">GRADUATED 2018</div>
+                <h4 class="font-bold text-white text-sm sm:text-base">Indira Gandhi National Open University (IGNOU)</h4>
+                <p class="text-xs text-slate-400 font-mono mt-1">New Delhi, India</p>
+                <p class="text-sm text-slate-300 font-normal mt-2">
+                  Bachelor of Arts, Tourism Studies — Grade: First Division.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ==================================================== -->
+          <!-- COLUMN 3: WHAT I DELIVER & ANTHROPIC CERTIFICATIONS  -->
+          <!-- ==================================================== -->
+          <div class="lg:col-span-4 space-y-10">
+            
+            <!-- What Do I Deliver Section -->
+            <div>
+              <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6">
+                WHAT DO I DELIVER?
+              </h3>
+
+              <div class="space-y-4 text-sm text-slate-300 font-normal">
+                
+                <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
+                  <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">1. Multi-Site EMR Onboarding</strong>
+                  <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
+                    Driving end-user adoption across hospital wings, coordinating clinician training, permissions, and go-live workflows.
+                  </p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
+                  <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">2. Live Clinical Charting Continuity</strong>
+                  <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
+                    Diagnosing and resolving workflow deadlocks with rapid technical workarounds to prevent clinical downtime.
+                  </p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
+                  <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">3. Technical Escalation Bridge</strong>
+                  <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
+                    Single point of contact translating clinical issues into clean defect telemetry and replication steps for developers.
+                  </p>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.08]">
+                  <strong class="text-white block font-semibold mb-1 font-mono text-xs uppercase text-cyan-accent">4. SLA & Retention Governance</strong>
+                  <p class="text-xs sm:text-sm leading-relaxed text-slate-300">
+                    Rigid SLA adherence, proactive health reviews, and authoring audit-ready SOPs that reduce recurring tickets.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Anthropic AI Certifications Section -->
+            <div>
+              <h3 class="text-xs font-mono uppercase tracking-widest text-cyan-accent font-bold mb-6 flex items-center justify-between">
+                <span>AI LICENSES & CERTIFICATIONS</span>
+                <span class="text-emerald-400 text-xs font-bold">VERIFIED</span>
+              </h3>
+
+              <div class="space-y-3 font-mono text-xs">
+                
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
+                  <div>
+                    <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
+                    <span class="text-white font-medium text-xs sm:text-sm">AI Fluency Framework & Foundations</span>
+                  </div>
+                  <a href="https://verify.skilljar.com/c/9zmqmf6xzcke" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
+                  <div>
+                    <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
+                    <span class="text-white font-medium text-xs sm:text-sm">Claude Cowork & Capabilities</span>
+                  </div>
+                  <a href="https://verify.skilljar.com/c/jv3xb5axts5w" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
+                  <div>
+                    <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
+                    <span class="text-white font-medium text-xs sm:text-sm">Claude 101</span>
+                  </div>
+                  <a href="https://verify.skilljar.com/c/n9jdknkaaaig" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.08] flex items-center justify-between hover:border-cyan-accent/40 transition-colors">
+                  <div>
+                    <span class="text-[10px] text-cyan-accent block font-bold">ANTHROPIC SUITE</span>
+                    <span class="text-white font-medium text-xs sm:text-sm">AI Capabilities & Limitations</span>
+                  </div>
+                  <a href="https://verify.skilljar.com/c/crjhy9a8eo6x" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline text-xs font-bold pl-2">Verify ↗</a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
+    </section>
 
-    </div>
-  </section>
+    <!-- ======================================================== -->
+    <!-- SCREEN 4: FUNCTIONAL CONNECT SECTION                     -->
+    <!-- ======================================================== -->
+    <section id="contact" class="min-h-screen py-24 sm:py-32 flex items-center relative">
+      <div class="w-full max-w-4xl mx-auto px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white font-display mb-3">
+            LET'S CONNECT
+          </h2>
+          <div class="w-16 h-1 bg-cyan-accent mx-auto mb-4"></div>
+          <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto font-normal">
+            Available for Healthcare Application Support Management, Customer Success, and Technical Escalation Leadership.
+          </p>
+        </div>
+
+        <!-- Contact Box -->
+        <div class="p-6 sm:p-10 rounded-3xl bg-white/[0.02] border border-white/[0.08] shadow-2xl backdrop-blur-md">
+          
+          <!-- Status Notification Banner -->
+          <div id="contact-alert" class="hidden mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed"></div>
+
+          <!-- Secure Contact Form (Zero Plaintext Email in HTML) -->
+          <form id="contact-form" class="space-y-6">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_subject" value="New Portfolio Inquiry for Vighnesh Chopra">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="Hiring Manager / Healthcare Leader" class="w-full px-4 py-3 rounded-xl bg-[#040508] border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all">
+              </div>
+              <div>
+                <label for="email" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Your Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="contact@organization.com" class="w-full px-4 py-3 rounded-xl bg-[#040508] border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all">
+              </div>
+            </div>
+
+            <div>
+              <label for="subject" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Inquiry Focus / Role</label>
+              <input type="text" id="subject" name="subject" required placeholder="Healthcare Support Management / Operations Opportunity" class="w-full px-4 py-3 rounded-xl bg-[#040508] border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all">
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2 font-semibold">Message</label>
+              <textarea id="message" name="message" rows="4" required placeholder="What are you connecting for? (e.g., EMR Support / Client Operations opportunity, workflow consultation, or general inquiry...)" class="w-full px-4 py-3 rounded-xl bg-[#040508] border border-white/[0.12] text-white text-sm placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-accent transition-all"></textarea>
+            </div>
+
+            <div class="pt-2 flex flex-col sm:flex-row gap-4">
+              <button type="submit" id="submit-btn" class="flex-1 py-3.5 px-6 rounded-xl bg-cyan-accent text-black font-bold text-xs uppercase tracking-wider hover:bg-sky-400 active:scale-[0.99] transition-all flex items-center justify-center gap-2 font-mono">
+                <span id="btn-label">Send Message</span>
+                <svg id="btn-spinner" class="hidden w-4 h-4 text-black animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+              </button>
+
+              <button type="button" onclick="sendViaMailClient()" class="py-3.5 px-6 rounded-xl bg-[#040508] border border-white/[0.15] text-slate-200 hover:text-white hover:border-cyan-accent font-semibold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 font-mono">
+                <span>Open in Email App ↗</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- Direct Links -->
+          <div class="mt-8 pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 gap-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Direct Cloud Relay Verified & Active</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="text-cyan-accent hover:underline font-semibold">LinkedIn Profile ↗</a>
+              <span class="text-slate-600">•</span>
+              <a href="Vighnesh_Chopra_Resume.pdf" download class="text-cyan-accent hover:underline font-semibold">Download CV (PDF) ↗</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- FOOTER                                                   -->
+    <!-- ======================================================== -->
+    <footer class="py-12 border-t border-white/[0.06] text-center text-xs text-slate-400 font-mono">
+      <div class="max-w-7xl mx-auto px-6 lg:px-12 space-y-2">
+        <p>© 2026 Vighnesh Chopra. Built for high performance, accessibility, and clean clinical operations.</p>
+      </div>
+    </footer>
+
+  </div>
 
   <!-- ======================================================== -->
-  <!-- FOOTER                                                   -->
-  <!-- ======================================================== -->
-  <footer class="py-12 bg-onyx-950 border-t border-white/[0.06] text-center text-xs text-slate-400 font-mono relative z-10">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 space-y-2">
-      <p>© 2026 Vighnesh Chopra. Built for high performance, accessibility, and clean clinical operations.</p>
-    </div>
-  </footer>
-
-  <!-- ======================================================== -->
-  <!-- SCRIPTS: BACKGROUND CANVAS & SECURE FORM RELAY           -->
+  <!-- SCRIPTS: ANIMATED CANVAS & FORM DISPATCH                 -->
   <!-- ======================================================== -->
   <script>
     // ----------------------------------------------------------
@@ -798,7 +828,7 @@
       const ctx = canvas.getContext('2d');
       let width, height;
       let particles = [];
-      const PARTICLE_COUNT = 45; // lightweight, smooth on all devices
+      const PARTICLE_COUNT = 45;
       const CONNECT_DISTANCE = 140;
 
       function resize() {
@@ -815,10 +845,10 @@
         reset(initial = false) {
           this.x = Math.random() * width;
           this.y = initial ? Math.random() * height : height + 10;
-          this.vx = (Math.random() - 0.5) * 0.45;
-          this.vy = -(Math.random() * 0.45 + 0.15);
+          this.vx = (Math.random() - 0.5) * 0.4;
+          this.vy = -(Math.random() * 0.4 + 0.15);
           this.radius = Math.random() * 1.5 + 0.7;
-          this.alpha = Math.random() * 0.4 + 0.15;
+          this.alpha = Math.random() * 0.35 + 0.15;
         }
         update() {
           this.x += this.vx;
@@ -843,7 +873,7 @@
       function animate() {
         ctx.clearRect(0, 0, width, height);
 
-        // Draw connecting constellation lines
+        // Constellation lines
         for (let i = 0; i < particles.length; i++) {
           for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
@@ -861,7 +891,6 @@
           }
         }
 
-        // Draw and update particles
         particles.forEach(p => {
           p.update();
           p.draw();
@@ -870,7 +899,6 @@
         animationId = requestAnimationFrame(animate);
       }
 
-      // Pause when tab is inactive to preserve battery & Lighthouse performance
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
           cancelAnimationFrame(animationId);
@@ -922,17 +950,20 @@
               }
             });
 
-            if (response.ok) {
+            const data = await response.json();
+
+            if (response.ok && (data.success === 'true' || data.success === true)) {
               alert.className = 'mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-300';
-              alert.innerHTML = '<strong>INQUIRY TRANSMITTED:</strong> Thank you! Your message has been routed to Vighnesh. You will receive a response shortly.';
+              alert.innerHTML = '<strong>INQUIRY DELIVERED:</strong> Thank you! Your message has been transmitted directly to Vighnesh. You will receive a response shortly.';
               alert.classList.remove('hidden');
               form.reset();
             } else {
-              throw new Error('Relay service error');
+              throw new Error(data.message || 'Relay service error');
             }
           } catch (err) {
+            // If testing locally on file:// where CORS is restricted, or if relay has a temporary hiccup
             alert.className = 'mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono bg-cyan-accent/10 border border-cyan-accent/30 text-cyan-accent';
-            alert.innerHTML = '<strong>DIRECT DISPATCH OPTION:</strong> You can open this message directly in your email client using the button below.';
+            alert.innerHTML = '<strong>DISPATCH NOTICE:</strong> Direct message triggered. You can also send directly via your email client using the button below.';
             alert.classList.remove('hidden');
             sendViaMailClient();
           } finally {
@@ -944,7 +975,7 @@
       }
     });
 
-    // Fallback: Launch default mail client with pre-filled fields
+    // Launch default email client
     function sendViaMailClient() {
       const target = getTarget();
       const name = document.getElementById('name')?.value || '';
