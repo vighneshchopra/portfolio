@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vighnesh Chopra | Technical Application Specialist & Client Operations</title>
+  <meta name="description" content="Executive portfolio of Vighnesh Chopra — Bridging clinical teams, hospital leadership, and software engineering through client onboarding, diagnostic triage, and product scoping.">
+  <meta name="keywords" content="Application Support, Customer Success Engineer, Technical Operations, Healthcare SaaS, Implementation Specialist, Product Scoping">
+  <meta name="author" content="Vighnesh Chopra">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Vighnesh Chopra | Technical Application Specialist & Client Operations">
+  <meta property="og:description" content="Bridging clinical teams and engineering in healthcare B2B SaaS through user adoption, independent root-cause diagnostics, and custom product scoping.">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+            },
+            clinical: {
+              light: '#38bdf8',
+              DEFAULT: '#0284c7',
+              dark: '#0369a1'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b1120;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* Hardware accelerated, buttery smooth scroll reveal animations */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-on-scroll.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Subtle glowing glass styling */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover {
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(20, 184, 166, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(20, 184, 166, 0.15);
+    }
+
+    /* Futuristic glowing aura and floating animation */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(0.5deg); }
+    }
+    @keyframes pulseRing {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.04); }
+    }
+    @keyframes radarSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-avatar-container {
+      animation: floatSlow 7s ease-in-out infinite;
+    }
+    .pulse-ring-glow {
+      animation: pulseRing 5s ease-in-out infinite;
+    }
+    .radar-ring {
+      animation: radarSpin 24s linear infinite;
+    }
+
+    /* Soft edge feathering that blends photo base seamlessly into dark canvas */
+    .hero-photo-mask {
+      -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 46%, black 65%, transparent 100%),
+                          linear-gradient(to bottom, black 75%, transparent 100%);
+      mask-image: radial-gradient(ellipse 90% 90% at 50% 46%, black 65%, transparent 100%),
+                  linear-gradient(to bottom, black 75%, transparent 100%);
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b1120;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="selection:bg-teal-500 selection:text-white">
+
+  <!-- Accessible Skip to Main Content Link (Lighthouse a11y) -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-teal-500 focus:text-slate-900 focus:font-semibold focus:rounded-md focus:shadow-lg">
+    Skip to main content
+  </a>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <!-- Brand / Identity -->
+        <a href="#overview" class="flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-1">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-sky-500 flex items-center justify-center font-bold text-slate-950 text-lg shadow-md group-hover:scale-105 transition-transform">
+            VC
+          </div>
+          <div>
+            <span class="block font-bold text-slate-100 text-base tracking-tight leading-tight">Vighnesh Chopra</span>
+            <span class="block text-xs font-medium text-teal-400 tracking-wide">Client Ops & Technical Systems</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm font-medium text-slate-300" aria-label="Main Navigation">
+          <a href="#overview" class="nav-link px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/60 transition-colors">Overview</a>
+          <a href="#adoption" class="nav-link px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/60 transition-colors">Implementation</a>
+          <a href="#triage" class="nav-link px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/60 transition-colors">Diagnostic Triage</a>
+          <a href="#scoping" class="nav-link px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/60 transition-colors">Product Scoping</a>
+          <a href="#toolkit" class="nav-link px-3 py-2 rounded-lg hover:text-white hover:bg-slate-800/60 transition-colors">Toolkit</a>
+          <a href="#contact" class="ml-3 px-4 py-2 rounded-lg bg-teal-500/10 text-teal-400 border border-teal-500/30 hover:bg-teal-500 hover:text-slate-950 font-semibold transition-all shadow-sm">
+            Connect
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Toggle Button -->
+        <div class="flex md:hidden">
+          <button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle Navigation Menu" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-400">
+            <svg id="menu-icon-bars" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-2">
+      <a href="#overview" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Overview</a>
+      <a href="#adoption" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Implementation & Adoption</a>
+      <a href="#triage" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Diagnostic Triage</a>
+      <a href="#scoping" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Product Scoping & Delivery</a>
+      <a href="#toolkit" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800">Operational Toolkit</a>
+      <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-semibold text-teal-400 bg-teal-500/10 border border-teal-500/30 text-center mt-3">Get in Touch</a>
+    </div>
+  </header>
+
+  <main id="main-content" class="pt-24 sm:pt-28">
+
+    <!-- HERO SECTION: ASYMMETRIC SPLIT WITH FUTURISTIC PORTRAIT -->
+    <section id="overview" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 overflow-hidden">
+      <!-- Ambient Background Glows -->
+      <div class="absolute -top-20 left-1/4 w-[500px] h-[350px] bg-teal-500/15 blur-[130px] rounded-full pointer-events-none -z-10"></div>
+      <div class="absolute top-1/3 -right-20 w-[450px] h-[350px] bg-sky-500/15 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+      <div class="absolute bottom-10 left-10 w-[300px] h-[250px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+        <!-- Left Narrative Column (7 cols) -->
+        <div class="lg:col-span-7 text-left reveal-on-scroll">
+          <!-- Role Tag -->
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/90 border border-teal-500/30 text-teal-400 text-xs sm:text-sm font-medium mb-6 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+            Technical Application Specialist & Client Operations
+          </div>
+
+          <!-- Headline -->
+          <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-6">
+            Bridging Clinical Teams & <br class="hidden sm:inline">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-sky-400 to-indigo-400">Software Engineering</span>
+          </h1>
+
+          <!-- Value Proposition Description -->
+          <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed mb-8 max-w-2xl">
+            Delivering end-to-end user onboarding for hospital networks, protecting developer sprint cycles through independent root-cause triage, and translating client operational needs into custom product features.
+          </p>
+
+          <!-- Core Value Badges -->
+          <div class="flex flex-wrap gap-2.5 mb-8">
+            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800/80 border border-slate-700/80 text-slate-300 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Healthcare SaaS Adoption
+            </span>
+            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800/80 border border-slate-700/80 text-slate-300 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+              Zero-Escalation Triage
+            </span>
+            <span class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-800/80 border border-slate-700/80 text-slate-300 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              Feature Scoping & Delivery
+            </span>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#adoption" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 text-slate-950 font-bold hover:brightness-110 shadow-lg shadow-teal-500/25 transition-all flex items-center gap-2 group">
+              Explore 3 Core Pillars
+              <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </a>
+            <a href="#contact" class="px-6 py-3.5 rounded-xl bg-slate-800/90 text-slate-200 border border-slate-700 hover:bg-slate-700/80 hover:text-white font-medium transition-all shadow-sm">
+              Initiate Conversation
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Futuristic Visual Column (5 cols) -->
+        <div class="lg:col-span-5 flex justify-center lg:justify-end reveal-on-scroll">
+          <div class="relative w-full max-w-sm sm:max-w-md">
+
+            <!-- Futuristic Ambient Aura Backdrop -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-teal-500/30 via-sky-500/25 to-indigo-500/30 rounded-3xl blur-2xl pulse-ring-glow -z-10 transform scale-95"></div>
+
+            <!-- Rotating Cyber Ring Indicator -->
+            <div class="absolute -inset-2.5 rounded-3xl border border-dashed border-teal-500/25 radar-ring pointer-events-none -z-10"></div>
+
+            <!-- Avatar Float Container -->
+            <div class="hero-avatar-container relative rounded-3xl p-2 bg-gradient-to-b from-slate-800/90 via-slate-900/80 to-[#0b1120] border border-slate-700/60 shadow-2xl backdrop-blur-xl">
+              
+              <!-- Subtle Inner Border Highlight -->
+              <div class="relative overflow-hidden rounded-2xl bg-[#0b1120]">
+
+                <!-- Dark Vignette and Gradient Overlay for seamless background integration -->
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0b1120] via-transparent to-transparent opacity-90 z-10 pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-teal-500/10 via-transparent to-slate-950/60 z-10 pointer-events-none"></div>
+
+                <!-- Top Cyber Corner Accents -->
+                <div class="absolute top-3 left-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/85 border border-teal-500/30 text-[10px] font-mono text-teal-300 uppercase tracking-wider backdrop-blur-md">
+                  <span class="w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping"></span>
+                  Verified • Client Ops
+                </div>
+
+                <div class="absolute top-3 right-3 z-20 text-[10px] font-mono text-slate-400 bg-slate-900/80 px-2 py-1 rounded border border-slate-800">
+                  SYS://READY
+                </div>
+
+                <!-- The Profile Image (Feathered & Masked) -->
+                <!-- Matches profile.png in the root directory -->
+                <img 
+                  id="hero-profile-img"
+                  src="profile.png"
+                  alt="Vighnesh Chopra - Technical Application Specialist" 
+                  class="hero-photo-mask w-full h-[400px] sm:h-[450px] object-cover object-top filter contrast-[1.03] brightness-[0.98] transition-all duration-700 hover:scale-[1.02]"
+                  onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';"
+                />
+
+                <!-- Bottom Futuristic HUD Floating Badge -->
+                <div class="absolute bottom-4 left-4 right-4 z-20 p-3 rounded-xl bg-slate-900/90 border border-slate-700/80 shadow-lg backdrop-blur-md flex items-center justify-between">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-sm border border-teal-500/30">
+                      VC
+                    </div>
+                    <div>
+                      <span class="block text-xs font-semibold text-white leading-tight">Vighnesh Chopra</span>
+                      <span class="block text-[11px] text-teal-400 font-mono">Healthcare SaaS Bridge</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Available
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Operations Metric Strip -->
+      <div class="mt-16 sm:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 reveal-on-scroll">
+        <div class="glass-card glass-card-hover p-6 rounded-2xl border-l-4 border-l-teal-500">
+          <div class="text-teal-400 font-bold text-3xl sm:text-4xl tracking-tight mb-1">3–6 Calls/Day</div>
+          <div class="text-white font-semibold text-sm sm:text-base">Live Interactive Engagements</div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">Daily 1-on-1 and department walkthroughs, onboarding doctors and clinic administrators across active facilities.</p>
+        </div>
+
+        <div class="glass-card glass-card-hover p-6 rounded-2xl border-l-4 border-l-sky-500">
+          <div class="text-sky-400 font-bold text-3xl sm:text-4xl tracking-tight mb-1">Zero-Escalation</div>
+          <div class="text-white font-semibold text-sm sm:text-base">First-Line Diagnostic Intuition</div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">Isolating input discrepancies and configuration bottlenecks independently, protecting engineering sprint cycles.</p>
+        </div>
+
+        <div class="glass-card glass-card-hover p-6 rounded-2xl border-l-4 border-l-indigo-500">
+          <div class="text-indigo-400 font-bold text-3xl sm:text-4xl tracking-tight mb-1">End-to-End</div>
+          <div class="text-white font-semibold text-sm sm:text-base">Requirements to Delivery</div>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">Translating unformatted clinic wish-lists into formal dev specs, commercial alignment, and validated feature deployments.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION PILLAR 1: IMPLEMENTATION & ADOPTION -->
+    <section id="adoption" class="py-20 bg-slate-950/60 border-t border-slate-800/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-12 reveal-on-scroll">
+          <div class="text-teal-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">Pillar 01 • The People Side</div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight">Implementation & Clinical Adoption</h2>
+          <p class="text-slate-400 text-base sm:text-lg mt-3">
+            Guiding resistant, time-pressed medical personnel through software shifts. Transforming generic manuals into role-segmented, frictionless workflows.
+          </p>
+        </div>
+
+        <!-- Case Study 1 Container -->
+        <div class="glass-card rounded-2xl p-6 sm:p-10 reveal-on-scroll">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Narrative (8 cols) -->
+            <div class="lg:col-span-8 space-y-6">
+              <div>
+                <span class="inline-block px-3 py-1 rounded-md text-xs font-semibold bg-teal-500/10 text-teal-400 border border-teal-500/20 mb-3">
+                  Enterprise Client Onboarding
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-100">
+                  Driving Clinical SaaS Adoption Through Role-Tailored Onboarding Pathways
+                </h3>
+              </div>
+
+              <!-- Context & Challenge -->
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Context & The Challenge</h4>
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Following high-stakes clinical software rollouts, medical personnel (hospital administrators, front-desk billing staff, and consulting doctors) faced high cognitive load. Generic training sessions led to panic tickets, appointment schedule bottlenecks, and adoption friction.
+                </p>
+              </div>
+
+              <!-- Action & Strategy -->
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-teal-400">Execution & Methodology</h4>
+                <ul class="space-y-2.5 text-sm sm:text-base text-slate-300">
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Role-Segmented Modules:</strong> Replaced monolithic 2-hour overviews with 20-minute targeted drills (billing/intake workflows for front-desk; charting & e-prescriptions for doctors).</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>High-Touch Live Walkthroughs:</strong> Led independent daily interactive screen-share sessions in a mirrored staging environment, tackling real clinic patient cases live.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Visual Job Aids:</strong> Designed concise step-by-step visual cheat sheets placed at workstations, eliminating the need to read dense PDF handbooks.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Impact Metrics -->
+              <div class="pt-4 border-t border-slate-800 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div>
+                  <div class="text-xl sm:text-2xl font-bold text-teal-400">>40%</div>
+                  <div class="text-xs text-slate-400">Day-1 Ticket Deflection</div>
+                </div>
+                <div>
+                  <div class="text-xl sm:text-2xl font-bold text-teal-400">Single-Digit</div>
+                  <div class="text-xs text-slate-400">Days to Stabilization</div>
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                  <div class="text-xl sm:text-2xl font-bold text-teal-400">Zero Churn</div>
+                  <div class="text-xs text-slate-400">Onboarding Transition</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Visual Workflow Box (4 cols) -->
+            <div class="lg:col-span-4 bg-slate-900/90 rounded-xl p-5 border border-slate-800 space-y-4">
+              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Adoption Framework</div>
+              
+              <div class="space-y-3">
+                <div class="p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-xs">1</span>
+                  <div class="text-xs">
+                    <span class="text-white font-medium block">Pre-Rollout Audit</span>
+                    <span class="text-slate-400">Map roles & existing clinic habits</span>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-xs">2</span>
+                  <div class="text-xs">
+                    <span class="text-white font-medium block">Segmented Staging Drill</span>
+                    <span class="text-slate-400">Targeted 20-min practical simulations</span>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-slate-800/60 border border-slate-700/60 flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center font-bold text-xs">3</span>
+                  <div class="text-xs">
+                    <span class="text-white font-medium block">Live Floor Check-Ins</span>
+                    <span class="text-slate-400">Immediate morning support buffer</span>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-teal-500/10 border border-teal-500/30 flex items-center gap-3">
+                  <span class="w-7 h-7 rounded-full bg-teal-500 text-slate-950 flex items-center justify-center font-bold text-xs">✓</span>
+                  <div class="text-xs">
+                    <span class="text-teal-300 font-semibold block">Full Autonomous Adoption</span>
+                    <span class="text-teal-400/80">Staff operates with zero panic calls</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400 italic">
+                "Clinical teams require confidence, not technical jargon. Walking through real patient scenarios breaks down resistance immediately."
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION PILLAR 2: DIAGNOSTIC TRIAGE -->
+    <section id="triage" class="py-20 border-t border-slate-800/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-12 reveal-on-scroll">
+          <div class="text-sky-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">Pillar 02 • The Systems Side</div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight">Diagnostic Triage & Engineering Shielding</h2>
+          <p class="text-slate-400 text-base sm:text-lg mt-3">
+            Differentiating human input errors from backend system bugs without pulling developers off high-priority roadmap sprints.
+          </p>
+        </div>
+
+        <!-- Case Study 2 Container -->
+        <div class="glass-card rounded-2xl p-6 sm:p-10 reveal-on-scroll">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Narrative (8 cols) -->
+            <div class="lg:col-span-8 space-y-6">
+              <div>
+                <span class="inline-block px-3 py-1 rounded-md text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20 mb-3">
+                  Operational Triage & Incident Control
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-100">
+                  Resolving Urgent "System Outages" Through Independent Root-Cause Analysis
+                </h3>
+              </div>
+
+              <!-- Context & Challenge -->
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Context & The Challenge</h4>
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  During peak operating hours, a high-volume outpatient facility escalated that their billing and discharge pipeline had crashed. The client panicked and demanded immediate engineering intervention, threatening to disrupt an active product sprint.
+                </p>
+              </div>
+
+              <!-- Action & Strategy -->
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-sky-400">Execution & Methodology</h4>
+                <ul class="space-y-2.5 text-sm sm:text-base text-slate-300">
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Rapid De-escalation:</strong> Jumped on a live session within minutes to calm the billing director and obtain exact timestamps and user session IDs.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Methodical Reproduction:</strong> Replicated the exact patient record state in staging. Verified that backend services, database transactions, and network status were operating normally.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Root-Cause Pinpointed:</strong> Discovered an unselected regional tariff dropdown caused by a confusing UI toggle default, blocking validation without an explicit error banner.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Client Walkthrough & Product Ticket:</strong> Guided the clinic manager live to complete the billing flow, then filed a concise UI bug ticket with reproduction steps to improve error-handling banners.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Impact Metrics -->
+              <div class="pt-4 border-t border-slate-800 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div>
+                  <div class="text-xl sm:text-2xl font-bold text-sky-400">Zero Dev Hours</div>
+                  <div class="text-xs text-slate-400">Spent on False Alarms</div>
+                </div>
+                <div>
+                  <div class="text-xl sm:text-2xl font-bold text-sky-400">&lt;25 Minutes</div>
+                  <div class="text-xs text-slate-400">From Panic to Resolution</div>
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                  <div class="text-xl sm:text-2xl font-bold text-sky-400">100% Retained</div>
+                  <div class="text-xs text-slate-400">Client Platform Trust</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Visual Workflow Box (4 cols) -->
+            <div class="lg:col-span-4 bg-slate-900/90 rounded-xl p-5 border border-slate-800 space-y-4">
+              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Triage Decision Matrix</div>
+
+              <div class="space-y-3 font-mono text-xs">
+                <div class="p-3 rounded-lg bg-red-950/30 border border-red-800/40 text-red-300">
+                  <span class="font-bold block text-red-200">Alert: "System Down!"</span>
+                  Step 1: Check server logs & auth state
+                </div>
+
+                <div class="p-3 rounded-lg bg-amber-950/30 border border-amber-800/40 text-amber-300">
+                  <span class="font-bold block text-amber-200">Test: Staging Simulation</span>
+                  Step 2: Mimic user permissions & data inputs
+                </div>
+
+                <div class="p-3 rounded-lg bg-sky-950/30 border border-sky-800/40 text-sky-300">
+                  <span class="font-bold block text-sky-200">Branch Decision</span>
+                  Is DB error? ➔ Escalate to Dev.<br>
+                  Is User/UI fault? ➔ Resolve & Educate.
+                </div>
+
+                <div class="p-3 rounded-lg bg-teal-950/30 border border-teal-800/40 text-teal-300">
+                  <span class="font-bold block text-teal-200">Result: Unblocked Client</span>
+                  Prevented unnecessary sprint derailment.
+                </div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400">
+                <strong>Key Takeaway:</strong> Treating every support ticket like an architectural investigation protects company margins and builds client loyalty.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION PILLAR 3: PRODUCT SCOPING & FEATURE DELIVERY -->
+    <section id="scoping" class="py-20 bg-slate-950/60 border-t border-slate-800/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-12 reveal-on-scroll">
+          <div class="text-indigo-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">Pillar 03 • The Product Side</div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight">Product Scoping & Custom Feature Delivery</h2>
+          <p class="text-slate-400 text-base sm:text-lg mt-3">
+            Translating unstructured clinic operational wish-lists into formal dev specs, commercial proposals, and validated product enhancements.
+          </p>
+        </div>
+
+        <!-- Case Study 3 Container -->
+        <div class="glass-card rounded-2xl p-6 sm:p-10 reveal-on-scroll">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Narrative (8 cols) -->
+            <div class="lg:col-span-8 space-y-6">
+              <div>
+                <span class="inline-block px-3 py-1 rounded-md text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-3">
+                  Account Expansion & Requirements Engineering
+                </span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-100">
+                  Converting Client Operational Needs into Commercial Custom Feature Deployments
+                </h3>
+              </div>
+
+              <!-- Context & Challenge -->
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Context & The Challenge</h4>
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  A multi-center hospital group required custom laboratory export integration and branch aggregation not present in the base software. The client struggled to formulate technical requirements, risking misalignment, scope creep, and stalled discussions.
+                </p>
+              </div>
+
+              <!-- Action & Strategy -->
+              <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-400">Execution & Methodology</h4>
+                <ul class="space-y-2.5 text-sm sm:text-base text-slate-300">
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Discovery & Needs Mapping:</strong> Led discovery sessions with medical directors to isolate true operational necessities from cosmetic preferences.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Requirements Translation:</strong> Synthesized clinical requests into structured functional specifications for backend engineers (data flow, input/output structures, constraints).</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>Cost Scoping & Management Alignment:</strong> Collaborated with management to estimate development effort, establish delivery milestones, and present transparent costing to the client.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5">
+                    <svg class="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span><strong>User Acceptance Testing (UAT):</strong> Validated intermediate dev builds against client workflow before conducting formal training and production deployment.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Impact Metrics -->
+              <div class="pt-4 border-t border-slate-800 grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div>
+                  <div class="text-xl sm:text-2xl font-bold text-indigo-400">Direct Revenue</div>
+                  <div class="text-xs text-slate-400">From Custom Engagement</div>
+                </div>
+                <div>
+                  <div class="text-xl sm:text-2xl font-bold text-indigo-400">100% On-Time</div>
+                  <div class="text-xs text-slate-400">Delivery Without Scope Drift</div>
+                </div>
+                <div class="col-span-2 sm:col-span-1">
+                  <div class="text-xl sm:text-2xl font-bold text-indigo-400">Multi-Year</div>
+                  <div class="text-xs text-slate-400">Account Retention Secured</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Visual Workflow Box (4 cols) -->
+            <div class="lg:col-span-4 bg-slate-900/90 rounded-xl p-5 border border-slate-800 space-y-4">
+              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Lifecycle of a Custom Request</div>
+
+              <div class="space-y-2 text-xs">
+                <div class="p-2.5 rounded bg-slate-800/80 border border-slate-700">
+                  <span class="text-indigo-400 font-semibold block">Client Request</span>
+                  "We need our diagnostic lab reports aggregated automatically across branches."
+                </div>
+                <div class="text-center text-slate-500 font-bold">↓</div>
+                <div class="p-2.5 rounded bg-slate-800/80 border border-slate-700">
+                  <span class="text-teal-400 font-semibold block">Operational Translation</span>
+                  Draft schemas, mandatory fields, permissions & filter conditions.
+                </div>
+                <div class="text-center text-slate-500 font-bold">↓</div>
+                <div class="p-2.5 rounded bg-slate-800/80 border border-slate-700">
+                  <span class="text-sky-400 font-semibold block">Engineering & Costing</span>
+                  Sprint estimation with backend team + quote sign-off by client.
+                </div>
+                <div class="text-center text-slate-500 font-bold">↓</div>
+                <div class="p-2.5 rounded bg-indigo-950/40 border border-indigo-500/40 text-indigo-200">
+                  <span class="font-bold block">Validated Rollout</span>
+                  UAT walkthrough + doctor verification + live release.
+                </div>
+              </div>
+
+              <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400">
+                <strong>Bridge Mindset:</strong> Developers shouldn't have to decipher hospital politics, and clinic directors shouldn't have to learn API contracts.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: OPERATIONAL TOOLKIT & COMPETENCIES -->
+    <section id="toolkit" class="py-20 border-t border-slate-800/70">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-12 reveal-on-scroll">
+          <div class="text-teal-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">Capabilities & Stack</div>
+          <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight">The Operational Toolkit</h2>
+          <p class="text-slate-400 text-base sm:text-lg mt-3">
+            A balanced skill set designed to streamline customer operations, accelerate adoption, and bridge cross-functional teams.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal-on-scroll">
+          
+          <!-- Category 1: Client Operations & Training -->
+          <div class="glass-card glass-card-hover p-6 rounded-2xl border-t-2 border-t-teal-500">
+            <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Client Operations & Training</h3>
+            <p class="text-xs text-slate-400 mb-4">Mastering high-stakes human interactions and driving sustainable software adoption.</p>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                <span>High-Touch Client Onboarding</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                <span>Role-Segmented Live Walkthroughs</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                <span>Change Management & User Empathy</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                <span>Visual SOP & Job Aid Creation</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                <span>Account Retention & Satisfaction</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Category 2: Diagnostic & Product Triage -->
+          <div class="glass-card glass-card-hover p-6 rounded-2xl border-t-2 border-t-sky-500">
+            <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center font-bold mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Systems Triage & Product Bridge</h3>
+            <p class="text-xs text-slate-400 mb-4">Protecting internal engineering hours while accurately translating customer needs.</p>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                <span>User Input vs. Software Bug Triage</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                <span>Staging Reproduction & Log Checking</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                <span>Functional Requirement Authoring</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                <span>Feature Scoping & Developer Costing</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                <span>User Acceptance Testing (UAT)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Category 3: Technical Fluency & Automation -->
+          <div class="glass-card glass-card-hover p-6 rounded-2xl border-t-2 border-t-indigo-500">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold mb-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Technical Fluency & Automation</h3>
+            <p class="text-xs text-slate-400 mb-4">Leveraging side experiments, scripting, and tooling to eliminate manual drudgery.</p>
+            <ul class="space-y-2 text-sm text-slate-300">
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>Python & BeautifulSoup (Web Scraping)</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>Automated Data Extraction & Cleaning</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>AI Productivity & Prompt Workflows</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>EHR / EMR Clinical SaaS Workflows</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                <span>Google Colab & Structured Spreadsheets</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CONTACT & CONNECT -->
+    <section id="contact" class="py-20 bg-slate-950/80 border-t border-slate-800/80">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12 reveal-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20 text-xs font-semibold mb-3">
+            Open for High-Impact Roles
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Let's Connect</h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-lg mx-auto">
+            Seeking opportunities in Technical Application Support, Implementation Operations, Customer Success Engineering, or Technical Account Management.
+          </p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 sm:p-10 reveal-on-scroll">
+          
+          <!-- Contact Notification Feedback Area -->
+          <div id="form-feedback" class="hidden mb-6 p-4 rounded-xl text-sm" role="alert"></div>
+
+          <!-- Functional Form with Web3Forms Integration -->
+          <!-- Replace YOUR_ACCESS_KEY_HERE with your free key from https://web3forms.com -->
+          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+            <input type="hidden" name="subject" value="New Portfolio Inquiry for Vighnesh Chopra">
+            <input type="hidden" name="from_name" value="Portfolio Visitor">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="e.g. Dr. Sarah Jenkins / Hiring Manager" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all text-sm">
+              </div>
+              <div>
+                <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="sarah@hospitalnetwork.org" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label for="reason" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Inquiry Type</label>
+              <select id="reason" name="inquiry_type" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-white focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all text-sm">
+                <option value="Career Opportunity">Recruitment / Job Opportunity (SaaS Ops / CSE / TAM)</option>
+                <option value="Consulting / Onboarding">Client Onboarding or Support Consultation</option>
+                <option value="General Networking">General Professional Connection</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-2">Message</label>
+              <textarea id="message" name="message" rows="4" required placeholder="Hi Vighnesh, I reviewed your work bridging clinical operations and engineering and would love to discuss a role..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all text-sm"></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-teal-500 to-sky-500 text-slate-950 font-bold text-base hover:brightness-110 active:scale-[0.99] transition-all shadow-lg shadow-teal-500/20 flex items-center justify-center gap-2">
+              <span id="btn-text">Transmit Message</span>
+              <svg id="btn-spinner" class="hidden w-5 h-5 text-slate-950 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Direct Alternative Links -->
+          <div class="mt-8 pt-6 border-t border-slate-800 flex flex-wrap items-center justify-between text-xs text-slate-400 gap-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Available for full-time roles & hybrid/remote teams</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="text-teal-400 hover:text-teal-300 transition-colors font-medium">LinkedIn Profile ↗</a>
+              <span class="text-slate-600">•</span>
+              <button onclick="copyEmailToClipboard()" class="text-teal-400 hover:text-teal-300 transition-colors font-medium focus:outline-none">
+                Copy Direct Email
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-8 bg-slate-950 border-t border-slate-900 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
+      <p>© 2026 Vighnesh Chopra. Engineered for performance, accessibility, and high Lighthouse scoring.</p>
+      <p class="text-slate-600">Built with semantic HTML5, Tailwind CSS, zero heavy JS runtime bloat, and automated global CDN deployment.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" aria-label="Back to top" class="fixed bottom-6 right-6 p-3 rounded-full bg-slate-800 text-teal-400 border border-slate-700 shadow-xl opacity-0 translate-y-4 pointer-events-none transition-all duration-300 hover:bg-slate-700 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-teal-400 z-30">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
+  <!-- Interactive Logic & Lighthouse Optimization Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Mobile Menu Drawer Toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const barsIcon = document.getElementById('menu-icon-bars');
+      const closeIcon = document.getElementById('menu-icon-close');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function toggleMobileMenu() {
+        const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.classList.toggle('hidden');
+        barsIcon.classList.toggle('hidden');
+        closeIcon.classList.toggle('hidden');
+      }
+
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (!mobileMenu.classList.contains('hidden')) {
+            toggleMobileMenu();
+          }
+        });
+      });
+
+      // 2. High-Performance Intersection Observer for Scroll Reveals
+      const revealElements = document.querySelectorAll('.reveal-on-scroll');
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+      } else {
+        // Fallback for older browsers
+        revealElements.forEach(el => el.classList.add('is-visible'));
+      }
+
+      // 3. Back to Top Button visibility
+      const backToTopBtn = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+        } else {
+          backToTopBtn.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+        }
+      }, { passive: true });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // 4. Contact Form Submission Handling with fallback simulation
+      const form = document.getElementById('contact-form');
+      const formFeedback = document.getElementById('form-feedback');
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnSpinner = document.getElementById('btn-spinner');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // UI Loading State
+        btnText.textContent = 'Transmitting...';
+        btnSpinner.classList.remove('hidden');
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+        const accessKey = formData.get('access_key');
+
+        // Check if user has updated their Web3Forms key
+        if (accessKey === 'YOUR_ACCESS_KEY_HERE') {
+          // Graceful local demonstration simulation so the user can test the interaction
+          setTimeout(() => {
+            btnText.textContent = 'Transmit Message';
+            btnSpinner.classList.add('hidden');
+            submitBtn.disabled = false;
+
+            formFeedback.className = 'mb-6 p-4 rounded-xl text-sm bg-teal-500/10 border border-teal-500/30 text-teal-300';
+            formFeedback.innerHTML = `<strong>Demonstration Success:</strong> Thank you, ${formData.get('name')}! In your live deployment, enter your free Web3Forms API key in the HTML code to deliver this directly to your inbox.`;
+            formFeedback.classList.remove('hidden');
+            form.reset();
+          }, 900);
+          return;
+        }
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+          });
+          const result = await response.json();
+
+          if (response.status === 200) {
+            formFeedback.className = 'mb-6 p-4 rounded-xl text-sm bg-emerald-500/10 border border-emerald-500/30 text-emerald-300';
+            formFeedback.innerHTML = `<strong>Message Dispatched:</strong> Thank you! Your message has been routed to Vighnesh Chopra's primary inbox.`;
+            formFeedback.classList.remove('hidden');
+            form.reset();
+          } else {
+            throw new Error(result.message || 'Transmission failed.');
+          }
+        } catch (error) {
+          formFeedback.className = 'mb-6 p-4 rounded-xl text-sm bg-red-500/10 border border-red-500/30 text-red-300';
+          formFeedback.innerHTML = `<strong>Notice:</strong> Unable to dispatch automatically. Please reach out directly via LinkedIn.`;
+          formFeedback.classList.remove('hidden');
+        } finally {
+          btnText.textContent = 'Transmit Message';
+          btnSpinner.classList.add('hidden');
+          submitBtn.disabled = false;
+        }
+      });
+    });
+
+    // Helper: Copy Email with visual notification
+    function copyEmailToClipboard() {
+      const email = 'vighneshchopra@example.com'; // Customize as needed
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const feedback = document.getElementById('form-feedback');
+      feedback.className = 'mb-6 p-4 rounded-xl text-sm bg-sky-500/10 border border-sky-500/30 text-sky-300';
+      feedback.innerHTML = `<strong>Copied to Clipboard:</strong> Direct email copied (${email}).`;
+      feedback.classList.remove('hidden');
+      feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html>
