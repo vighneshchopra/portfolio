@@ -108,17 +108,17 @@
       transform-style: preserve-3d;
     }
 
-    /* Base Character Image */
+    /* Base Character Image - Crisp white shirt and sharp definition */
     .hero-char-img {
       display: block;
       width: 100%;
       height: auto;
-      max-height: 480px;
+      max-height: 490px;
       object-fit: contain;
-      filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.15));
+      filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.12));
       transition: filter 0.3s ease;
-      -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
     }
 
     /* Glitch layers */
@@ -133,36 +133,37 @@
       background-position: center bottom;
       pointer-events: none;
       opacity: 0;
-      -webkit-mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 82%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+      transition: opacity 0.3s ease;
     }
 
-    /* Active Glitch Animations on Hover */
+    /* Toned-down, Elegant Hologram Glitch on Hover */
     .hero-glitch-wrapper:hover .hero-char-img {
-      filter: drop-shadow(0 0 35px rgba(0, 242, 254, 0.4)) contrast(1.1);
+      filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.22)) contrast(1.03);
     }
 
     .hero-glitch-wrapper:hover .glitch-red {
-      opacity: 0.85;
-      animation: glitchRed 0.22s steps(2, end) infinite;
+      opacity: 0.35;
+      animation: glitchRedSoft 0.85s ease-in-out infinite;
       mix-blend-mode: screen;
-      filter: drop-shadow(-3px 0 #ff0055);
+      filter: drop-shadow(-1.5px 0 #ff0055);
     }
 
     .hero-glitch-wrapper:hover .glitch-cyan {
-      opacity: 0.85;
-      animation: glitchCyan 0.26s steps(2, end) infinite;
+      opacity: 0.35;
+      animation: glitchCyanSoft 0.85s ease-in-out infinite;
       mix-blend-mode: screen;
-      filter: drop-shadow(3px 0 #00f2fe);
+      filter: drop-shadow(1.5px 0 #00f2fe);
     }
 
     .hero-glitch-wrapper:hover .glitch-slice {
-      opacity: 0.9;
-      animation: glitchSlice 0.35s steps(4, end) infinite;
+      opacity: 0.22;
+      animation: glitchSliceSoft 1.3s ease-in-out infinite;
     }
 
     .hero-glitch-wrapper:hover .glitch-scanlines {
-      opacity: 0.45;
+      opacity: 0.2;
     }
 
     /* Scanlines Overlay */
@@ -174,38 +175,36 @@
       background: repeating-linear-gradient(
         to bottom,
         transparent 0px,
-        transparent 2px,
-        rgba(0, 242, 254, 0.08) 2px,
-        rgba(0, 242, 254, 0.08) 4px
+        transparent 3px,
+        rgba(0, 242, 254, 0.05) 3px,
+        rgba(0, 242, 254, 0.05) 5px
       );
-      transition: opacity 0.2s ease;
+      transition: opacity 0.3s ease;
       z-index: 20;
     }
 
-    /* Glitch Keyframes */
-    @keyframes glitchRed {
-      0% { transform: translate(-3px, 1px) skewX(-1deg); clip-path: inset(10% 0 75% 0); }
-      25% { transform: translate(3px, -2px) skewX(1.5deg); clip-path: inset(45% 0 35% 0); }
-      50% { transform: translate(-4px, -1px) skewX(-2deg); clip-path: inset(70% 0 10% 0); }
-      75% { transform: translate(2px, 2px) skewX(1deg); clip-path: inset(20% 0 60% 0); }
-      100% { transform: translate(-3px, 1px) skewX(-1deg); clip-path: inset(10% 0 75% 0); }
+    /* Toned-down, Non-flashy Micro-Glitch Keyframes */
+    @keyframes glitchRedSoft {
+      0%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+      15% { transform: translate(-1.5px, 0.5px); clip-path: inset(20% 0 65% 0); }
+      30% { transform: translate(1px, -0.5px); clip-path: inset(55% 0 30% 0); }
+      45% { transform: translate(-1px, 0); clip-path: inset(10% 0 80% 0); }
+      60%, 85% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
     }
 
-    @keyframes glitchCyan {
-      0% { transform: translate(4px, -1px) skewX(1.5deg); clip-path: inset(60% 0 20% 0); }
-      25% { transform: translate(-3px, 2px) skewX(-1deg); clip-path: inset(15% 0 65% 0); }
-      50% { transform: translate(3px, -1px) skewX(2deg); clip-path: inset(35% 0 45% 0); }
-      75% { transform: translate(-2px, -2px) skewX(-1.5deg); clip-path: inset(80% 0 5% 0); }
-      100% { transform: translate(4px, -1px) skewX(1.5deg); clip-path: inset(60% 0 20% 0); }
+    @keyframes glitchCyanSoft {
+      0%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+      20% { transform: translate(1.5px, -0.5px); clip-path: inset(65% 0 15% 0); }
+      40% { transform: translate(-1px, 0.5px); clip-path: inset(30% 0 55% 0); }
+      55% { transform: translate(1px, 0); clip-path: inset(75% 0 10% 0); }
+      70%, 90% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
     }
 
-    @keyframes glitchSlice {
-      0% { transform: translateX(0); clip-path: inset(30% 0 50% 0); }
-      20% { transform: translateX(-6px); clip-path: inset(12% 0 78% 0); }
-      40% { transform: translateX(6px); clip-path: inset(58% 0 22% 0); }
-      60% { transform: translateX(-4px); clip-path: inset(82% 0 8% 0); }
-      80% { transform: translateX(5px); clip-path: inset(40% 0 42% 0); }
-      100% { transform: translateX(0); clip-path: inset(30% 0 50% 0); }
+    @keyframes glitchSliceSoft {
+      0%, 100% { transform: translateX(0); clip-path: inset(0 0 0 0); }
+      25% { transform: translateX(-2px); clip-path: inset(42% 0 48% 0); }
+      50% { transform: translateX(2px); clip-path: inset(18% 0 72% 0); }
+      75% { transform: translateX(-1px); clip-path: inset(68% 0 22% 0); }
     }
 
     /* Ambient telemetry ring rotation */
@@ -369,11 +368,6 @@
 
                 <!-- Scanlines Grid -->
                 <div class="glitch-scanlines"></div>
-
-                <!-- Hover Tip Cue -->
-                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-obsidian-900/80 border border-white/[0.08] text-[10px] font-mono text-slate-400 whitespace-nowrap pointer-events-none opacity-80 group-hover:opacity-0 transition-opacity">
-                  [ HOVER FOR NEURAL GLITCH ]
-                </div>
 
               </div>
             </div>
@@ -916,15 +910,15 @@
           const x = e.clientX - rect.left - rect.width / 2;
           const y = e.clientY - rect.top - rect.height / 2;
           
-          // Subtle 3D tilt
-          const tiltX = (y / (rect.height / 2)) * -10;
-          const tiltY = (x / (rect.width / 2)) * 10;
-          glitchStage.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.03, 1.03, 1.03)`;
+          // Subtle, smooth 3D tilt
+          const tiltX = (y / (rect.height / 2)) * -5;
+          const tiltY = (x / (rect.width / 2)) * 5;
+          glitchStage.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
 
-          // Dynamic Chromatic Aberration offset based on cursor speed/position
+          // Subtle Chromatic Aberration offset based on cursor position
           if (redLayer && cyanLayer) {
-            const offsetX = (x / (rect.width / 2)) * 8;
-            const offsetY = (y / (rect.height / 2)) * 4;
+            const offsetX = (x / (rect.width / 2)) * 2.5;
+            const offsetY = (y / (rect.height / 2)) * 1.5;
             redLayer.style.transform = `translate(${-offsetX}px, ${offsetY}px)`;
             cyanLayer.style.transform = `translate(${offsetX}px, ${-offsetY}px)`;
           }
