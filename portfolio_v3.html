@@ -569,8 +569,8 @@
           
           <div id="form-status" class="hidden mb-6 p-4 rounded-xl text-sm font-mono" role="alert"></div>
 
-          <!-- Contact Form with Direct Email Delivery -->
-          <form id="contact-form" action="https://formsubmit.co/ajax/vighnesh.chopra13@gmail.com" method="POST" class="space-y-6">
+          <!-- Contact Form with Direct Email Delivery (Zero Plaintext Email) -->
+          <form id="contact-form" class="space-y-6">
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_template" value="table">
             <input type="hidden" name="_subject" value="New Portfolio Inquiry for Vighnesh Chopra">
@@ -593,7 +593,7 @@
 
             <div>
               <label for="message" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">Message</label>
-              <textarea id="message" name="message" rows="4" required placeholder="Hi Vighnesh, I reviewed your work managing L1/L2 healthcare application support across 30+ facilities and would like to connect..." class="w-full px-4 py-3 rounded-xl bg-onyx-950 border border-white/[0.1] text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-cyan text-sm"></textarea>
+              <textarea id="message" name="message" rows="4" required placeholder="What are you connecting for? (e.g., EMR Support / Client Operations opportunity, workflow consultation, or general inquiry...)" class="w-full px-4 py-3 rounded-xl bg-onyx-950 border border-white/[0.1] text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-accent-cyan text-sm"></textarea>
             </div>
 
             <button type="submit" id="submit-btn" class="w-full py-3.5 px-6 rounded-xl bg-accent-cyan hover:bg-cyan-400 text-black font-semibold text-sm active:scale-[0.99] transition-all flex items-center justify-center gap-2">
@@ -609,17 +609,13 @@
           <div class="mt-8 pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between text-xs text-slate-400 gap-4 font-mono">
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span>Direct: vighnesh.chopra13@gmail.com</span>
+              <span>Direct Relay Active • Monitored Daily</span>
             </div>
             <div class="flex items-center space-x-4">
               <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="text-accent-cyan hover:underline">LinkedIn Profile ↗</a>
               <span class="text-slate-600">•</span>
-              <button onclick="copyMail()" class="text-accent-cyan hover:underline focus:outline-none">
-                Copy Email
-              </button>
-              <span class="text-slate-600">•</span>
               <a href="Vighnesh_Chopra_Resume.pdf" download class="text-accent-cyan hover:underline">
-                Download Resume ↗
+                Download Resume (PDF) ↗
               </a>
             </div>
           </div>
@@ -670,32 +666,50 @@
       const label = document.getElementById('btn-label');
       const spinner = document.getElementById('btn-spinner');
 
+      const SECURE_TOKEN = 'dmlnaG5lc2guY2hvcHJhMTNAZ21haWwuY29t';
+      function getTarget() {
+        try { return atob(SECURE_TOKEN); } catch(e) { return ''; }
+      }
+
       if (form) {
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
-          label.textContent = 'Sending...';
+
+          if (window.location.protocol === 'file:') {
+            status.className = 'mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan';
+            status.innerHTML = '<strong>LOCAL DISK DETECTED:</strong> FormSubmit blocks direct offline submissions from hard drive files (<code>file://</code>) for anti-spam security.<br><br>👉 <strong><a href="http://localhost:5500/portfolio_v3.html#contact" class="text-white underline font-bold hover:text-accent-cyan">Click here to open via your local web server: http://localhost:5500/portfolio_v3.html</a></strong> (or on your live GitHub site) where the form submits directly to your email without restrictions!';
+            status.classList.remove('hidden');
+            status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            return;
+          }
+
+          label.textContent = 'Transmitting...';
           spinner.classList.remove('hidden');
           btn.disabled = true;
 
+          const targetEmail = getTarget();
+
           try {
             const formData = new FormData(form);
-            const res = await fetch(form.action, {
+            const res = await fetch('https://formsubmit.co/ajax/' + targetEmail, {
               method: 'POST',
               body: formData,
               headers: { 'Accept': 'application/json' }
             });
 
-            if (res.ok) {
+            const data = await res.json();
+
+            if (res.ok && (data.success === 'true' || data.success === true)) {
               status.className = 'mb-6 p-4 rounded-xl text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-300';
-              status.innerHTML = '<strong>MESSAGE SENT:</strong> Thank you! Your message has been routed to vighnesh.chopra13@gmail.com.';
+              status.innerHTML = '<strong>INQUIRY DELIVERED:</strong> Thank you! Your message has been transmitted directly to Vighnesh. You will receive a response shortly.';
               status.classList.remove('hidden');
               form.reset();
             } else {
-              throw new Error('Submission error');
+              throw new Error(data.message || 'Submission error');
             }
           } catch (err) {
             status.className = 'mb-6 p-4 rounded-xl text-sm font-mono bg-red-500/10 border border-red-500/30 text-red-300';
-            status.innerHTML = '<strong>NOTICE:</strong> Direct relay error. Please connect directly via vighnesh.chopra13@gmail.com or LinkedIn.';
+            status.innerHTML = '<strong>TRANSMISSION NOTICE:</strong> Could not complete request. Please ensure you are viewing through http://localhost:5500 or your live website.';
             status.classList.remove('hidden');
           } finally {
             label.textContent = 'Send Message';
@@ -705,18 +719,6 @@
         });
       }
     });
-
-    // One-Click Email Copy
-    function copyMail() {
-      const email = 'vighnesh.chopra13@gmail.com';
-      navigator.clipboard.writeText(email).then(() => {
-        const status = document.getElementById('form-status');
-        status.className = 'mb-6 p-4 rounded-xl text-sm font-mono bg-accent-cyan/10 border border-accent-cyan/30 text-accent-cyan';
-        status.innerHTML = `<strong>COPIED TO CLIPBOARD:</strong> ${email}`;
-        status.classList.remove('hidden');
-        status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      });
-    }
   </script>
 </body>
 </html>
