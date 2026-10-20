@@ -64,10 +64,13 @@ When updating content or authoring copy in future iterations, the following veri
 
 ```
 Portfolio/
-├── index.html                  # Production Entrypoint: Exact duplicate of Version 5 for root URL delivery
-├── portfolio_v5.html           # Version 5: Editorial Dark Aesthetic (Pinterest reference design)
+├── index.html                  # Production Entrypoint: Exact duplicate of Version 7 for root URL delivery
+├── portfolio_v7.html           # Version 7: Titanium Mineral & Warm Cognac / Amber (Lighthouse 95+ Optimized, WebP, Symmetrical Tab Matrix)
+├── portfolio_v6.html           # Version 6: High-Taste Editorial Dark Obsidian Layout with Interactive Incident Stepper
+├── portfolio_v5.html           # Version 5: Editorial Dark Aesthetic (Pinterest cyan reference design)
 ├── portfolio_v3.html           # Version 3: Alternative Cyber-Grid Executive Layout
-├── profile_cutout.png          # Transparent background cutout portrait of Vighnesh Chopra
+├── profile_cutout.webp         # High-performance 174 KB WebP hero portrait (84% lighter for LCP optimization)
+├── profile_cutout.png          # Fallback transparent background cutout portrait of Vighnesh Chopra
 ├── profile.png                 # Fallback source portrait
 ├── Vighnesh_Chopra_Resume.pdf  # Verified 2-Page Executive CV (Feb 2019–Present, 7+ Yrs, DHA/HIPAA/AI)
 ├── desk_backdrop.jpg           # High-resolution dark studio desk backdrop asset
