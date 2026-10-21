@@ -21,13 +21,13 @@
         extend: {
           colors: {
             carbon: {
-              DEFAULT: '#0d0d0f',
-              950: '#070709',
-              900: '#0d0d0f',
-              850: '#121215',
-              800: '#17171c',
-              750: '#1e1e25',
-              700: '#282832',
+              DEFAULT: '#040406',
+              950: '#000000',
+              900: '#040406',
+              850: '#08080b',
+              800: '#0d0d12',
+              750: '#14141a',
+              700: '#1b1b22',
             },
             amber: {
               cognac: '#d97736',
@@ -74,10 +74,10 @@
     /* Base resets & typography */
     html {
       scroll-behavior: smooth;
-      background-color: #0d0d0f;
+      background-color: #000000;
     }
     body {
-      background-color: #0d0d0f;
+      background-color: #000000;
       color: #e4e4e7;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
@@ -112,7 +112,7 @@
       pointer-events: none;
     }
 
-    /* Continuous Mineral Gradient Fade Overlay */
+    /* Continuous Mineral Gradient Fade Overlay (Pure Pitch Black Void) */
     .bg-gradient-overlay {
       position: absolute;
       top: 0;
@@ -121,8 +121,8 @@
       bottom: 0;
       z-index: 1;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 0%, rgba(217, 119, 54, 0.07) 0%, transparent 65%),
-                  linear-gradient(to bottom, transparent 0%, rgba(13, 13, 15, 0.45) 900px, rgba(9, 9, 11, 0.88) 2200px, #070709 100%);
+      background: radial-gradient(circle at 50% 0%, rgba(217, 119, 54, 0.08) 0%, transparent 60%),
+                  linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 800px, rgba(0, 0, 0, 0.95) 2000px, #000000 100%);
     }
 
     .content-layer {
@@ -130,14 +130,14 @@
       z-index: 10;
     }
 
-    /* Spotlight Card Effect (Enhanced Warm Cognac & Amber Aura) */
+    /* Spotlight Card Effect (Deep Pitch Black & True Circular Gaussian Aura) */
     .spotlight-card {
       position: relative;
-      background: rgba(20, 20, 25, 0.72);
+      background: rgba(10, 10, 14, 0.82);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 1.25rem;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       transition: border-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
       overflow: hidden;
     }
@@ -154,17 +154,19 @@
       transform: translate(-50%, -50%);
       width: 580px;
       height: 580px;
+      border-radius: 50%;
       background: radial-gradient(
         circle,
-        rgba(217, 119, 54, 0.22) 0%,
-        rgba(217, 119, 54, 0.16) 12%,
-        rgba(217, 119, 54, 0.10) 26%,
-        rgba(245, 158, 11, 0.05) 42%,
-        rgba(217, 119, 54, 0.025) 60%,
-        rgba(217, 119, 54, 0.008) 78%,
-        rgba(217, 119, 54, 0.002) 90%,
+        rgba(217, 119, 54, 0.20) 0%,
+        rgba(217, 119, 54, 0.14) 15%,
+        rgba(217, 119, 54, 0.08) 30%,
+        rgba(245, 158, 11, 0.035) 45%,
+        rgba(217, 119, 54, 0.01) 58%,
+        rgba(217, 119, 54, 0) 70%,
         transparent 100%
       );
+      -webkit-mask-image: radial-gradient(circle, #000 40%, transparent 72%);
+      mask-image: radial-gradient(circle, #000 40%, transparent 72%);
       opacity: 0;
       transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
@@ -198,7 +200,7 @@
       opacity: 1;
     }
     /* Card Content strictly layered ABOVE the spotlight glow so text colors never get muted */
-    .spotlight-card > * {
+    .spotlight-card > :not(.chamfer-glint) {
       position: relative;
       z-index: 4;
     }
@@ -291,6 +293,9 @@
     body.eco-mode .spotlight-card::after {
       display: none !important;
     }
+    body.eco-mode .chamfer-glint {
+      display: none !important;
+    }
     body.eco-mode .telemetry-pulse::after {
       display: none !important;
     }
@@ -356,28 +361,74 @@
       100% { stroke-dashoffset: -120; opacity: 0.25; }
     }
 
-    /* CONCEPT 2: Titanium Chamfer Glint (Apple / Linear Bevel Specular Sweep) */
+    /* CONCEPT 2: Titanium Chamfer Glint (Apple / Linear Bevel Specular Sweep & Dynamic Tracking) */
     .spotlight-card {
       /* Relative container */
     }
     .chamfer-glint {
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      pointer-events: none;
+      z-index: 10 !important;
+      overflow: hidden;
+    }
+    /* Dynamic cursor-following specular gleam on the top bevel */
+    .chamfer-glint::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: var(--mouse-x, -200px);
+      transform: translateX(-50%);
+      width: 220px;
+      height: 100%;
+      background: radial-gradient(
+        ellipse at center,
+        #ffffff 0%,
+        rgba(255, 255, 255, 0.95) 25%,
+        rgba(245, 158, 11, 0.75) 55%,
+        rgba(217, 119, 54, 0.3) 80%,
+        transparent 100%
+      );
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(217, 119, 54, 0.5);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      will-change: left, opacity;
+    }
+    .spotlight-card:hover .chamfer-glint::before {
+      opacity: 1;
+    }
+    /* Ambient initial metallic sweep on hover */
+    .chamfer-glint::after {
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent 0%, rgba(217, 119, 54, 0.9) 50%, rgba(255, 255, 255, 0.8) 55%, transparent 100%);
-      transform: translateX(-120%);
-      pointer-events: none;
-      z-index: 5;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(217, 119, 54, 0.3) 25%,
+        rgba(255, 255, 255, 0.95) 50%,
+        rgba(245, 158, 11, 0.8) 55%,
+        rgba(217, 119, 54, 0.3) 75%,
+        transparent 100%
+      );
+      transform: translateX(-100%);
+      opacity: 0;
     }
-    .spotlight-card:hover .chamfer-glint {
-      animation: glintSweep 1.6s ease-in-out forwards;
+    .spotlight-card:hover .chamfer-glint::after {
+      animation: chamferSweep 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    @keyframes glintSweep {
-      0% { transform: translateX(-120%); opacity: 0; }
-      30% { opacity: 1; }
-      100% { transform: translateX(120%); opacity: 0; }
+    @keyframes chamferSweep {
+      0% { transform: translateX(-100%); opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { transform: translateX(100%); opacity: 0; }
     }
 
     /* CONCEPT 4: Optical Aperture Shift on Simulator */
@@ -512,6 +563,29 @@
       cursor: pointer;
       border: 1px solid transparent;
       color: #a1a1aa;
+      position: relative;
+      overflow: hidden;
+    }
+    .tab-pill::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), rgba(245, 158, 11, 0.8), transparent);
+      transform: translateX(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .tab-pill:hover::before {
+      opacity: 1;
+      animation: tabPillSweep 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes tabPillSweep {
+      0% { transform: translateX(-100%); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateX(100%); opacity: 0; }
     }
     .tab-pill.active {
       background: rgba(217, 119, 54, 0.2);
@@ -548,7 +622,7 @@
       width: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: #0d0d0f;
+      background: #000000;
     }
     ::-webkit-scrollbar-thumb {
       background: #27272a;
@@ -909,7 +983,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               
               <!-- Left: Two-Role Illuminated Timeline (8 Cols) -->
-              <div class="lg:col-span-8 spotlight-card p-8 sm:p-10 relative">
+              <div class="lg:col-span-8 spotlight-card p-8 sm:p-10 relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 
                 <h3 class="text-xs font-mono uppercase tracking-widest text-amber-cognac font-bold mb-8 flex items-center justify-between">
                   <span>EXPERIENCE CHRONOLOGY</span>
@@ -1008,7 +1083,8 @@
               <div class="lg:col-span-4 space-y-6">
                 
                 <!-- Education Card -->
-                <div class="spotlight-card p-6 sm:p-8 space-y-4">
+                <div class="spotlight-card p-6 sm:p-8 space-y-4 relative overflow-hidden">
+                  <span class="chamfer-glint"></span>
                   <div class="text-xs font-mono uppercase tracking-widest text-amber-cognac font-bold">
                     ACADEMIC BACKGROUND
                   </div>
@@ -1027,7 +1103,8 @@
                 </div>
 
                 <!-- Languages Spoken Card (Clean Badges - Zero Sliders) -->
-                <div class="spotlight-card p-6 sm:p-8 space-y-4">
+                <div class="spotlight-card p-6 sm:p-8 space-y-4 relative overflow-hidden">
+                  <span class="chamfer-glint"></span>
                   <div class="text-xs font-mono uppercase tracking-widest text-amber-cognac font-bold">
                     COMMUNICATION &amp; LANGUAGES
                   </div>
@@ -1061,7 +1138,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               
               <!-- Technical Proficiencies Card -->
-              <div class="spotlight-card p-8 space-y-6">
+              <div class="spotlight-card p-8 space-y-6 relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-xs font-mono uppercase tracking-widest text-amber-cognac font-bold flex items-center justify-between">
                   <span>EMR SUPPORT &amp; APPLICATION EXPERTISE</span>
                   <span class="text-titanium-muted text-[11px]">BENCHMARK</span>
@@ -1123,7 +1201,8 @@
               </div>
 
               <!-- Regulatory & Clinical Coding Cloud -->
-              <div class="spotlight-card p-8 space-y-6 flex flex-col justify-between">
+              <div class="spotlight-card p-8 space-y-6 flex flex-col justify-between relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div>
                   <div class="text-xs font-mono uppercase tracking-widest text-amber-cognac font-bold mb-4">
                     HEALTHCARE REGULATORY &amp; CODING COMPLIANCE
@@ -1176,7 +1255,8 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               
-              <div class="spotlight-card p-8 space-y-3">
+              <div class="spotlight-card p-8 space-y-3 relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-xs font-mono text-amber-cognac font-bold uppercase">01 // ROLLOUTS</div>
                 <h4 class="text-xl font-bold text-white font-display">Multi-Site EMR Onboarding</h4>
                 <p class="text-sm text-titanium-muted leading-relaxed">
@@ -1184,7 +1264,8 @@
                 </p>
               </div>
 
-              <div class="spotlight-card p-8 space-y-3">
+              <div class="spotlight-card p-8 space-y-3 relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-xs font-mono text-amber-cognac font-bold uppercase">02 // INCIDENTS</div>
                 <h4 class="text-xl font-bold text-white font-display">Live Clinical Charting Continuity</h4>
                 <p class="text-sm text-titanium-muted leading-relaxed">
@@ -1192,7 +1273,8 @@
                 </p>
               </div>
 
-              <div class="spotlight-card p-8 space-y-3">
+              <div class="spotlight-card p-8 space-y-3 relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-xs font-mono text-amber-cognac font-bold uppercase">03 // BRIDGING</div>
                 <h4 class="text-xl font-bold text-white font-display">Technical Escalation Bridge</h4>
                 <p class="text-sm text-titanium-muted leading-relaxed">
@@ -1200,7 +1282,8 @@
                 </p>
               </div>
 
-              <div class="spotlight-card p-8 space-y-3">
+              <div class="spotlight-card p-8 space-y-3 relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-xs font-mono text-amber-cognac font-bold uppercase">04 // GOVERNANCE</div>
                 <h4 class="text-xl font-bold text-white font-display">SLA &amp; Retention Governance</h4>
                 <p class="text-sm text-titanium-muted leading-relaxed">
@@ -1240,7 +1323,8 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           <!-- Cert 1 -->
-          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6">
+          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6 relative overflow-hidden">
+            <span class="chamfer-glint"></span>
             <div>
               <div class="flex items-center justify-between mb-4">
                 <span class="text-[10px] font-mono text-amber-cognac font-bold px-2 py-0.5 rounded bg-amber-soft border border-amber-cognac/30">ANTHROPIC</span>
@@ -1260,7 +1344,8 @@
           </div>
 
           <!-- Cert 2 -->
-          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6">
+          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6 relative overflow-hidden">
+            <span class="chamfer-glint"></span>
             <div>
               <div class="flex items-center justify-between mb-4">
                 <span class="text-[10px] font-mono text-amber-cognac font-bold px-2 py-0.5 rounded bg-amber-soft border border-amber-cognac/30">ANTHROPIC</span>
@@ -1280,7 +1365,8 @@
           </div>
 
           <!-- Cert 3 -->
-          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6">
+          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6 relative overflow-hidden">
+            <span class="chamfer-glint"></span>
             <div>
               <div class="flex items-center justify-between mb-4">
                 <span class="text-[10px] font-mono text-amber-cognac font-bold px-2 py-0.5 rounded bg-amber-soft border border-amber-cognac/30">ANTHROPIC</span>
@@ -1300,7 +1386,8 @@
           </div>
 
           <!-- Cert 4 -->
-          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6">
+          <div class="spotlight-card p-6 flex flex-col justify-between space-y-6 relative overflow-hidden">
+            <span class="chamfer-glint"></span>
             <div>
               <div class="flex items-center justify-between mb-4">
                 <span class="text-[10px] font-mono text-amber-cognac font-bold px-2 py-0.5 rounded bg-amber-soft border border-amber-cognac/30">ANTHROPIC</span>
@@ -1344,7 +1431,8 @@
         </div>
 
         <!-- Interactive 4-Step Incident Stepper Card -->
-        <div class="spotlight-card p-8 sm:p-10 border border-white/[0.1]">
+        <div class="spotlight-card p-8 sm:p-10 border border-white/[0.1] relative overflow-hidden">
+          <span class="chamfer-glint"></span>
           
           <!-- Stepper Navigation Header -->
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 pb-8 border-b border-white/[0.07]">
@@ -1420,7 +1508,8 @@
         </div>
 
         <!-- Contact Box Card -->
-        <div class="spotlight-card p-8 sm:p-12 border border-white/[0.1] relative">
+        <div class="spotlight-card p-8 sm:p-12 border border-white/[0.1] relative overflow-hidden">
+          <span class="chamfer-glint"></span>
           
           <!-- Alert notification banner for status feedback -->
           <div id="contact-alert" class="hidden mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed"></div>
@@ -1621,13 +1710,15 @@
     // 3. SPOTLIGHT CARD CURSOR EFFECT (COGNAC AMBER AURA)
     // ----------------------------------------------------------
     document.querySelectorAll('.spotlight-card').forEach(card => {
-      card.addEventListener('mousemove', e => {
+      const updateMouse = e => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         card.style.setProperty('--mouse-x', `${x}px`);
         card.style.setProperty('--mouse-y', `${y}px`);
-      });
+      };
+      card.addEventListener('mousemove', updateMouse);
+      card.addEventListener('mouseenter', updateMouse);
     });
 
     // ----------------------------------------------------------
