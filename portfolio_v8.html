@@ -53,10 +53,22 @@
     }
   </script>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <!-- Preconnect & Resource Discovery (High Performance) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+
+  <!-- Responsive LCP Hero Image Preload (Millisecond-Zero Discovery) -->
+  <link rel="preload" as="image" href="profile_cutout_mobile.webp" type="image/webp" media="(max-width: 640px)" fetchpriority="high">
+  <link rel="preload" as="image" href="profile_cutout.webp" type="image/webp" media="(min-width: 641px)" fetchpriority="high">
+
+  <!-- Preload Tailwind & Asynchronous Google Fonts (Zero Render Blocking) -->
+  <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap">
+  </noscript>
 
   <style>
     /* Base resets & typography */
@@ -224,17 +236,55 @@
       }
     }
 
-    /* Brushed Titanium Metric Shimmer */
+    /* Brushed Titanium Metric Shimmer (Hardware Accelerated) */
     .metric-shimmer {
       background: linear-gradient(110deg, #f5f5f7 0%, #ffffff 20%, #e07d3c 45%, #f59e0b 55%, #ffffff 80%, #f5f5f7 100%);
       background-size: 240% 100%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: metricSheen 6.5s infinite linear;
+      will-change: background-position;
+      transform: translateZ(0);
     }
     @keyframes metricSheen {
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
+    }
+
+    /* Precision Specular Reflection Sheen for Hero Executive Name (Hardware Accelerated) */
+    .hero-name-shimmer {
+      background-color: #ffffff;
+      background-image: linear-gradient(
+        110deg,
+        #ffffff 0%,
+        #ffffff 22%,
+        rgba(255, 255, 255, 0.95) 32%,
+        #f59e0b 44%,
+        #d97736 50%,
+        #f59e0b 56%,
+        rgba(255, 255, 255, 0.95) 68%,
+        #ffffff 78%,
+        #ffffff 100%
+      );
+      background-size: 260% 100%;
+      background-repeat: no-repeat;
+      background-position: 135% 0;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: heroNameSheen 27s infinite cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: background-position;
+      transform: translateZ(0);
+    }
+    @keyframes heroNameSheen {
+      0% {
+        background-position: 135% 0;
+      }
+      65% { /* 17.5s roll */
+        background-position: -135% 0;
+      }
+      100% { /* 27.0s total (9.5s pure white rest) */
+        background-position: -135% 0;
+      }
     }
 
     /* ECO Mode Dynamic Overrides (Zero GPU Load for Low-End Devices) */
@@ -245,6 +295,12 @@
       display: none !important;
     }
     body.eco-mode .metric-shimmer {
+      animation: none !important;
+      background: none !important;
+      -webkit-text-fill-color: #ffffff !important;
+      color: #ffffff !important;
+    }
+    body.eco-mode .hero-name-shimmer {
       animation: none !important;
       background: none !important;
       -webkit-text-fill-color: #ffffff !important;
@@ -283,6 +339,73 @@
     @keyframes telemetryBarPulse {
       0% { transform: scaleY(0.35); opacity: 0.5; }
       100% { transform: scaleY(1); opacity: 1; }
+    }
+
+    /* CONCEPT 1: Live Telemetry EMR Heartbeat Sparkline (Hardware Accelerated) */
+    .ecg-line {
+      stroke-dasharray: 120;
+      stroke-dashoffset: 120;
+      animation: ecgPulse 3.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      will-change: stroke-dashoffset;
+      transform: translateZ(0);
+    }
+    @keyframes ecgPulse {
+      0% { stroke-dashoffset: 120; opacity: 0.25; }
+      25% { stroke-dashoffset: 0; opacity: 1; }
+      70% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: -120; opacity: 0.25; }
+    }
+
+    /* CONCEPT 2: Titanium Chamfer Glint (Apple / Linear Bevel Specular Sweep) */
+    .spotlight-card {
+      /* Relative container */
+    }
+    .chamfer-glint {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent 0%, rgba(217, 119, 54, 0.9) 50%, rgba(255, 255, 255, 0.8) 55%, transparent 100%);
+      transform: translateX(-120%);
+      pointer-events: none;
+      z-index: 5;
+    }
+    .spotlight-card:hover .chamfer-glint {
+      animation: glintSweep 1.6s ease-in-out forwards;
+    }
+    @keyframes glintSweep {
+      0% { transform: translateX(-120%); opacity: 0; }
+      30% { opacity: 1; }
+      100% { transform: translateX(120%); opacity: 0; }
+    }
+
+    /* CONCEPT 4: Optical Aperture Shift on Simulator */
+    .aperture-shift {
+      animation: apertureFocus 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes apertureFocus {
+      0% {
+        opacity: 0.25;
+        transform: translateY(4px) scale(0.995);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    /* CONCEPT 5: Interactive Floating Magnetic Monogram */
+    .monogram-badge {
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      perspective: 400px;
+    }
+    .group:hover .monogram-badge {
+      transform: rotateY(180deg) scale(1.08);
+      border-color: #d97736;
+      box-shadow: 0 0 22px rgba(217, 119, 54, 0.45);
     }
 
     /* Pill buttons (Warm Cognac & Titanium Mineral) */
@@ -459,7 +582,7 @@
         
         <!-- Brand / Identity -->
         <a href="#hero" class="flex items-center gap-3.5 group">
-          <div class="w-10 h-10 rounded-xl bg-amber-soft border border-amber-cognac/30 flex items-center justify-center text-amber-cognac font-mono font-bold text-sm tracking-wider group-hover:scale-105 group-hover:border-amber-cognac transition-all shadow-[0_0_15px_rgba(217,119,54,0.18)]">
+          <div class="w-10 h-10 rounded-xl bg-amber-soft border border-amber-cognac/30 flex items-center justify-center text-amber-cognac font-mono font-bold text-sm tracking-wider monogram-badge group-hover:scale-105 group-hover:border-amber-cognac transition-all shadow-[0_0_15px_rgba(217,119,54,0.18)]">
             VC
           </div>
           <div class="flex flex-col">
@@ -544,10 +667,10 @@
               </span>
             </div>
 
-            <!-- Main Heading with Titanium & Warm Cognac Gradient (One Single Balanced Line) -->
+            <!-- Main Heading with Pure Titanium White Base & Slow Gradual Specular Shimmer -->
             <div class="space-y-2">
-              <h1 class="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display leading-tight whitespace-nowrap">
-                VIGHNESH <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-cognac via-amber-ochre to-titanium-light">CHOPRA</span>
+              <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display leading-tight whitespace-normal sm:whitespace-nowrap hero-name-shimmer">
+                VIGHNESH CHOPRA
               </h1>
               <div class="text-xl sm:text-2xl font-mono text-amber-cognac font-semibold tracking-wide">
                 Healthcare SaaS &amp; EMR Support Manager
@@ -579,29 +702,39 @@
               </a>
             </div>
 
-            <!-- High-Impact KPI Metric Grid (4 Cards) -->
+            <!-- High-Impact KPI Metric Grid (4 Cards with Titanium Chamfer Glint) -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/[0.07]">
               
-              <div class="spotlight-card p-4 text-center sm:text-left">
+              <div class="spotlight-card p-4 text-center sm:text-left relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="30" data-suffix="+">30+</div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">Facilities</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">UAE &amp; GCC Clinical Networks</div>
               </div>
 
-              <div class="spotlight-card p-4 text-center sm:text-left">
+              <div class="spotlight-card p-4 text-center sm:text-left relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="200" data-suffix="+">200+</div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">Clinicians</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">Staff &amp; Doctors Trained</div>
               </div>
 
-              <div class="spotlight-card p-4 text-center sm:text-left">
+              <div class="spotlight-card p-4 text-center sm:text-left relative overflow-hidden">
+                <span class="chamfer-glint"></span>
                 <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="7" data-suffix="+ Yrs">7+ Yrs</div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">Experience</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">Feb 2019 – Present Tenured</div>
               </div>
 
-              <div class="spotlight-card p-4 text-center sm:text-left">
-                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="99.9" data-decimals="1" data-suffix="%">99.9%</div>
+              <div class="spotlight-card p-4 text-center sm:text-left relative overflow-hidden">
+                <span class="chamfer-glint"></span>
+                <div class="flex items-center justify-between">
+                  <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="99.9" data-decimals="1" data-suffix="%">99.9%</div>
+                  <!-- Concept 1: Live EMR Heartbeat Telemetry Sparkline -->
+                  <svg class="w-12 h-5 text-amber-cognac overflow-visible opacity-90 hidden sm:block" viewBox="0 0 60 24" fill="none" aria-hidden="true">
+                    <path class="ecg-line" d="M0 12 L16 12 L20 4 L24 20 L28 8 L32 15 L36 12 L60 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">SLA Uptime</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">Zero Live Charting Downtime</div>
               </div>
@@ -620,8 +753,9 @@
             <div class="relative z-10 w-full max-w-[380px] sm:max-w-[420px] lg:max-w-none flex justify-center">
               <div class="relative w-full aspect-[4/5] max-h-[580px] flex items-end justify-center">
                 
-                <!-- Pure Cutout Image with Optimized WebP & Fallback -->
+                <!-- Pure Cutout Image with Responsive Mobile/Desktop WebP & Fallback -->
                 <picture>
+                  <source media="(max-width: 640px)" srcset="profile_cutout_mobile.webp" type="image/webp">
                   <source srcset="profile_cutout.webp" type="image/webp">
                   <img 
                     src="profile_cutout.png" 
@@ -656,8 +790,8 @@
             <span>OPERATIONAL PHILOSOPHY</span>
           </div>
           <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display leading-[1.25]">
-            BRIDGING CLINICAL PRESSURE <br class="hidden sm:block"/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-cognac to-amber-ochre">&amp; SOFTWARE ARCHITECTURE</span>
+            <span class="decrypt-text inline-block">BRIDGING CLINICAL PRESSURE</span> <br class="hidden sm:block"/>
+            <span class="decrypt-text inline-block text-transparent bg-clip-text bg-gradient-to-r from-amber-cognac to-amber-ochre">&amp; SOFTWARE ARCHITECTURE</span>
           </h2>
           <p class="text-base sm:text-lg text-titanium-muted leading-relaxed font-normal max-w-4xl lg:max-w-5xl">
             In modern healthcare facilities, technology failures are clinical crises. When an EMR encounters a prescription deadlock, patient check-in failure, or billing freeze, clinicians cannot wait for software sprint retrospectives. My specialty is maintaining <strong class="text-white">immediate frontline continuity</strong> while providing software engineering teams with the precise defect telemetry required for permanent resolution.
@@ -668,14 +802,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           <!-- Pillar 1 -->
-          <div class="spotlight-card p-8 space-y-5 flex flex-col justify-between">
+          <div class="spotlight-card p-8 space-y-5 flex flex-col justify-between relative overflow-hidden">
+            <span class="chamfer-glint"></span>
             <div>
               <div class="w-12 h-12 rounded-2xl bg-amber-soft border border-amber-cognac/30 flex items-center justify-center text-amber-cognac mb-6 shadow-[0_0_15px_rgba(217,119,54,0.18)]">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
               </div>
-              <div class="text-xs font-mono text-amber-cognac font-bold tracking-widest uppercase mb-2">01 // CONTINUITY</div>
+              <div class="text-xs font-mono text-amber-cognac font-bold tracking-widest uppercase mb-2 decrypt-text">01 // CONTINUITY</div>
               <h3 class="text-xl font-bold text-white font-display mb-3">Clinical User Adoption &amp; Workflow Continuity</h3>
               <p class="text-sm text-titanium-muted leading-relaxed">
                 Directing L1/L2 triage during peak hospital operational hours. Ensuring outpatient charting, doctor templates, and medication order workflows remain active and accessible with minimal operational friction.
@@ -687,14 +822,15 @@
           </div>
 
           <!-- Pillar 2 -->
-          <div class="spotlight-card p-8 space-y-5 flex flex-col justify-between">
+          <div class="spotlight-card p-8 space-y-5 flex flex-col justify-between relative overflow-hidden">
+            <span class="chamfer-glint"></span>
             <div>
               <div class="w-12 h-12 rounded-2xl bg-amber-soft border border-amber-cognac/30 flex items-center justify-center text-amber-cognac mb-6 shadow-[0_0_15px_rgba(217,119,54,0.18)]">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
               </div>
-              <div class="text-xs font-mono text-amber-cognac font-bold tracking-widest uppercase mb-2">02 // ESCALATION</div>
+              <div class="text-xs font-mono text-amber-cognac font-bold tracking-widest uppercase mb-2 decrypt-text">02 // ESCALATION</div>
               <h3 class="text-xl font-bold text-white font-display mb-3">The Technical Escalation Bridge (L1/L2 to L3)</h3>
               <p class="text-sm text-titanium-muted leading-relaxed">
                 Serving as the Single Point of Contact (SPOC) between clinical end-users and backend engineering teams. Isolating issue reproduction steps, capturing application error logs, validating bug fixes in staging, and facilitating smooth UAT sign-offs before release.
@@ -706,14 +842,15 @@
           </div>
 
           <!-- Pillar 3 -->
-          <div class="spotlight-card p-8 space-y-5 flex flex-col justify-between">
+          <div class="spotlight-card p-8 space-y-5 flex flex-col justify-between relative overflow-hidden">
+            <span class="chamfer-glint"></span>
             <div>
               <div class="w-12 h-12 rounded-2xl bg-amber-soft border border-amber-cognac/30 flex items-center justify-center text-amber-cognac mb-6 shadow-[0_0_15px_rgba(217,119,54,0.18)]">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
               </div>
-              <div class="text-xs font-mono text-amber-cognac font-bold tracking-widest uppercase mb-2">03 // COMPLIANCE</div>
+              <div class="text-xs font-mono text-amber-cognac font-bold tracking-widest uppercase mb-2 decrypt-text">03 // COMPLIANCE</div>
               <h3 class="text-xl font-bold text-white font-display mb-3">HIE Integration &amp; Regional Regulatory Alignment</h3>
               <p class="text-sm text-titanium-muted leading-relaxed">
                 Coordinating EMR operational alignment with regional Health Information Exchanges (Malaffi in Abu Dhabi, NABIDH in Dubai), DHA guidelines, patient privacy standards, and clinical coding workflows (ICD-10, CPT-4).
@@ -740,8 +877,9 @@
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-soft border border-amber-cognac/30 text-amber-cognac font-mono text-xs font-semibold">
             <span>TRACK RECORD &amp; CAPABILITIES</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display">
-            CAREER &amp; TECHNICAL MATRIX
+          <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display leading-tight">
+            <span class="decrypt-text inline-block">CAREER &amp;</span>
+            <span class="decrypt-text inline-block text-transparent bg-clip-text bg-gradient-to-r from-amber-cognac to-amber-ochre">TECHNICAL MATRIX</span>
           </h2>
         </div>
 
@@ -1090,7 +1228,8 @@
             <span>ARTIFICIAL INTELLIGENCE &amp; MODERN OPS</span>
           </div>
           <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display leading-[1.2]">
-            VERIFIED ANTHROPIC AI CREDENTIALS
+            <span class="decrypt-text inline-block">VERIFIED ANTHROPIC</span>
+            <span class="decrypt-text inline-block text-transparent bg-clip-text bg-gradient-to-r from-amber-cognac to-amber-ochre">AI CREDENTIALS</span>
           </h2>
           <p class="text-base sm:text-lg text-titanium-muted leading-relaxed font-normal max-w-4xl lg:max-w-5xl">
             Leveraging modern generative AI and Claude’s reasoning architecture to synthesize complex clinical log files, accelerate SOP generation, and enhance frontline incident triage.
@@ -1196,7 +1335,8 @@
             <span>CASE STUDY SIMULATOR</span>
           </div>
           <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display leading-[1.2]">
-            THE ANATOMY OF A RAPID RESOLUTION
+            <span class="decrypt-text inline-block">THE ANATOMY OF A</span>
+            <span class="decrypt-text inline-block text-transparent bg-clip-text bg-gradient-to-r from-amber-cognac to-amber-ochre">RAPID RESOLUTION</span>
           </h2>
           <p class="text-base sm:text-lg text-titanium-muted leading-relaxed font-normal max-w-4xl lg:max-w-5xl">
             Step inside a real-world incident lifecycle. See how urgent clinical workflow bottlenecks are triaged, communicated, and resolved across clinical staff and engineering teams without patient care disruption.
@@ -1345,7 +1485,7 @@
             <!-- Message Field -->
             <div class="space-y-2">
               <label for="message" class="block text-xs font-mono uppercase tracking-wider text-titanium-light">
-                MESSAGE DETAILS <span class="text-titanium-light">*</span>
+                MESSAGE DETAILS <span class="text-amber-cognac">*</span>
               </label>
               <textarea 
                 id="message" 
@@ -1566,6 +1706,15 @@
       document.getElementById('step-desc').textContent = data.desc;
       document.getElementById('step-action').innerHTML = data.action;
 
+      // Concept 4: Optical Aperture Shift on Step Transition (Reflow-Free)
+      const stepContent = document.getElementById('step-content');
+      if (stepContent) {
+        stepContent.classList.remove('aperture-shift');
+        requestAnimationFrame(() => {
+          stepContent.classList.add('aperture-shift');
+        });
+      }
+
       stepBtns.forEach((btn, i) => {
         if (i + 1 === idx) {
           btn.className = 'step-btn active p-3 rounded-xl bg-amber-soft border border-amber-cognac/40 text-left transition-all';
@@ -1664,8 +1813,8 @@
           });
 
           if (response.ok) {
-            contactAlert.className = 'mb-6 p-5 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/40 text-emerald-400';
-            contactAlert.innerHTML = '<strong>MESSAGE TRANSMITTED SUCCESSFULLY:</strong> Thank you for reaching out. Your inquiry has been routed to Vighnesh Chopra via encrypted relay. You will receive a response within 24 business hours.';
+            contactAlert.className = 'mb-6 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 shadow-sm';
+            contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent.</strong> We shall get back to you soon.</span>';
             contactAlert.classList.remove('hidden');
             contactForm.reset();
           } else {
@@ -1692,17 +1841,20 @@
     let animId = null;
 
     const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas ? canvas.getContext('2d') : null;
-    let w = canvas ? (canvas.width = window.innerWidth) : 0;
-    let h = canvas ? (canvas.height = window.innerHeight) : 0;
+    const ctx = canvas ? canvas.getContext('2d', { alpha: true }) : null;
+    let w = 0;
+    let h = 0;
     let isVisible = true;
     let mouseX = -1000, mouseY = -1000;
 
-    window.addEventListener('resize', () => {
+    function resizeCanvas() {
       if (!canvas) return;
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    });
+      w = canvas.width = window.innerWidth || document.documentElement.clientWidth || 1920;
+      h = canvas.height = window.innerHeight || document.documentElement.clientHeight || 1080;
+    }
+    resizeCanvas();
+
+    window.addEventListener('resize', resizeCanvas, { passive: true });
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
@@ -1711,7 +1863,13 @@
 
     document.addEventListener('visibilitychange', () => {
       isVisible = !document.hidden;
-      if (isVisible && !animId) loop();
+      if (isVisible) {
+        if (animId) cancelAnimationFrame(animId);
+        animId = requestAnimationFrame(loop);
+      } else {
+        if (animId) cancelAnimationFrame(animId);
+        animId = null;
+      }
     });
 
     // Ripples for click interactions
@@ -1762,10 +1920,12 @@
 
     function loop(now = performance.now()) {
       if (!isVisible || !ctx) {
+        if (animId) cancelAnimationFrame(animId);
         animId = null;
         return;
       }
 
+      if (animId) cancelAnimationFrame(animId);
       animId = requestAnimationFrame(loop);
 
       // Frame Throttle: Skip rendering if invoked sooner than target interval (clamps 240Hz screens to 60/30)
@@ -2050,6 +2210,78 @@
       const heroKpiGrid = document.querySelector('#hero .grid');
       if (heroKpiGrid) observer.observe(heroKpiGrid);
     }
+    // ----------------------------------------------------------
+    // 12. CONCEPT 3: MICRO-DECRYPTION ALPHANUMERIC TEXT DECODE (ONCE ON SCROLL + HOVER RE-TRIGGER)
+    // ----------------------------------------------------------
+    const decodeGlyphs = '01#_<>[]*+~X7';
+    function decryptElement(el, force = false) {
+      if (el.dataset.animating === 'true') return;
+      if (!force && el.dataset.decoded === 'true') return;
+      el.dataset.decoded = 'true';
+      el.dataset.animating = 'true';
+
+      const originalText = el.getAttribute('data-text') || el.textContent.trim();
+      el.setAttribute('data-text', originalText);
+      let iteration = 0;
+      const totalChars = originalText.length;
+      
+      if (el._decryptTimer) clearInterval(el._decryptTimer);
+      el._decryptTimer = setInterval(() => {
+        el.textContent = originalText
+          .split('')
+          .map((char, index) => {
+            if (char === ' ' || char === '/' || char === '&') return char;
+            if (index < iteration) {
+              return originalText[index];
+            }
+            return decodeGlyphs[Math.floor(Math.random() * decodeGlyphs.length)];
+          })
+          .join('');
+
+        iteration += 1.4;
+        if (iteration >= totalChars) {
+          el.textContent = originalText;
+          clearInterval(el._decryptTimer);
+          el.dataset.animating = 'false';
+        }
+      }, 25);
+    }
+
+    // Scroll Observer: Decrypt once upon entering viewport
+    const decryptObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          decryptElement(entry.target, false);
+          decryptObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.decrypt-text').forEach(el => {
+      if (!el.getAttribute('data-text')) {
+        el.setAttribute('data-text', el.textContent.trim());
+      }
+      decryptObserver.observe(el);
+    });
+
+    // Unified Heading Hover: hovering anywhere over a section heading re-scrambles both parts together
+    document.querySelectorAll('h2').forEach(heading => {
+      const childSpans = heading.querySelectorAll('.decrypt-text');
+      if (childSpans.length > 0) {
+        heading.addEventListener('mouseenter', () => {
+          childSpans.forEach(span => decryptElement(span, true));
+        });
+      }
+    });
+
+    // Standalone decrypt elements (like 01 // CONTINUITY tags in pillar cards)
+    document.querySelectorAll('.decrypt-text').forEach(el => {
+      if (!el.closest('h2')) {
+        el.addEventListener('mouseenter', () => {
+          decryptElement(el, true);
+        });
+      }
+    });
   </script>
 
 </body>
