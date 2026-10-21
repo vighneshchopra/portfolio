@@ -140,11 +140,21 @@
       top: var(--mouse-y, -1000px);
       left: var(--mouse-x, -1000px);
       transform: translate(-50%, -50%);
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, rgba(217, 119, 54, 0.24) 0%, rgba(245, 158, 11, 0.12) 35%, transparent 70%);
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(
+        circle,
+        rgba(217, 119, 54, 0.22) 0%,
+        rgba(217, 119, 54, 0.16) 12%,
+        rgba(217, 119, 54, 0.10) 26%,
+        rgba(245, 158, 11, 0.05) 42%,
+        rgba(217, 119, 54, 0.025) 60%,
+        rgba(217, 119, 54, 0.008) 78%,
+        rgba(217, 119, 54, 0.002) 90%,
+        transparent 100%
+      );
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       pointer-events: none;
       z-index: 1;
     }
@@ -155,6 +165,15 @@
     .spotlight-card > * {
       position: relative;
       z-index: 2;
+    }
+    /* When card is hovered, ensure secondary muted text retains high-definition contrast and never gets washed out */
+    .spotlight-card:hover .text-titanium-muted {
+      color: #b8b8c2;
+      transition: color 0.25s ease;
+    }
+    .spotlight-card:hover .text-titanium-light {
+      color: #f5f5f7;
+      transition: color 0.25s ease;
     }
 
     /* Pill buttons (Warm Cognac & Titanium Mineral) */
@@ -198,14 +217,23 @@
       transform: translateY(-2px);
     }
 
-    /* Hero Ambient Warm Backlight (Refined & Organic) */
+    /* Hero Ambient Warm Backlight (Refined & Organic Gaussian Diffusion) */
     .hero-avatar-glow {
       position: absolute;
-      width: 500px;
-      height: 500px;
+      width: 520px;
+      height: 520px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(217, 119, 54, 0.22) 0%, rgba(245, 158, 11, 0.10) 45%, transparent 70%);
-      filter: blur(55px);
+      background: radial-gradient(
+        circle,
+        rgba(217, 119, 54, 0.22) 0%,
+        rgba(217, 119, 54, 0.16) 15%,
+        rgba(217, 119, 54, 0.10) 30%,
+        rgba(245, 158, 11, 0.05) 48%,
+        rgba(217, 119, 54, 0.02) 65%,
+        rgba(217, 119, 54, 0.005) 82%,
+        transparent 100%
+      );
+      filter: blur(65px);
       z-index: 1;
       pointer-events: none;
       animation: warmPulse 7s ease-in-out infinite alternate;
