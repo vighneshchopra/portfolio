@@ -237,6 +237,54 @@
       100% { background-position: -200% 0; }
     }
 
+    /* ECO Mode Dynamic Overrides (Zero GPU Load for Low-End Devices) */
+    body.eco-mode .spotlight-card::after {
+      display: none !important;
+    }
+    body.eco-mode .telemetry-pulse::after {
+      display: none !important;
+    }
+    body.eco-mode .metric-shimmer {
+      animation: none !important;
+      background: none !important;
+      -webkit-text-fill-color: #ffffff !important;
+      color: #ffffff !important;
+    }
+    body.eco-mode .spotlight-card {
+      transform: none !important;
+      transition: border-color 0.2s ease !important;
+    }
+    body.eco-mode .spotlight-card:hover {
+      transform: none !important;
+    }
+    body.eco-mode .hero-avatar-glow {
+      animation: none !important;
+      filter: blur(40px) !important;
+      opacity: 0.7 !important;
+    }
+
+    /* Telemetry Audio/Dispatch Waveform Bars */
+    .telemetry-bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 12px;
+    }
+    .telemetry-bar {
+      width: 2.5px;
+      background-color: #d97736;
+      border-radius: 9999px;
+      animation: telemetryBarPulse 1.1s ease-in-out infinite alternate;
+    }
+    .telemetry-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
+    .telemetry-bar:nth-child(2) { height: 90%; animation-delay: 0.35s; }
+    .telemetry-bar:nth-child(3) { height: 60%; animation-delay: 0.2s; }
+    .telemetry-bar:nth-child(4) { height: 100%; animation-delay: 0.45s; }
+    @keyframes telemetryBarPulse {
+      0% { transform: scaleY(0.35); opacity: 0.5; }
+      100% { transform: scaleY(1); opacity: 1; }
+    }
+
     /* Pill buttons (Warm Cognac & Titanium Mineral) */
     .btn-pill {
       display: inline-flex;
@@ -535,25 +583,25 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/[0.07]">
               
               <div class="spotlight-card p-4 text-center sm:text-left">
-                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer">30+</div>
+                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="30" data-suffix="+">30+</div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">Facilities</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">UAE &amp; GCC Clinical Networks</div>
               </div>
 
               <div class="spotlight-card p-4 text-center sm:text-left">
-                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer">200+</div>
+                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="200" data-suffix="+">200+</div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">Clinicians</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">Staff &amp; Doctors Trained</div>
               </div>
 
               <div class="spotlight-card p-4 text-center sm:text-left">
-                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer">7+ Yrs</div>
+                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="7" data-suffix="+ Yrs">7+ Yrs</div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">Experience</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">Feb 2019 – Present Tenured</div>
               </div>
 
               <div class="spotlight-card p-4 text-center sm:text-left">
-                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer">99.9%</div>
+                <div class="text-2xl sm:text-3xl font-black font-display text-white tracking-tight metric-shimmer counter-value" data-target="99.9" data-decimals="1" data-suffix="%">99.9%</div>
                 <div class="text-[11px] font-mono text-amber-cognac font-medium uppercase mt-0.5">SLA Uptime</div>
                 <div class="text-[10px] text-titanium-muted mt-0.5">Zero Live Charting Downtime</div>
               </div>
@@ -1624,72 +1672,121 @@
     }
 
     // ----------------------------------------------------------
-    // 7. HIGH-PERFORMANCE QUANTUM AMBIENT CANVAS ENGINE (V8)
+    // 7. QUANTUM ADAPTIVE CANVAS ENGINE (V8)
     // ----------------------------------------------------------
-    (function initCanvas() {
-      const canvas = document.getElementById('bg-canvas');
+    let currentProfile = 'PRO'; // 'PRO' or 'ECO'
+    let isAutoProfile = true;
+    let animId = null;
+
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas ? canvas.getContext('2d') : null;
+    let w = canvas ? (canvas.width = window.innerWidth) : 0;
+    let h = canvas ? (canvas.height = window.innerHeight) : 0;
+    let isVisible = true;
+    let mouseX = -1000, mouseY = -1000;
+
+    window.addEventListener('resize', () => {
       if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let w = canvas.width = window.innerWidth;
-      let h = canvas.height = window.innerHeight;
-      let animId = null;
-      let isVisible = true;
-      let mouseX = -1000, mouseY = -1000;
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
 
-      window.addEventListener('resize', () => {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      isVisible = !document.hidden;
+      if (isVisible && !animId) loop();
+    });
+
+    // Ripples for click interactions
+    const ripples = [];
+    window.addEventListener('click', (e) => {
+      if (currentProfile === 'ECO') return;
+      if (e.target.closest('button, a, input, textarea, select')) return;
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 4,
+        maxRadius: 75,
+        alpha: 0.45,
+        color: '245, 158, 11',
+        speed: 1.8
       });
+    }, { passive: true });
 
-      window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      }, { passive: true });
+    // Particles system
+    const PRO_PARTICLE_COUNT = 40;
+    const ECO_PARTICLE_COUNT = 14;
+    let particles = [];
 
-      document.addEventListener('visibilitychange', () => {
-        isVisible = !document.hidden;
-        if (isVisible && !animId) loop();
-      });
-
-      const ripples = [];
-
-      // Click-to-Ripple Acoustic Shockwave
-      window.addEventListener('click', (e) => {
-        if (e.target.closest('button, a, input, textarea, select')) return;
-        ripples.push({
-          x: e.clientX,
-          y: e.clientY,
-          radius: 4,
-          maxRadius: 85,
-          alpha: 0.7,
-          color: '245, 158, 11',
-          speed: 2.2
-        });
-      }, { passive: true });
-
-      const particleCount = 42;
-      const particles = [];
-      for (let i = 0; i < particleCount; i++) {
+    function initParticles() {
+      const count = currentProfile === 'PRO' ? PRO_PARTICLE_COUNT : ECO_PARTICLE_COUNT;
+      particles = [];
+      for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.38,
-          vy: (Math.random() - 0.5) * 0.38,
-          radius: Math.random() * 1.8 + 0.8,
-          alpha: Math.random() * 0.45 + 0.18,
-          color: Math.random() > 0.35 ? '217, 119, 54' : '245, 158, 11',
-          cooldown: 0
+          vx: (Math.random() - 0.5) * (currentProfile === 'PRO' ? 0.38 : 0.22),
+          vy: (Math.random() - 0.5) * (currentProfile === 'PRO' ? 0.38 : 0.22),
+          radius: Math.random() * 1.6 + 0.8,
+          alpha: Math.random() * 0.4 + 0.15,
+          color: Math.random() > 0.35 ? '217, 119, 54' : '245, 158, 11'
         });
       }
+    }
+    initParticles();
 
-      function loop() {
-        if (!isVisible) {
-          animId = null;
-          return;
+    // FPS Counter & Auto-Downgrade Watchdog
+    let lastFrameTime = performance.now();
+    let frameCount = 0;
+    let lastFpsUpdate = performance.now();
+    let lowFpsSeconds = 0;
+
+    function loop(now = performance.now()) {
+      if (!isVisible || !ctx) {
+        animId = null;
+        return;
+      }
+
+      // Calculate FPS
+      frameCount++;
+      if (now - lastFpsUpdate >= 1000) {
+        const fps = Math.round((frameCount * 1000) / (now - lastFpsUpdate));
+        frameCount = 0;
+        lastFpsUpdate = now;
+
+        const fpsEl = document.getElementById('fps-counter');
+        if (fpsEl) {
+          fpsEl.textContent = `${fps} FPS`;
+          if (fps >= 50) {
+            fpsEl.className = 'text-emerald-400 font-bold tracking-wider';
+          } else if (fps >= 35) {
+            fpsEl.className = 'text-amber-ochre font-bold tracking-wider';
+          } else {
+            fpsEl.className = 'text-rose-400 font-bold tracking-wider';
+          }
         }
-        ctx.clearRect(0, 0, w, h);
 
-        // 1. Draw & Update Acoustic Shockwave Ripples
+        // Auto-Downgrade Watchdog (if frame rate stays below 45 for 3 consecutive seconds)
+        if (isAutoProfile && currentProfile === 'PRO') {
+          if (fps < 45) {
+            lowFpsSeconds++;
+            if (lowFpsSeconds >= 3) {
+              setProfile('ECO', false); // auto downshift
+            }
+          } else {
+            lowFpsSeconds = 0;
+          }
+        }
+      }
+
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. Draw Acoustic Click Ripples (PRO mode only)
+      if (currentProfile === 'PRO') {
         for (let k = ripples.length - 1; k >= 0; k--) {
           const rip = ripples[k];
           rip.radius += rip.speed;
@@ -1701,100 +1798,235 @@
           ctx.beginPath();
           ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
           ctx.strokeStyle = `rgba(${rip.color}, ${rip.alpha * life})`;
-          ctx.lineWidth = Math.max(0.4, 1.4 * life);
+          ctx.lineWidth = Math.max(0.4, 1.0 * life);
           ctx.stroke();
         }
+      }
 
-        // 2. Update & Draw Particles with Collision Nexus
-        for (let i = 0; i < particleCount; i++) {
-          const p = particles[i];
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.cooldown > 0) p.cooldown--;
+      // 2. Draw & Update Particles
+      const pCount = particles.length;
+      for (let i = 0; i < pCount; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
 
-          if (p.x < 0) p.x = w;
-          if (p.x > w) p.x = 0;
-          if (p.y < 0) p.y = h;
-          if (p.y > h) p.y = 0;
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
 
-          // Mouse Proximity Warmth & Micro-Repulsion
+        let currentAlpha = p.alpha;
+        let currentRadius = p.radius;
+
+        // Mouse proximity halo in PRO mode
+        if (currentProfile === 'PRO') {
           const mDist = Math.hypot(p.x - mouseX, p.y - mouseY);
-          let currentAlpha = p.alpha;
-          let currentRadius = p.radius;
-
-          if (mDist < 130) {
-            const prox = 1 - (mDist / 130);
-            currentAlpha = Math.min(0.9, p.alpha + 0.35 * prox);
-            currentRadius = p.radius + 0.8 * prox;
-            ctx.shadowColor = `rgba(217, 119, 54, ${0.8 * prox})`;
-            ctx.shadowBlur = 10 * prox;
+          if (mDist < 120) {
+            const prox = 1 - (mDist / 120);
+            currentAlpha = Math.min(0.85, p.alpha + 0.3 * prox);
+            currentRadius = p.radius + 0.6 * prox;
+            ctx.shadowColor = `rgba(217, 119, 54, ${0.7 * prox})`;
+            ctx.shadowBlur = 8 * prox;
           } else {
             ctx.shadowBlur = 0;
           }
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, currentRadius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${p.color}, ${currentAlpha})`;
-          ctx.fill();
+        } else {
           ctx.shadowBlur = 0;
+        }
 
-          // Inter-particle Proximity, Filaments & Collision Shockwaves
-          for (let j = i + 1; j < particleCount; j++) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, currentRadius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color}, ${currentAlpha})`;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Inter-particle Gravitational Filaments (PRO mode only)
+        if (currentProfile === 'PRO') {
+          for (let j = i + 1; j < pCount; j++) {
             const p2 = particles[j];
             const dx = p.x - p2.x;
             const dy = p.y - p2.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            // Collision Shockwave Trigger (< 24px)
-            if (dist < 24 && p.cooldown === 0 && p2.cooldown === 0 && ripples.length < 8) {
-              ripples.push({
-                x: (p.x + p2.x) / 2,
-                y: (p.y + p2.y) / 2,
-                radius: 2,
-                maxRadius: 44,
-                alpha: 0.6,
-                color: '217, 119, 54',
-                speed: 1.3
-              });
-              p.cooldown = 45; // ~0.75s cooldown to keep motion elegant & not chaotic
-              p2.cooldown = 45;
+            // Silky orbital curve (zero flash)
+            if (dist < 45 && dist > 2) {
+              const force = (1 - dist / 45) * 0.035;
+              const nx = dx / dist;
+              const ny = dy / dist;
+              p.vx += ny * force;
+              p.vy -= nx * force;
+              p2.vx -= ny * force;
+              p2.vy += nx * force;
             }
 
-            // Filament Proximity Connection
+            // Silky gold filament
             if (dist < 110) {
+              const filamentAlpha = (1 - dist / 110) * 0.14;
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = `rgba(217, 119, 54, ${0.12 * (1 - dist / 110)})`;
+              ctx.strokeStyle = `rgba(217, 119, 54, ${filamentAlpha})`;
               ctx.lineWidth = 0.55;
               ctx.stroke();
             }
           }
         }
-
-        animId = requestAnimationFrame(loop);
       }
 
-      loop();
-    })();
+      animId = requestAnimationFrame(loop);
+    }
+
+    loop();
 
     // ----------------------------------------------------------
-    // 8. 3D MICRO-PARALLAX TILT ON CARDS (V8)
+    // 8. PROFILE CONTROLLER (PRO vs ECO MODE)
+    // ----------------------------------------------------------
+    function setProfile(profile, isManual = true) {
+      currentProfile = profile;
+      if (isManual) isAutoProfile = false;
+
+      const body = document.body;
+      const gpuIcon = document.getElementById('gpu-icon');
+      const gpuLabel = document.getElementById('gpu-label');
+      const toggleBtn = document.getElementById('toggle-gpu-btn');
+
+      if (profile === 'ECO') {
+        body.classList.add('eco-mode');
+        if (gpuIcon) gpuIcon.textContent = '🍃';
+        if (gpuLabel) gpuLabel.textContent = isManual ? 'ECO (MANUAL)' : 'ECO (AUTO)';
+        if (toggleBtn) {
+          toggleBtn.className = 'px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold hover:bg-emerald-500 hover:text-carbon-950 transition-all flex items-center gap-1.5 cursor-pointer';
+        }
+      } else {
+        body.classList.remove('eco-mode');
+        if (gpuIcon) gpuIcon.textContent = '⚡';
+        if (gpuLabel) gpuLabel.textContent = isManual ? 'PRO (MANUAL)' : 'PRO (ACTIVE)';
+        if (toggleBtn) {
+          toggleBtn.className = 'px-2.5 py-1 rounded-full bg-amber-soft border border-amber-cognac/40 text-amber-cognac font-bold hover:bg-amber-cognac hover:text-carbon-950 transition-all flex items-center gap-1.5 cursor-pointer';
+        }
+      }
+
+      initParticles();
+    }
+
+    const toggleBtn = document.getElementById('toggle-gpu-btn');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        setProfile(currentProfile === 'PRO' ? 'ECO' : 'PRO', true);
+      });
+    }
+
+    // URL parameter check
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('mode') === 'eco') {
+      setProfile('ECO', true);
+    } else if (urlParams.get('mode') === 'pro') {
+      setProfile('PRO', true);
+    } else {
+      // Auto-detect based on hardware specs
+      const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+      const lowMem = navigator.deviceMemory && navigator.deviceMemory <= 4;
+      if (lowCores || lowMem) {
+        setProfile('ECO', false);
+      } else {
+        setProfile('PRO', false);
+      }
+    }
+
+    // ----------------------------------------------------------
+    // 9. 3D MICRO-PARALLAX TILT ON CARDS (PRO MODE ONLY)
     // ----------------------------------------------------------
     document.querySelectorAll('.spotlight-card').forEach(card => {
       card.addEventListener('mousemove', e => {
+        if (currentProfile === 'ECO') return;
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
-        const rotateX = -(y / (rect.height / 2)) * 3.0; // 3.0 degree max tilt
-        const rotateY = (x / (rect.width / 2)) * 3.0;
+        const rotateX = -(y / (rect.height / 2)) * 2.8;
+        const rotateY = (x / (rect.width / 2)) * 2.8;
         card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-3px)`;
       });
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
       });
     });
+
+    // ----------------------------------------------------------
+    // 10. MAGNETIC ATTRACTION ON PRIMARY BUTTONS (PRO MODE ONLY)
+    // ----------------------------------------------------------
+    document.querySelectorAll('.btn-pill-primary').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        if (currentProfile === 'ECO') return;
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) translateY(-2px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px) translateY(0)';
+      });
+    });
+
+    // ----------------------------------------------------------
+    // 11. SMOOTH COUNTER ROLL-UP ON SCROLL (V8)
+    // ----------------------------------------------------------
+    const counters = document.querySelectorAll('.counter-value');
+    let countersAnimated = false;
+
+    function animateCounters() {
+      if (countersAnimated) return;
+      countersAnimated = true;
+
+      counters.forEach(counter => {
+        const target = parseFloat(counter.getAttribute('data-target'));
+        const suffix = counter.getAttribute('data-suffix') || '';
+        const decimals = parseInt(counter.getAttribute('data-decimals') || '0', 10);
+        const duration = 1400; // ms
+        const startTime = performance.now();
+
+        function updateCount(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const currentVal = ease * target;
+
+          counter.textContent = currentVal.toFixed(decimals) + suffix;
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCount);
+          } else {
+            counter.textContent = target.toFixed(decimals) + suffix;
+          }
+        }
+
+        requestAnimationFrame(updateCount);
+      });
+    }
+
+    if (counters.length > 0) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      const heroKpiGrid = document.querySelector('#hero .grid');
+      if (heroKpiGrid) observer.observe(heroKpiGrid);
+    }
   </script>
+
+  <!-- Floating Graphics & Performance HUD (V8 Interactive Switcher) -->
+  <aside id="perf-hud" aria-label="Performance Engine Controls" class="fixed bottom-5 right-5 z-50 flex items-center gap-2.5 bg-carbon-900/90 border border-white/[0.12] rounded-full px-3.5 py-1.5 backdrop-blur-xl shadow-2xl font-mono text-[11px] select-none transition-all">
+    <span id="fps-counter" class="text-emerald-400 font-bold tracking-wider">60 FPS</span>
+    <span class="text-white/20">•</span>
+    <button id="toggle-gpu-btn" class="px-2.5 py-1 rounded-full bg-amber-soft border border-amber-cognac/40 text-amber-cognac font-bold hover:bg-amber-cognac hover:text-carbon-950 transition-all flex items-center gap-1.5 cursor-pointer">
+      <span id="gpu-icon">⚡</span>
+      <span id="gpu-label">PRO GRAPHICS</span>
+    </button>
+  </aside>
 
 </body>
 </html>
