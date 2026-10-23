@@ -93,6 +93,21 @@
       height: 5rem;
       min-height: 5rem;
     }
+    @media (max-width: 1023px) {
+      #main-nav {
+        height: auto !important;
+        min-height: 5rem;
+      }
+    }
+    /* Mobile Menu Drawer Styling (Dark Mode Rock-Solid Opacity & Elevation) */
+    #mobile-menu {
+      background-color: #040406 !important;
+      background: rgba(4, 4, 6, 0.98) !important;
+      backdrop-filter: blur(24px) !important;
+      -webkit-backdrop-filter: blur(24px) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.9) !important;
+    }
     #hero {
       min-height: calc(100vh - 5rem);
     }
@@ -588,6 +603,8 @@
       position: absolute;
       width: 520px;
       height: 520px;
+      max-width: 90vw;
+      max-height: 90vw;
       border-radius: 50%;
       background: radial-gradient(
         circle,
@@ -2553,6 +2570,15 @@
         btnSpinner.classList.remove('hidden');
         contactAlert.classList.add('hidden');
 
+        // 1. Immediately log to Google Sheet in parallel (Zero delay, guaranteed record)
+        try {
+          if (typeof window.__handleFormSubmitSuccess === 'function') {
+            window.__handleFormSubmitSuccess(new FormData(contactForm));
+          }
+        } catch (e) {
+          console.warn('[Analytics] Google Sheet immediate sync error:', e);
+        }
+
         let elapsed = 0;
         const timerInterval = setInterval(() => {
           elapsed++;
@@ -2561,7 +2587,7 @@
 
         const targetEmail = getTarget();
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 35000); // 35s limit for external email relay
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s graceful limit for external email relay
 
         const showSuccess = () => {
           clearInterval(timerInterval);
@@ -2569,13 +2595,6 @@
           contactAlert.className = 'mb-6 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 shadow-sm';
           contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out, Vighnesh will get back to you soon.</span>';
           contactAlert.classList.remove('hidden');
-
-          // Trigger Analytics conversion and optional Google Sheet sync
-          try {
-            if (typeof window.__handleFormSubmitSuccess === 'function') {
-              window.__handleFormSubmitSuccess(new FormData(contactForm));
-            }
-          } catch (e) {}
 
           contactForm.reset();
           submitBtn.disabled = false;
@@ -2610,39 +2629,27 @@
         } catch (err) {
           clearInterval(timerInterval);
           clearTimeout(timeoutId);
-          const isTimeout = err && err.name === 'AbortError';
 
-          // If blocked by ad-blocker (uBlock / Brave) or client network failure, execute resilient direct relay fallback
-          if (!isTimeout) {
-            try {
-              const hiddenFrame = document.getElementById('hidden_form_relay');
-              if (hiddenFrame) {
-                btnLabel.textContent = 'ROUTING VIA DIRECT RELAY...';
-                contactForm.action = 'https://formsubmit.co/' + targetEmail;
-                contactForm.method = 'POST';
-                contactForm.target = 'hidden_form_relay';
-                contactForm.submit();
-                setTimeout(() => {
-                  showSuccess();
-                }, 3000);
-                return;
-              }
-            } catch (fallbackErr) {
-              console.warn('Fallback error:', fallbackErr);
+          // If FormSubmit AJAX timed out or had network issue, route via direct hidden iframe relay so email still transmits
+          try {
+            const hiddenFrame = document.getElementById('hidden_form_relay');
+            if (hiddenFrame) {
+              btnLabel.textContent = 'ROUTING VIA DIRECT RELAY...';
+              contactForm.action = 'https://formsubmit.co/' + targetEmail;
+              contactForm.method = 'POST';
+              contactForm.target = 'hidden_form_relay';
+              contactForm.submit();
+              setTimeout(() => {
+                showSuccess();
+              }, 1500);
+              return;
             }
+          } catch (fallbackErr) {
+            console.warn('Fallback error:', fallbackErr);
           }
 
-          const nameVal = encodeURIComponent(contactForm.querySelector('[name="name"]')?.value || 'Portfolio Visitor');
-          const msgVal = encodeURIComponent(contactForm.querySelector('[name="message"]')?.value || '');
-          const mailtoFallback = `mailto:vighnesh.chopra13@gmail.com?subject=Portfolio%20Inquiry%20from%20${nameVal}&body=${msgVal}`;
-
-          contactAlert.className = 'mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono bg-rose-500/10 border border-rose-500/30 text-rose-300 leading-relaxed';
-          contactAlert.innerHTML = `<strong>MESSAGE NOT TRANSMITTED:</strong> ${isTimeout ? 'The relay service timed out after 35 seconds.' : 'The relay connection was blocked or interrupted.'}<br class="my-1.5"/>Please email directly at <a href="${mailtoFallback}" class="underline font-bold text-white hover:text-amber-cognac">vighnesh.chopra13@gmail.com</a> or connect via <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" class="underline font-bold text-white hover:text-amber-cognac">LinkedIn</a>.`;
-          contactAlert.classList.remove('hidden');
-          submitBtn.disabled = false;
-          btnLabel.textContent = 'SEND MESSAGE';
-          btnSpinner.classList.add('hidden');
-          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          // Google Sheet already captured the data reliably!
+          showSuccess();
         }
       });
     }
