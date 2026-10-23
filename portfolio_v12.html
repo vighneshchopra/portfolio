@@ -23,12 +23,19 @@
   <link rel="dns-prefetch" href="https://www.clarity.ms">
   <link rel="dns-prefetch" href="https://c.bing.com">
 
-  <!-- Open Graph & Meta Identity -->
+  <!-- Open Graph & Meta Identity (Apple / WhatsApp / LinkedIn Luxury Rich Card) -->
   <meta property="og:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Support Manager">
   <meta property="og:description" content="Directing L1/L2 application support, clinical workflow deadlocks, and engineering bridges across 30+ health facilities worldwide.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vighneshchopra.github.io/portfolio/">
-  <meta property="og:image" content="profile_cutout.webp">
+  <meta property="og:image" content="https://vighneshchopra.github.io/portfolio/og_preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vighnesh Chopra — Healthcare SaaS & EMR Support Manager">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Support Manager">
+  <meta name="twitter:description" content="Directing L1/L2 application support, clinical workflow deadlocks, and engineering bridges across 30+ health facilities worldwide.">
+  <meta name="twitter:image" content="https://vighneshchopra.github.io/portfolio/og_preview.png">
   <link rel="canonical" href="https://vighneshchopra.github.io/portfolio/">
 
   <!-- Inline Executive Monogram Favicon (Clean Orange V on Pitch Black) -->
@@ -2358,8 +2365,8 @@
               <canvas id="autumn-tree-canvas" class="w-full h-full object-contain pointer-events-auto bg-transparent"></canvas>
             </div>
 
-            <!-- Minimalist Interactive Toggle Prompt -->
-            <div class="mt-4 flex justify-center">
+            <!-- Interactive Action Prompts (Toggle & Direct Mobile Launch) -->
+            <div class="mt-4 flex flex-wrap items-center justify-center gap-2.5">
               <button 
                 id="tree-qr-toggle-btn" 
                 type="button" 
@@ -2368,6 +2375,16 @@
                 <span id="toggle-indicator-dot" class="w-2 h-2 rounded-full bg-amber-cognac animate-pulse"></span>
                 <span id="tree-toggle-label" class="font-medium">Tap tree to see QR code</span>
               </button>
+
+              <a 
+                id="qr-mobile-launch-btn"
+                href="index.html" 
+                class="hidden px-5 py-2 rounded-full bg-amber-cognac hover:bg-amber-500 text-carbon-950 font-mono font-bold text-xs tracking-wider transition-all shadow-md items-center gap-2 active:scale-95"
+                title="Open Official Live Portfolio"
+              >
+                <span>OPEN OFFICIAL PORTFOLIO</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </a>
             </div>
           </div>
         </div>
@@ -4053,6 +4070,8 @@
         const startProgress = transitionProgress;
         const targetProgress = isQRMode ? 0 : 1;
 
+        const launchBtn = document.getElementById('qr-mobile-launch-btn');
+
         // Smoothly fade card background to light mode during QR view for guaranteed scannability
         if (card) {
           if (!isQRMode) {
@@ -4062,8 +4081,18 @@
           }
         }
 
+        if (launchBtn) {
+          if (!isQRMode) {
+            launchBtn.classList.remove('hidden');
+            launchBtn.classList.add('flex');
+          } else {
+            launchBtn.classList.add('hidden');
+            launchBtn.classList.remove('flex');
+          }
+        }
+
         if (toggleLabel) {
-          toggleLabel.textContent = isQRMode ? "Tap tree to see QR code" : "Tap the QR to see the tree";
+          toggleLabel.textContent = isQRMode ? "Tap tree to see QR code" : "Tap tree to return";
         }
         if (toggleDot) {
           toggleDot.className = isQRMode 
@@ -4089,8 +4118,26 @@
         requestAnimationFrame(animateTransition);
       }
 
-      if (canvas) canvas.addEventListener('click', toggleMode);
-      if (card) card.addEventListener('click', toggleMode);
+      // In QR mode, tapping the QR canvas navigates to the default official portfolio (index.html)
+      if (canvas) {
+        canvas.addEventListener('click', (e) => {
+          if (isQRMode && !isAnimating) {
+            window.location.href = 'index.html';
+          } else {
+            toggleMode();
+          }
+        });
+      }
+      if (card) {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('#tree-qr-toggle-btn') || e.target.closest('#qr-mobile-launch-btn')) return;
+          if (isQRMode && !isAnimating) {
+            window.location.href = 'index.html';
+          } else {
+            toggleMode();
+          }
+        });
+      }
       if (toggleBtn) {
         toggleBtn.addEventListener('click', (e) => {
           e.stopPropagation();
