@@ -11,9 +11,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://www.google-analytics.com">
+  <link rel="preconnect" href="https://www.clarity.ms">
+  <link rel="preconnect" href="https://c.bing.com">
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+  <link rel="dns-prefetch" href="https://www.clarity.ms">
+  <link rel="dns-prefetch" href="https://c.bing.com">
 
   <!-- Open Graph & Meta Identity -->
   <meta property="og:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Support Manager">
@@ -1166,6 +1174,19 @@
     body.light-theme ::-webkit-scrollbar-thumb:hover {
       background: #9a3412;
     }
+
+    /* Privacy Consent Toast in Light Mode */
+    body.light-theme #analytics-consent-toast {
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-color: rgba(226, 232, 240, 0.95) !important;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.12), 0 0 1px rgba(0, 0, 0, 0.1) !important;
+    }
+    body.light-theme #analytics-consent-toast p {
+      color: #475569 !important;
+    }
+    body.light-theme #analytics-consent-toast h4 {
+      color: #9a3412 !important;
+    }
   </style>
 </head>
 
@@ -2239,6 +2260,8 @@
         <div class="flex items-center gap-6">
           <span class="text-titanium-muted">Healthcare SaaS &amp; EMR Support Management</span>
           <span class="text-carbon-750">•</span>
+          <button id="reopen-consent-btn" type="button" class="text-titanium-muted hover:text-amber-cognac transition-colors underline cursor-pointer">Cookie &amp; Privacy</button>
+          <span class="text-carbon-750">•</span>
           <a href="#hero" class="text-amber-cognac hover:underline font-semibold">BACK TO TOP ↑</a>
         </div>
       </div>
@@ -2529,6 +2552,14 @@
           contactAlert.className = 'mb-6 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 shadow-sm';
           contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out, Vighnesh will get back to you soon.</span>';
           contactAlert.classList.remove('hidden');
+
+          // Trigger Analytics conversion and optional Google Sheet sync
+          try {
+            if (typeof window.__handleFormSubmitSuccess === 'function') {
+              window.__handleFormSubmitSuccess(new FormData(contactForm));
+            }
+          } catch (e) {}
+
           contactForm.reset();
           submitBtn.disabled = false;
           btnLabel.textContent = 'SEND MESSAGE';
@@ -3134,6 +3165,502 @@
     } catch (e) {
       setTheme('dark', false);
     }
+  </script>
+
+  <!-- ======================================================== -->
+  <!-- PRIVACY & ANALYTICS PREFERENCE TOAST                     -->
+  <!-- ======================================================== -->
+  <div id="analytics-consent-toast" class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 max-w-sm sm:max-w-md p-4 sm:p-5 rounded-2xl bg-carbon-900/95 border border-white/[0.12] backdrop-blur-xl shadow-2xl transition-all duration-300 transform translate-y-0 opacity-100 hidden" role="dialog" aria-live="polite" aria-label="Privacy & Analytics Settings">
+    <div class="flex items-start gap-3.5">
+      <div class="w-2.5 h-2.5 rounded-full bg-amber-cognac animate-pulse mt-1.5 shrink-0 shadow-[0_0_8px_#d97736]"></div>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-amber-cognac">Privacy &amp; Analytics</h4>
+          <span class="text-[10px] font-mono text-titanium-dark">Zero-PII</span>
+        </div>
+        <p class="text-xs text-titanium-muted leading-relaxed">
+          This portfolio collects anonymous interaction metrics (reading flow, case study views, and resume downloads) to refine content presentation. Keystrokes, passwords, and form inputs are strictly masked and never recorded.
+        </p>
+        <div class="flex items-center gap-2 pt-1">
+          <button id="consent-accept-btn" type="button" class="btn-pill btn-pill-primary text-xs !py-1.5 !px-3 font-mono cursor-pointer">
+            Accept Analytics
+          </button>
+          <button id="consent-decline-btn" type="button" class="btn-pill btn-pill-secondary text-xs !py-1.5 !px-3 font-mono cursor-pointer">
+            Essential Only
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- EXECUTIVE PORTFOLIO ANALYTICS & TELEMETRY ENGINE         -->
+  <!-- Supports GA4, Microsoft Clarity, UTMs & Google Sheets    -->
+  <!-- ======================================================== -->
+  <script id="portfolio-analytics-engine">
+    // ----------------------------------------------------------
+    // 1. MASTER ANALYTICS CONFIGURATION
+    // ----------------------------------------------------------
+    const ANALYTICS_CONFIG = {
+      // Google Analytics 4 Measurement ID
+      // Real GA4 Measurement ID for Vighnesh Chopra Portfolio
+      GA4_MEASUREMENT_ID: 'G-L1D3SER680',
+
+      // Microsoft Clarity Project ID
+      // Real Clarity Project ID for Vighnesh Chopra Portfolio
+      CLARITY_PROJECT_ID: 'z232mpdgxj',
+
+      // Optional: Google Apps Script Webhook Endpoint for Contact Logging
+      // When set, every form submission (Name, Email, Org, Subject, Message, UTM Source)
+      // will be automatically appended to your private Google Sheet!
+      GOOGLE_SHEET_ENDPOINT: '',
+
+      // Respect browser "Do Not Track" signal if active
+      HONOR_DNT: false
+    };
+
+    // ----------------------------------------------------------
+    // 2. UTM PARAMETER PARSER & LIFETIME SESSION PRESERVATION
+    // ----------------------------------------------------------
+    function getUTMData() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const source = urlParams.get('utm_source');
+        const medium = urlParams.get('utm_medium');
+        const campaign = urlParams.get('utm_campaign');
+        const content = urlParams.get('utm_content');
+        const term = urlParams.get('utm_term');
+
+        if (source || medium || campaign) {
+          const data = {
+            source: source || 'unknown',
+            medium: medium || 'unknown',
+            campaign: campaign || 'unknown',
+            content: content || '',
+            term: term || '',
+            captured_at: new Date().toISOString()
+          };
+          sessionStorage.setItem('vc_utm_data', JSON.stringify(data));
+          return data;
+        }
+
+        const saved = sessionStorage.getItem('vc_utm_data');
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+
+      // Fallback referrer detection
+      const ref = document.referrer;
+      let detectedSource = 'direct';
+      let detectedMedium = 'none';
+      if (ref) {
+        if (ref.includes('linkedin.com')) {
+          detectedSource = 'linkedin';
+          detectedMedium = 'social_referral';
+        } else if (ref.includes('google.')) {
+          detectedSource = 'google';
+          detectedMedium = 'organic_search';
+        } else if (ref.includes('github.com')) {
+          detectedSource = 'github';
+          detectedMedium = 'referral';
+        } else {
+          try {
+            detectedSource = new URL(ref).hostname;
+            detectedMedium = 'referral';
+          } catch(e) {
+            detectedSource = 'referral';
+          }
+        }
+      }
+
+      return { source: detectedSource, medium: detectedMedium, campaign: 'none' };
+    }
+
+    // ----------------------------------------------------------
+    // 3. ENGINE INITIALIZATION (GA4 & MICROSOFT CLARITY)
+    // ----------------------------------------------------------
+    let isGA4Initialized = false;
+    let isClarityInitialized = false;
+
+    function initGA4(measurementId) {
+      if (isGA4Initialized) return;
+      isGA4Initialized = true;
+
+      // Safe Local Debug Mode for Placeholder ID
+      if (!measurementId || measurementId === 'G-XXXXXXXXXX') {
+        console.log('%c[Analytics Engine]%c GA4 initialized in Developer Console mode (Placeholder: G-XXXXXXXXXX). All interaction events will log here for verification.', 'color: #d97736; font-weight: bold;', 'color: inherit;');
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function() {
+          window.dataLayer.push(arguments);
+          if (arguments[0] === 'event') {
+            console.log('%c[GA4 Event Telemetry]%c ' + arguments[1], 'background: #d97736; color: #000; font-weight: bold; border-radius: 3px; padding: 1px 5px;', 'color: #d97736; font-weight: bold;', arguments[2] || {});
+          }
+        };
+        return;
+      }
+
+      // Live Production GA4 gtag.js Injection
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() { dataLayer.push(arguments); };
+      gtag('js', new Date());
+
+      const utmData = getUTMData();
+      gtag('config', measurementId, {
+        send_page_view: true,
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=None;Secure',
+        campaign_source: utmData.source,
+        campaign_medium: utmData.medium,
+        campaign_name: utmData.campaign
+      });
+    }
+
+    function initClarity(projectId) {
+      if (isClarityInitialized) return;
+      isClarityInitialized = true;
+
+      // Safe Local Debug Mode for Placeholder ID
+      if (!projectId || projectId === 'CLARITY_PROJECT_ID') {
+        console.log('%c[Analytics Engine]%c Microsoft Clarity initialized in Developer Console mode (Placeholder: CLARITY_PROJECT_ID).', 'color: #38bdf8; font-weight: bold;', 'color: inherit;');
+        window.clarity = function() {
+          console.log('%c[Clarity Telemetry]%c', 'background: #0284c7; color: #fff; font-weight: bold; border-radius: 3px; padding: 1px 5px;', 'color: #38bdf8;', ...arguments);
+        };
+        return;
+      }
+
+      // Live Production Microsoft Clarity Injection
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", projectId);
+
+      // Clarity Session Metadata
+      if (typeof window.clarity === 'function') {
+        const utmData = getUTMData();
+        window.clarity("set", "traffic_source", utmData.source || 'direct');
+        window.clarity("set", "theme", document.body.classList.contains('light-theme') ? 'light' : 'dark');
+      }
+    }
+
+    // ----------------------------------------------------------
+    // 4. UNIFIED EVENT DISPATCHER
+    // ----------------------------------------------------------
+    function trackEvent(eventName, eventParams = {}) {
+      // Check Privacy Consent
+      const consent = localStorage.getItem('vc_analytics_consent');
+      if (consent === 'denied') return;
+
+      // Enrich telemetry with real-time UI states
+      const isLight = document.body.classList.contains('light-theme');
+      const utmData = getUTMData();
+      const enrichedParams = {
+        ...eventParams,
+        site_theme: isLight ? 'light' : 'dark',
+        gpu_profile: typeof currentProfile !== 'undefined' ? currentProfile : 'PRO',
+        traffic_source: utmData.source || 'direct',
+        traffic_medium: utmData.medium || 'none'
+      };
+
+      // 1. Dispatch to GA4
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, enrichedParams);
+      }
+
+      // 2. Dispatch to Microsoft Clarity Custom Event
+      if (typeof window.clarity === 'function') {
+        try {
+          window.clarity("event", eventName);
+        } catch (e) {}
+      }
+    }
+
+    // ----------------------------------------------------------
+    // 5. CONTACT FORM & RECRUITER LOGGING SYSTEM
+    // ----------------------------------------------------------
+    window.__handleFormSubmitSuccess = function(formData) {
+      const utmData = getUTMData();
+
+      // Track anonymous GA4 conversion event (Strictly Zero-PII)
+      trackEvent('contact_form_submit', {
+        submission_status: 'success',
+        inquiry_type: formData.get('subject') || 'General Inquiry',
+        has_organization: Boolean(formData.get('organization')),
+        source_channel: utmData.source || 'direct'
+      });
+
+      // Optional: Permanent private Google Sheet sync if endpoint is configured
+      if (ANALYTICS_CONFIG.GOOGLE_SHEET_ENDPOINT && ANALYTICS_CONFIG.GOOGLE_SHEET_ENDPOINT.startsWith('http')) {
+        try {
+          const sheetPayload = {
+            timestamp: new Date().toISOString(),
+            name: formData.get('name') || '',
+            email: formData.get('email') || '',
+            organization: formData.get('organization') || '',
+            subject: formData.get('subject') || '',
+            message: formData.get('message') || '',
+            utm_source: utmData.source || 'direct',
+            utm_medium: utmData.medium || 'none',
+            utm_campaign: utmData.campaign || 'none'
+          };
+
+          fetch(ANALYTICS_CONFIG.GOOGLE_SHEET_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(sheetPayload)
+          }).catch(function(e) {
+            console.warn('[Analytics] Google Sheet auto-sync fetch error:', e);
+          });
+        } catch (e) {}
+      }
+    };
+
+    // ----------------------------------------------------------
+    // 6. PORTFOLIO INTERACTION TRACKERS (AUTOMATIC BINDINGS)
+    // ----------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', function() {
+      // A. Resume Downloads Tracking
+      document.querySelectorAll('a[href*="Resume"], a[download]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          let location = 'body';
+          if (link.closest('#main-nav')) location = 'navbar';
+          else if (link.closest('#mobile-drawer')) location = 'mobile_drawer';
+          else if (link.closest('#hero')) location = 'hero_cta';
+          else if (link.closest('footer')) location = 'footer';
+
+          trackEvent('resume_download', {
+            file_name: 'Vighnesh_Chopra_Resume.pdf',
+            link_location: location
+          });
+        });
+      });
+
+      // B. LinkedIn Profile Clicks Tracking
+      document.querySelectorAll('a[href*="linkedin.com"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          let location = 'body';
+          if (link.closest('#main-nav')) location = 'navbar';
+          else if (link.closest('#mobile-drawer')) location = 'mobile_drawer';
+          else if (link.closest('#hero')) location = 'hero_cta';
+          else if (link.closest('footer')) location = 'footer';
+
+          trackEvent('linkedin_click', {
+            destination: 'linkedin_profile',
+            link_location: location
+          });
+        });
+      });
+
+      // C. Anthropic AI Credentials Verification Clicks Tracking
+      document.querySelectorAll('a[href*="verify.skilljar.com"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          const ariaLabel = link.getAttribute('aria-label') || '';
+          const credentialName = ariaLabel.replace('Verify ', '').replace(' credential on Skilljar', '') || link.textContent.trim();
+          trackEvent('credential_verify_click', {
+            credential_name: credentialName.slice(0, 50),
+            platform: 'Skilljar'
+          });
+        });
+      });
+
+      // D. Interactive Incident Triage Simulator Stepper Tracking
+      document.querySelectorAll('.step-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const stepNum = btn.getAttribute('data-step') || '1';
+          const stepTitle = (btn.querySelector('span:last-child') && btn.querySelector('span:last-child').textContent.trim()) || ('Step ' + stepNum);
+          trackEvent('triage_simulator_step', {
+            step_number: parseInt(stepNum, 10),
+            step_title: stepTitle
+          });
+        });
+      });
+
+      const prevStepBtn = document.getElementById('prev-step-btn');
+      if (prevStepBtn) {
+        prevStepBtn.addEventListener('click', function() {
+          trackEvent('triage_simulator_nav', { direction: 'previous' });
+        });
+      }
+
+      const nextStepBtn = document.getElementById('next-step-btn');
+      if (nextStepBtn) {
+        nextStepBtn.addEventListener('click', function() {
+          trackEvent('triage_simulator_nav', { direction: 'next' });
+        });
+      }
+
+      // E. Tab Matrix Switcher Tracking (Timeline, Skills, Deliverables)
+      document.querySelectorAll('.tab-pill').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          const tabId = tab.getAttribute('data-tab') || tab.id;
+          const cleanTabName = tabId.replace('-view', '').replace('tab-', '');
+          trackEvent('tab_switch', {
+            tab_name: cleanTabName
+          });
+        });
+      });
+
+      // F. Direct Reach: 1-Click Clipboard Email Copy Tracking
+      const copyEmailBtn = document.getElementById('copy-email-btn');
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', function() {
+          trackEvent('email_copy', {
+            action: 'clipboard_copy'
+          });
+        });
+      }
+
+      // G. Theme & GPU Profile Toggles Tracking
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+          trackEvent('theme_toggle', { theme_selected: nextTheme });
+        });
+      }
+      const themeBtnMobile = document.getElementById('theme-toggle-btn-mobile');
+      if (themeBtnMobile) {
+        themeBtnMobile.addEventListener('click', function() {
+          const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
+          trackEvent('theme_toggle', { theme_selected: nextTheme });
+        });
+      }
+
+      const gpuToggleBtn = document.getElementById('toggle-gpu-btn');
+      if (gpuToggleBtn) {
+        gpuToggleBtn.addEventListener('click', function() {
+          const nextMode = (typeof currentProfile !== 'undefined' && currentProfile === 'PRO') ? 'ECO' : 'PRO';
+          trackEvent('gpu_mode_toggle', { mode_selected: nextMode });
+        });
+      }
+
+      // H. Scroll Depth Milestone Milestones (25%, 50%, 75%, 90%)
+      const scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
+      window.addEventListener('scroll', function() {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (docHeight <= 0) return;
+        const scrollPercent = Math.round((window.scrollY / docHeight) * 100);
+
+        [25, 50, 75, 90].forEach(function(m) {
+          if (scrollPercent >= m && !scrollMilestones[m]) {
+            scrollMilestones[m] = true;
+            trackEvent('scroll_depth_milestone', { depth_percent: m });
+          }
+        });
+      }, { passive: true });
+
+      // I. Section In-View Telemetry (Reading & Exploration Tracking)
+      if ('IntersectionObserver' in window) {
+        const sectionsViewed = new Set();
+        const sectionObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+              const secId = entry.target.id;
+              if (secId && !sectionsViewed.has(secId)) {
+                sectionsViewed.add(secId);
+                trackEvent('section_view', { section_id: secId });
+              }
+            }
+          });
+        }, { threshold: 0.25 });
+
+        ['hero', 'about', 'experience', 'certifications', 'triage-simulator', 'contact'].forEach(function(id) {
+          const el = document.getElementById(id);
+          if (el) sectionObserver.observe(el);
+        });
+      }
+    });
+
+    // ----------------------------------------------------------
+    // 7. PRIVACY CONSENT BANNER & CONTROLLER
+    // ----------------------------------------------------------
+    function applyAnalyticsConsent(granted) {
+      try {
+        localStorage.setItem('vc_analytics_consent', granted ? 'granted' : 'denied');
+      } catch (e) {}
+
+      const toast = document.getElementById('analytics-consent-toast');
+      if (toast) {
+        toast.classList.add('opacity-0', 'translate-y-4');
+        setTimeout(function() {
+          toast.classList.add('hidden');
+        }, 320);
+      }
+
+      if (granted) {
+        initGA4(ANALYTICS_CONFIG.GA4_MEASUREMENT_ID);
+        initClarity(ANALYTICS_CONFIG.CLARITY_PROJECT_ID);
+        trackEvent('consent_action', { consent_granted: true });
+      } else {
+        console.log('[Analytics] User selected Essential Only. Analytics cookies paused.');
+      }
+    }
+
+    function checkConsentStatus() {
+      // Check Do-Not-Track
+      if (ANALYTICS_CONFIG.HONOR_DNT && (navigator.doNotTrack === '1' || window.doNotTrack === '1')) {
+        console.log('[Analytics] Do-Not-Track header detected. Respecting user privacy setting.');
+        return;
+      }
+
+      let consent = null;
+      try {
+        consent = localStorage.getItem('vc_analytics_consent');
+      } catch (e) {}
+
+      if (consent === 'granted') {
+        initGA4(ANALYTICS_CONFIG.GA4_MEASUREMENT_ID);
+        initClarity(ANALYTICS_CONFIG.CLARITY_PROJECT_ID);
+      } else if (consent === 'denied') {
+        // User opted out; do nothing
+      } else {
+        // First visit: smoothly present luxury consent toast after short visual settling delay
+        setTimeout(function() {
+          const toast = document.getElementById('analytics-consent-toast');
+          if (toast) {
+            toast.classList.remove('hidden');
+            requestAnimationFrame(function() {
+              toast.classList.remove('translate-y-4', 'opacity-0');
+            });
+          }
+        }, 1200);
+      }
+    }
+
+    // Bind Toast Buttons
+    const consentAcceptBtn = document.getElementById('consent-accept-btn');
+    if (consentAcceptBtn) {
+      consentAcceptBtn.addEventListener('click', function() {
+        applyAnalyticsConsent(true);
+      });
+    }
+
+    const consentDeclineBtn = document.getElementById('consent-decline-btn');
+    if (consentDeclineBtn) {
+      consentDeclineBtn.addEventListener('click', function() {
+        applyAnalyticsConsent(false);
+      });
+    }
+
+    // Reopen Consent Preference from Footer link
+    const reopenConsentBtn = document.getElementById('reopen-consent-btn');
+    if (reopenConsentBtn) {
+      reopenConsentBtn.addEventListener('click', function() {
+        const toast = document.getElementById('analytics-consent-toast');
+        if (toast) {
+          toast.classList.remove('hidden', 'opacity-0', 'translate-y-4');
+          toast.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+    }
+
+    // Execute Initial Privacy Check
+    checkConsentStatus();
   </script>
 
 </body>
