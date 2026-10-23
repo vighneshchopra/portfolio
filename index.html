@@ -2175,23 +2175,40 @@
 
             </div>
 
-            <!-- Subject & Topic Dropdown -->
-            <div class="space-y-2">
-              <label for="topic" class="block text-xs font-mono uppercase tracking-wider text-titanium-light">
-                PURPOSE OF INQUIRY <span class="text-amber-cognac">*</span>
-              </label>
-              <select 
-                id="topic" 
-                name="topic" 
-                required 
-                class="w-full px-4 py-3 rounded-xl bg-carbon-950/90 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-amber-cognac focus:ring-1 focus:ring-amber-cognac transition-all font-mono text-xs"
-              >
-                <option value="Healthcare SaaS / EMR Leadership Role" class="bg-carbon-950">Healthcare SaaS / EMR Leadership Role</option>
-                <option value="Multi-Site Hospital Operations Consulting" class="bg-carbon-950">Multi-Site Hospital Operations Consulting</option>
-                <option value="Malaffi / NABIDH HIE Workflow Inquiry" class="bg-carbon-950">Malaffi / NABIDH HIE Workflow Inquiry</option>
-                <option value="General Professional Networking" class="bg-carbon-950">General Professional Networking</option>
-                <option value="Others" class="bg-carbon-950">Others</option>
-              </select>
+            <!-- Organization & Purpose of Inquiry Row -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+              <div class="space-y-2">
+                <label for="organization" class="block text-xs font-mono uppercase tracking-wider text-titanium-light">
+                  ORGANIZATION / FACILITY <span class="text-titanium-dark font-normal text-[10px]">(Optional)</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="organization" 
+                  name="organization" 
+                  placeholder="e.g. Mediclinic / Cleveland Clinic / HealthTech"
+                  class="w-full px-4 py-3 rounded-xl bg-carbon-950/90 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-amber-cognac focus:ring-1 focus:ring-amber-cognac transition-all placeholder-titanium-dark"
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label for="topic" class="block text-xs font-mono uppercase tracking-wider text-titanium-light">
+                  PURPOSE OF INQUIRY <span class="text-amber-cognac">*</span>
+                </label>
+                <select 
+                  id="topic" 
+                  name="topic" 
+                  required 
+                  class="w-full px-4 py-3 rounded-xl bg-carbon-950/90 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-amber-cognac focus:ring-1 focus:ring-amber-cognac transition-all font-mono text-xs"
+                >
+                  <option value="Healthcare SaaS / EMR Leadership Role" class="bg-carbon-950">Healthcare SaaS / EMR Leadership Role</option>
+                  <option value="Multi-Site Hospital Operations Consulting" class="bg-carbon-950">Multi-Site Hospital Operations Consulting</option>
+                  <option value="Malaffi / NABIDH HIE Workflow Inquiry" class="bg-carbon-950">Malaffi / NABIDH HIE Workflow Inquiry</option>
+                  <option value="General Professional Networking" class="bg-carbon-950">General Professional Networking</option>
+                  <option value="Others" class="bg-carbon-950">Others</option>
+                </select>
+              </div>
+
             </div>
 
             <!-- Message Field -->
@@ -3388,20 +3405,20 @@
       // Track anonymous GA4 conversion event (Strictly Zero-PII)
       trackEvent('contact_form_submit', {
         submission_status: 'success',
-        inquiry_type: formData.get('subject') || 'General Inquiry',
+        inquiry_type: formData.get('topic') || formData.get('subject') || 'General Inquiry',
         has_organization: Boolean(formData.get('organization')),
         source_channel: utmData.source || 'direct'
       });
 
-      // Optional: Permanent private Google Sheet sync if endpoint is configured
+      // Permanent private Google Sheet sync
       if (ANALYTICS_CONFIG.GOOGLE_SHEET_ENDPOINT && ANALYTICS_CONFIG.GOOGLE_SHEET_ENDPOINT.startsWith('http')) {
         try {
           const sheetPayload = {
             timestamp: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }),
             name: formData.get('name') || '',
             email: formData.get('email') || '',
-            organization: formData.get('organization') || '',
-            subject: formData.get('subject') || '',
+            organization: formData.get('organization') || 'Not Specified',
+            subject: formData.get('topic') || formData.get('subject') || 'General Inquiry',
             message: formData.get('message') || '',
             utm_source: utmData.source || 'direct',
             utm_medium: utmData.medium || 'none',
