@@ -3397,7 +3397,7 @@
       if (ANALYTICS_CONFIG.GOOGLE_SHEET_ENDPOINT && ANALYTICS_CONFIG.GOOGLE_SHEET_ENDPOINT.startsWith('http')) {
         try {
           const sheetPayload = {
-            timestamp: new Date().toISOString(),
+            timestamp: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }),
             name: formData.get('name') || '',
             email: formData.get('email') || '',
             organization: formData.get('organization') || '',
