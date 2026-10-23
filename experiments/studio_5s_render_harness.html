@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5.0s Ultra-HD WhatsApp & LinkedIn Studio Render Harness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* 1080x1080 Master Canvas Stage */
+    #master-stage {
+      position: relative;
+      width: 1080px;
+      height: 1080px;
+      background: radial-gradient(circle at 50% 50%, #181310 0%, #0a090c 58%, #000000 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 52px 48px 46px 48px;
+      overflow: hidden;
+    }
+
+    .ambient-atmosphere {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 760px;
+      height: 760px;
+      background: radial-gradient(circle, rgba(217, 119, 54, 0.16) 0%, rgba(245, 158, 11, 0.05) 50%, transparent 72%);
+      filter: blur(85px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Top Identity Header: High Definition, Bigger & Brighter */
+    .identity-header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .identity-name {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: #ffffff;
+      line-height: 1.08;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 0 35px rgba(245, 158, 11, 0.25);
+    }
+    .portfolio-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #fcd34d;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(217, 119, 54, 0.15) 100%);
+      border: 1.5px solid rgba(245, 158, 11, 0.65);
+      padding: 8px 24px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6), 0 0 16px rgba(245, 158, 11, 0.25);
+    }
+    .portfolio-pill::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 10px #f59e0b, 0 0 18px #f59e0b;
+    }
+
+    /* Center 3D Showcase */
+    .viewport-container {
+      position: relative;
+      z-index: 5;
+      width: 730px;
+      height: 730px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -6px 0;
+    }
+
+    #three-canvas {
+      width: 730px;
+      height: 730px;
+      display: block;
+    }
+
+    /* Bottom Action Callout Bar: Bigger, High Legibility, Professional Executive Tone */
+    .action-footer {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+    }
+    .action-pill {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.015em;
+      color: #ffffff;
+      background: rgba(18, 18, 23, 0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1.5px solid rgba(255, 255, 255, 0.28);
+      padding: 13px 34px;
+      border-radius: 9999px;
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.85), 0 0 25px rgba(245, 158, 11, 0.16);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .action-accent {
+      color: #f59e0b;
+      font-weight: 900;
+      font-size: 20px;
+      text-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+    }
+    .action-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #fcd34d;
+      letter-spacing: 0.04em;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(252, 211, 77, 0.25);
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+  <div id="master-stage">
+    <div class="ambient-atmosphere"></div>
+
+    <!-- Top Identity Header -->
+    <div class="identity-header">
+      <h1 class="identity-name">Vighnesh Chopra</h1>
+      <div class="portfolio-pill">Healthcare SaaS &amp; EMR Leader</div>
+    </div>
+
+    <!-- 3D Viewport -->
+    <div class="viewport-container">
+      <canvas id="three-canvas" width="730" height="730"></canvas>
+    </div>
+
+    <!-- Bottom Action Callout Bar -->
+    <div class="action-footer">
+      <div class="action-pill">
+        <span class="action-accent">✦</span>
+        <span>Pause to scan · Official Portfolio</span>
+      </div>
+      <div class="action-link">https://vighneshchopra.github.io/portfolio/</div>
+    </div>
+  </div>
+
+  <script>
+    window.isReady = false;
+
+    const canvas = document.getElementById('three-canvas');
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      preserveDrawingBuffer: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(730, 730);
+    renderer.setPixelRatio(1);
+    renderer.setClearColor(0x000000, 0);
+
+    // Warm Studio Daylight
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.94);
+    scene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xffedd5, 0.52);
+    dirLight.position.set(10, 20, 10);
+    scene.add(dirLight);
+
+    const PLINTH_SIZE = 18;
+    const tiles = 35;
+    const textureLoader = new THREE.TextureLoader();
+    const qrTexture = textureLoader.load('autumn_qr.png', () => {
+      window.isReady = true;
+    });
+    qrTexture.generateMipmaps = true;
+    qrTexture.minFilter = THREE.LinearMipMapLinearFilter;
+
+    // Plinth
+    const plinthGeo = new THREE.BoxGeometry(PLINTH_SIZE, 0.4, PLINTH_SIZE);
+    const plinthMatTop = new THREE.MeshLambertMaterial({ map: qrTexture });
+    const plinthMatSide = new THREE.MeshLambertMaterial({ color: 0xC8C2B8 });
+    const plinth = new THREE.Mesh(plinthGeo, [
+      plinthMatSide, plinthMatSide, plinthMatTop,
+      plinthMatSide, plinthMatSide, plinthMatSide
+    ]);
+    plinth.position.y = -0.2;
+    scene.add(plinth);
+
+    // Authentic QR Surface
+    const qrGeo = new THREE.PlaneGeometry(PLINTH_SIZE, PLINTH_SIZE);
+    const qrMat = new THREE.MeshBasicMaterial({ map: qrTexture, transparent: false, depthWrite: true });
+    const qrPlane = new THREE.Mesh(qrGeo, qrMat);
+    qrPlane.rotation.x = -Math.PI / 2;
+    qrPlane.position.y = 0.01;
+    scene.add(qrPlane);
+
+    // Smooth Cream Background Plane
+    const bgPlaneGeo = new THREE.PlaneGeometry(PLINTH_SIZE * 1.55, PLINTH_SIZE * 1.55);
+    const bgPlaneMat = new THREE.MeshBasicMaterial({ color: 0xF6F1E7, transparent: true, opacity: 0 });
+    const bgPlane = new THREE.Mesh(bgPlaneGeo, bgPlaneMat);
+    bgPlane.rotation.x = -Math.PI / 2;
+    bgPlane.position.y = -0.22;
+    scene.add(bgPlane);
+
+    const treeGroup = new THREE.Group();
+    scene.add(treeGroup);
+    const grassGroup = new THREE.Group();
+    scene.add(grassGroup);
+
+    const animatedLeaves = [];
+
+    // Corner Grass Tufts
+    const grassColors = [0xC29B38, 0xBFA044, 0xA8852C, 0xD4AD42, 0x9B7B24];
+    function createGrassTuft(bladeCount = 8, scale = 1.0) {
+      const tuft = new THREE.Group();
+      const mat = new THREE.MeshLambertMaterial({
+        color: grassColors[Math.floor(Math.random() * grassColors.length)],
+        side: THREE.DoubleSide
+      });
+      for (let i = 0; i < bladeCount; i++) {
+        const shape = new THREE.Shape();
+        shape.moveTo(-0.05 * scale, 0);
+        shape.lineTo(0.05 * scale, 0);
+        shape.lineTo(0, (1.1 + Math.random() * 0.4) * scale);
+        const geo = new THREE.ShapeGeometry(shape);
+        const blade = new THREE.Mesh(geo, mat);
+        blade.rotation.y = (Math.PI * 2 / bladeCount) * i + (Math.random() - 0.5) * 0.3;
+        blade.rotation.x = THREE.MathUtils.degToRad(14 + Math.random() * 22);
+        tuft.add(blade);
+      }
+      return tuft;
+    }
+
+    const step = PLINTH_SIZE / tiles;
+    const originOffset = (tiles - 1) * step * 0.5;
+    const finderCorners = [
+      { r0: 3, r1: 9, c0: 3, c1: 9 },
+      { r0: 3, r1: 9, c0: 25, c1: 31 },
+      { r0: 25, r1: 31, c0: 3, c1: 9 }
+    ];
+    finderCorners.forEach(box => {
+      for (let r = box.r0; r <= box.r1; r += 2) {
+        for (let c = box.c0; c <= box.c1; c += 2) {
+          const gx = c * step - originOffset;
+          const gz = r * step - originOffset;
+          const tuft = createGrassTuft(7, 1.0);
+          tuft.position.set(gx, 0, gz);
+          grassGroup.add(tuft);
+        }
+      }
+    });
+
+    // Autumn Tree Trunk & Branches
+    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x7A481D });
+    const barkMat = new THREE.MeshLambertMaterial({ color: 0x4E2A0E });
+    let currentY = 0;
+    for (let i = 0; i < 10; i++) {
+      const h = 0.88;
+      const r = 0.65 - (i * 0.038);
+      const cyl = new THREE.Mesh(new THREE.CylinderGeometry(r, r + 0.04, h, 9), trunkMat);
+      cyl.position.y = currentY + h / 2;
+      treeGroup.add(cyl);
+
+      const collar = new THREE.Mesh(new THREE.CylinderGeometry(r + 0.03, r + 0.08, 0.11, 9), barkMat);
+      collar.position.y = currentY + h;
+      treeGroup.add(collar);
+      currentY += h + 0.11;
+    }
+
+    for (let i = 0; i < 4; i++) {
+      const angle = (Math.PI / 2) * i + Math.PI / 4;
+      const branch = new THREE.Mesh(new THREE.CylinderGeometry(0.20, 0.35, 6.2, 7), trunkMat);
+      branch.position.set(Math.cos(angle) * 2.2, 8.2, Math.sin(angle) * 2.2);
+      branch.rotation.z = Math.cos(angle) * -0.78;
+      branch.rotation.x = Math.sin(angle) * 0.78;
+      treeGroup.add(branch);
+    }
+    for (let i = 0; i < 8; i++) {
+      const angle = (Math.PI / 4) * i;
+      const sub = new THREE.Mesh(new THREE.CylinderGeometry(0.10, 0.18, 5.2, 5), barkMat);
+      sub.position.set(Math.cos(angle) * 4.6, 9.6, Math.sin(angle) * 4.6);
+      sub.rotation.z = Math.cos(angle) * -1.15;
+      sub.rotation.x = Math.sin(angle) * 1.15;
+      treeGroup.add(sub);
+    }
+
+    // Autumn Foliage
+    const leafColors = [
+      0xF6D06F, 0xFAD980, 0xF3A96A, 0xF5B882, 0xD98845, 0xC27334,
+      0xE06316, 0xC85212, 0xB24511, 0xD16218
+    ];
+    const leafMats = leafColors.map(c => new THREE.MeshLambertMaterial({ color: c, side: THREE.DoubleSide }));
+    const leafGeo = new THREE.CircleGeometry(0.36, 7);
+    leafGeo.scale(1.25, 0.75, 1.0);
+
+    function addLeaf(x, y, z, isFallen = false) {
+      const mat = leafMats[Math.floor(Math.random() * leafMats.length)];
+      const leaf = new THREE.Mesh(leafGeo, mat);
+      leaf.position.set(x, y, z);
+      leaf.rotation.x = -Math.PI / 2 + (isFallen ? 0 : 0.05);
+      leaf.rotation.z = Math.random() * Math.PI;
+      treeGroup.add(leaf);
+      if (!isFallen) {
+        animatedLeaves.push({
+          mesh: leaf,
+          baseX: x,
+          baseY: y,
+          baseZ: z,
+          phase: Math.random() * Math.PI * 2,
+          swayFactor: 0.6 + Math.random() * 0.8
+        });
+      }
+    }
+
+    for (let t = 0; t < 14; t++) {
+      const ty = 7.4 + t * 0.58;
+      const radius = 8.2 - Math.abs(t - 4.5) * 0.72;
+      const count = Math.max(12, 34 + radius * 12);
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.pow(Math.random(), 0.6) * radius;
+        addLeaf(Math.cos(angle) * r, ty + Math.random() * 0.35, Math.sin(angle) * r);
+      }
+    }
+    for (let i = 0; i < 65; i++) {
+      const r = 1.5 + Math.random() * 6.5;
+      const angle = Math.random() * Math.PI * 2;
+      addLeaf(Math.cos(angle) * r, 0.035, Math.sin(angle) * r, true);
+    }
+
+    // ORGANIC FALLING LEAVES (UNDER-CANOPY ORIGIN ONLY: y in [0.5, 6.8])
+    const fallingLeaves = [];
+    const fallingLeafGroup = new THREE.Group();
+    scene.add(fallingLeafGroup);
+
+    const fallLeafGeo = new THREE.CircleGeometry(0.26, 6);
+    fallLeafGeo.scale(1.25, 0.7, 1.0);
+
+    for (let i = 0; i < 30; i++) {
+      const mat = new THREE.MeshLambertMaterial({
+        color: leafColors[i % leafColors.length],
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 0.85
+      });
+      const mesh = new THREE.Mesh(fallLeafGeo, mat);
+
+      const angle = Math.random() * Math.PI * 2;
+      const r = 1.2 + Math.random() * 5.2;
+      
+      const leafData = {
+        mesh,
+        x: Math.cos(angle) * r,
+        y: 0.5 + Math.random() * 6.3, // Strictly below canopy crown
+        z: Math.sin(angle) * r,
+        fallSpeed: 1.1 + Math.random() * 1.3,
+        swaySpeedX: 1.4 + Math.random() * 1.6,
+        swaySpeedZ: 1.1 + Math.random() * 1.5,
+        rotSpeedX: 1.6 + Math.random() * 2.2,
+        rotSpeedY: 1.2 + Math.random() * 2.0,
+        phase: Math.random() * Math.PI * 2
+      };
+      fallingLeafGroup.add(mesh);
+      fallingLeaves.push(leafData);
+    }
+
+    function easeInOutCubic(x) {
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    // EXACT 5.000-SECOND SEAMLESS LOOP (150 frames at 30 fps)
+    // 0.0s - 1.2s: 3D Tree Ambient Sway (p = 0)
+    // 1.2s - 1.9s: Morph to Top-down QR (p = 0 -> 1) [0.7s]
+    // 1.9s - 3.5s: Rock-steady QR Scan Window (p = 1) [1.6s scan window]
+    // 3.5s - 4.2s: Reverse Bloom back to 3D Tree (p = 1 -> 0) [0.7s]
+    // 4.2s - 5.0s: Tree Ambient Sway seamlessly reconnecting with 0.0s [0.8s]
+    window.renderFrame = function(frameIndex, totalFrames = 150) {
+      const totalTime = 5.0;
+      const t = (frameIndex / totalFrames) * totalTime;
+
+      let progress = 0;
+      if (t >= 1.2 && t < 1.9) {
+        progress = easeInOutCubic((t - 1.2) / 0.7);
+      } else if (t >= 1.9 && t < 3.5) {
+        progress = 1.0;
+      } else if (t >= 3.5 && t < 4.2) {
+        progress = 1.0 - easeInOutCubic((t - 3.5) / 0.7);
+      } else {
+        progress = 0.0;
+      }
+
+      // Camera Transition
+      const isoPos = new THREE.Vector3(23, 27, 23);
+      const qrPos = new THREE.Vector3(0, 29.5, 0);
+      camera.position.lerpVectors(isoPos, qrPos, progress);
+
+      const defaultUp = new THREE.Vector3(0, 1, 0);
+      const qrUp = new THREE.Vector3(0, 0, -1);
+      camera.up.lerpVectors(defaultUp, qrUp, progress).normalize();
+
+      const isoTarget = new THREE.Vector3(0, 6.8, 0);
+      const qrTarget = new THREE.Vector3(0, 0, 0);
+      camera.lookAt(new THREE.Vector3().lerpVectors(isoTarget, qrTarget, progress));
+
+      // Tree Fold
+      treeGroup.position.y = -progress * 30;
+      grassGroup.position.y = -progress * 8;
+
+      const fullyFlat = progress >= 0.98;
+      treeGroup.visible = !fullyFlat;
+      grassGroup.visible = !fullyFlat;
+
+      // Canopy Sway (2 harmonic integer waves over 5.0s)
+      if (!fullyFlat) {
+        const wind1 = Math.sin((t / totalTime) * Math.PI * 2 * 2);
+        const wind2 = Math.cos((t / totalTime) * Math.PI * 2 * 3);
+        animatedLeaves.forEach(l => {
+          const sway = (wind1 * 0.22 + wind2 * 0.10) * l.swayFactor;
+          l.mesh.position.x = l.baseX + Math.sin(l.phase) * sway;
+          l.mesh.position.z = l.baseZ + Math.cos(l.phase) * sway;
+          l.mesh.rotation.z = l.mesh.rotation.z + sway * 0.05;
+        });
+      }
+
+      // Falling Leaves (Under-canopy)
+      const leafFade = Math.max(0, 1.0 - progress * 2.5);
+      const maxDrop = 6.8;
+      fallingLeaves.forEach(fl => {
+        const currentY = (fl.y - (t * fl.fallSpeed)) % maxDrop;
+        const normalizedY = (currentY < 0 ? currentY + maxDrop : currentY) + 0.2;
+
+        const swayX = Math.sin((t * fl.swaySpeedX) + fl.phase) * 0.8;
+        const swayZ = Math.cos((t * fl.swaySpeedZ) + fl.phase) * 0.8;
+
+        fl.mesh.position.set(fl.x + swayX, normalizedY, fl.z + swayZ);
+        fl.mesh.rotation.x = (t * fl.rotSpeedX) + fl.phase;
+        fl.mesh.rotation.y = (t * fl.rotSpeedY) + fl.phase;
+        fl.mesh.rotation.z = Math.sin(t * 2.5 + fl.phase) * 0.6;
+
+        fl.mesh.material.opacity = 0.85 * leafFade;
+        fl.mesh.visible = leafFade > 0.01;
+      });
+
+      // Background crossfade into soft cream
+      bgPlaneMat.opacity = Math.max(0, (progress - 0.25) / 0.75);
+
+      renderer.render(scene, camera);
+    };
+  </script>
+</body>
+</html>
