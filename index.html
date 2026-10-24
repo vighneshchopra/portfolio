@@ -3321,6 +3321,40 @@
     }
 
     // ----------------------------------------------------------
+    // 2B. ANONYMOUS SESSION CLUMPING & INTERACTION SEQUENCER
+    // Groups visitor interactions per visit: [SES-XXXX • #1], [SES-XXXX • #2]
+    // ----------------------------------------------------------
+    function getSessionId() {
+      try {
+        let sId = sessionStorage.getItem('vc_session_id');
+        if (!sId) {
+          const randHex = Math.floor(1000 + Math.random() * 9000).toString(16).toUpperCase();
+          sId = 'SES-' + randHex;
+          sessionStorage.setItem('vc_session_id', sId);
+          sessionStorage.setItem('vc_session_seq', '0');
+        }
+        return sId;
+      } catch (e) {
+        return 'SES-LIVE';
+      }
+    }
+
+    function getSessionMeta() {
+      try {
+        const sId = getSessionId();
+        let seq = parseInt(sessionStorage.getItem('vc_session_seq') || '0', 10) + 1;
+        sessionStorage.setItem('vc_session_seq', seq.toString());
+        return {
+          sessionId: sId,
+          sequence: seq,
+          prefix: '[' + sId + ' • #' + seq + ']'
+        };
+      } catch (e) {
+        return { sessionId: 'SES-LIVE', sequence: 1, prefix: '[SES-LIVE • #1]' };
+      }
+    }
+
+    // ----------------------------------------------------------
     // 3. ENGINE INITIALIZATION (GA4 & MICROSOFT CLARITY)
     // ----------------------------------------------------------
     let isGA4Initialized = false;
@@ -3430,28 +3464,36 @@
         'linkedin_click',
         'credential_verify_click',
         'triage_simulator_step',
+        'triage_simulator_nav',
         'tab_switch',
         'contact_form_submit',
         'email_copy',
-        'theme_toggle'
+        'theme_toggle',
+        'gpu_mode_toggle'
       ];
 
       if (highValueEvents.includes(eventName) && ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT) {
         try {
-          let detailLabel = '';
-          if (eventName === 'resume_download') detailLabel = 'Location: ' + (enrichedParams.link_location || 'unknown');
-          else if (eventName === 'linkedin_click') detailLabel = 'Destination: LinkedIn Profile (' + (enrichedParams.link_location || 'body') + ')';
-          else if (eventName === 'credential_verify_click') detailLabel = 'Credential: ' + (enrichedParams.credential_name || 'Anthropic AI');
-          else if (eventName === 'triage_simulator_step') detailLabel = 'Step ' + (enrichedParams.step_number || '') + ': ' + (enrichedParams.step_title || '');
-          else if (eventName === 'tab_switch') detailLabel = 'Switched to: ' + (enrichedParams.tab_name || '');
-          else if (eventName === 'contact_form_submit') detailLabel = 'Inquiry: ' + (enrichedParams.inquiry_type || 'General');
-          else if (eventName === 'theme_toggle') detailLabel = 'Theme: ' + (enrichedParams.theme_selected || '');
-          else if (eventName === 'email_copy') detailLabel = '1-Click Clipboard Email Copy';
+          const sessionMeta = getSessionMeta();
+          let detailText = '';
+          if (eventName === 'resume_download') detailText = 'Downloaded Resume (' + (enrichedParams.link_location || 'body') + ')';
+          else if (eventName === 'linkedin_click') detailText = 'Destination: LinkedIn Profile (' + (enrichedParams.link_location || 'body') + ')';
+          else if (eventName === 'credential_verify_click') detailText = 'Credential: ' + (enrichedParams.credential_name || 'Anthropic AI');
+          else if (eventName === 'triage_simulator_step') detailText = 'Triage Step ' + (enrichedParams.step_number || '') + ': ' + (enrichedParams.step_title || '');
+          else if (eventName === 'triage_simulator_nav') detailText = 'Triage Stepper: ' + (enrichedParams.direction || 'next');
+          else if (eventName === 'tab_switch') detailText = 'Switched to: ' + (enrichedParams.tab_name || '');
+          else if (eventName === 'contact_form_submit') detailText = 'Inquiry: ' + (enrichedParams.inquiry_type || 'General');
+          else if (eventName === 'theme_toggle') detailText = 'Theme: ' + (enrichedParams.theme_selected || '');
+          else if (eventName === 'gpu_mode_toggle') detailText = 'GPU Profile: ' + (enrichedParams.mode_selected || '');
+          else if (eventName === 'email_copy') detailText = '1-Click Clipboard Email Copy';
+          else detailText = enrichedParams.detail || 'User Interaction';
+
+          const prefixedDetail = sessionMeta.prefix + ' ' + detailText;
 
           const analyticsPayload = {
             timestamp: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }),
             eventName: eventName,
-            detail: detailLabel,
+            detail: prefixedDetail,
             utm_source: enrichedParams.traffic_source || 'direct',
             site_theme: enrichedParams.site_theme || 'dark',
             gpu_profile: enrichedParams.gpu_profile || 'PRO',
@@ -3461,26 +3503,27 @@
 
           const payloadString = JSON.stringify(analyticsPayload);
 
-          // 1. Try sendBeacon with text/plain blob (immune to ad-blockers and CORS)
-          let beaconSent = false;
-          if (navigator.sendBeacon) {
-            try {
-              const blob = new Blob([payloadString], { type: 'text/plain;charset=utf-8' });
-              beaconSent = navigator.sendBeacon(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, blob);
-            } catch (bErr) {
-              beaconSent = false;
-            }
-          }
+          // Real-time Console Telemetry Output (Press F12 to inspect)
+          try {
+            console.log(
+              '%c[Analytics Vault]%c ' + eventName + ' %c' + prefixedDetail,
+              'background: #d97736; color: #000; font-weight: bold; border-radius: 3px; padding: 2px 6px;',
+              'color: #d97736; font-weight: bold; padding-left: 6px;',
+              'color: #94a3b8;'
+            );
+          } catch (cErr) {}
 
-          // 2. Fallback to fetch with text/plain no-cors
-          if (!beaconSent) {
-            fetch(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, {
-              method: 'POST',
-              mode: 'no-cors',
-              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-              body: payloadString
-            }).catch(function() {});
-          }
+          // Ad-Blocker Proof Google Sheets Webhook Dispatch via fetch with keepalive & no-cors
+          // (Follows 302 redirects automatically, survives navigation/downloads, and avoids preflight OPTIONS)
+          fetch(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            keepalive: true,
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: payloadString
+          }).catch(function(fErr) {
+            console.warn('[Analytics Vault] Dispatch error:', fErr);
+          });
         } catch (e) {}
       }
     }
@@ -3527,125 +3570,122 @@
     };
 
     // ----------------------------------------------------------
-    // 6. PORTFOLIO INTERACTION TRACKERS (AUTOMATIC BINDINGS)
+    // 6. PORTFOLIO INTERACTION TRACKERS (BULLETPROOF DELEGATION)
     // ----------------------------------------------------------
-    document.addEventListener('DOMContentLoaded', function() {
-      // A. Resume Downloads Tracking
-      document.querySelectorAll('a[href*="Resume"], a[download]').forEach(function(link) {
-        link.addEventListener('click', function() {
+    function initInteractionTrackers() {
+      // Global Click Delegator (Immune to race conditions, child SVGs, and dynamic renders)
+      document.addEventListener('click', function(e) {
+        const target = e.target;
+        if (!target) return;
+
+        // A. Resume Download Clicks
+        const resumeLink = target.closest('a[href*="Resume"], a[download]');
+        if (resumeLink) {
           let location = 'body';
-          if (link.closest('#main-nav')) location = 'navbar';
-          else if (link.closest('#mobile-drawer')) location = 'mobile_drawer';
-          else if (link.closest('#hero')) location = 'hero_cta';
-          else if (link.closest('footer')) location = 'footer';
+          if (resumeLink.closest('#main-nav')) location = 'navbar';
+          else if (resumeLink.closest('#mobile-menu')) location = 'mobile_menu';
+          else if (resumeLink.closest('#hero')) location = 'hero_cta';
+          else if (resumeLink.closest('footer')) location = 'footer';
 
           trackEvent('resume_download', {
             file_name: 'Vighnesh_Chopra_Resume.pdf',
             link_location: location
           });
-        });
-      });
+          return;
+        }
 
-      // B. LinkedIn Profile Clicks Tracking
-      document.querySelectorAll('a[href*="linkedin.com"]').forEach(function(link) {
-        link.addEventListener('click', function() {
+        // B. LinkedIn Profile Clicks
+        const linkedinLink = target.closest('a[href*="linkedin.com"]');
+        if (linkedinLink) {
           let location = 'body';
-          if (link.closest('#main-nav')) location = 'navbar';
-          else if (link.closest('#mobile-drawer')) location = 'mobile_drawer';
-          else if (link.closest('#hero')) location = 'hero_cta';
-          else if (link.closest('footer')) location = 'footer';
+          if (linkedinLink.closest('#main-nav')) location = 'navbar';
+          else if (linkedinLink.closest('#mobile-menu')) location = 'mobile_menu';
+          else if (linkedinLink.closest('#hero')) location = 'hero_cta';
+          else if (linkedinLink.closest('footer')) location = 'footer';
 
           trackEvent('linkedin_click', {
             destination: 'linkedin_profile',
             link_location: location
           });
-        });
-      });
+          return;
+        }
 
-      // C. Anthropic AI Credentials Verification Clicks Tracking
-      document.querySelectorAll('a[href*="verify.skilljar.com"]').forEach(function(link) {
-        link.addEventListener('click', function() {
-          const ariaLabel = link.getAttribute('aria-label') || '';
-          const credentialName = ariaLabel.replace('Verify ', '').replace(' credential on Skilljar', '') || link.textContent.trim();
+        // C. Anthropic AI Credentials Verification Clicks
+        const credLink = target.closest('a[href*="verify.skilljar.com"]');
+        if (credLink) {
+          const ariaLabel = credLink.getAttribute('aria-label') || '';
+          const credentialName = ariaLabel.replace('Verify ', '').replace(' credential on Skilljar', '') || credLink.textContent.trim();
           trackEvent('credential_verify_click', {
             credential_name: credentialName.slice(0, 50),
             platform: 'Skilljar'
           });
-        });
-      });
+          return;
+        }
 
-      // D. Interactive Incident Triage Simulator Stepper Tracking
-      document.querySelectorAll('.step-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          const stepNum = btn.getAttribute('data-step') || '1';
-          const stepTitle = (btn.querySelector('span:last-child') && btn.querySelector('span:last-child').textContent.trim()) || ('Step ' + stepNum);
+        // D. Interactive Incident Triage Simulator Stepper
+        const stepBtn = target.closest('.step-btn');
+        if (stepBtn) {
+          const stepNum = stepBtn.getAttribute('data-step') || '1';
+          const stepTitle = (stepBtn.querySelector('span:last-child') && stepBtn.querySelector('span:last-child').textContent.trim()) || ('Step ' + stepNum);
           trackEvent('triage_simulator_step', {
             step_number: parseInt(stepNum, 10),
             step_title: stepTitle
           });
-        });
-      });
+          return;
+        }
 
-      const prevStepBtn = document.getElementById('prev-step-btn');
-      if (prevStepBtn) {
-        prevStepBtn.addEventListener('click', function() {
+        const prevBtn = target.closest('#prev-step-btn');
+        if (prevBtn) {
           trackEvent('triage_simulator_nav', { direction: 'previous' });
-        });
-      }
+          return;
+        }
 
-      const nextStepBtn = document.getElementById('next-step-btn');
-      if (nextStepBtn) {
-        nextStepBtn.addEventListener('click', function() {
+        const nextBtn = target.closest('#next-step-btn');
+        if (nextBtn) {
           trackEvent('triage_simulator_nav', { direction: 'next' });
-        });
-      }
+          return;
+        }
 
-      // E. Tab Matrix Switcher Tracking (Timeline, Skills, Deliverables)
-      document.querySelectorAll('.tab-pill').forEach(function(tab) {
-        tab.addEventListener('click', function() {
-          const tabId = tab.getAttribute('data-tab') || tab.id;
-          const cleanTabName = tabId.replace('-view', '').replace('tab-', '');
+        // E. Tab Matrix Switcher (Career Timeline / Systems & Standards / Deliverables)
+        const tabBtn = target.closest('.tab-pill');
+        if (tabBtn) {
+          const tabId = tabBtn.getAttribute('data-tab') || tabBtn.id || '';
+          let cleanTabName = 'career_timeline';
+          if (tabId.includes('skills')) cleanTabName = 'systems_and_standards';
+          else if (tabId.includes('deliverables')) cleanTabName = 'deliverables';
+          else if (tabId.includes('timeline')) cleanTabName = 'career_timeline';
+          else cleanTabName = tabBtn.textContent.trim().replace(/^\d+\s*\/\/\s*/, '');
+
           trackEvent('tab_switch', {
             tab_name: cleanTabName
           });
-        });
-      });
+          return;
+        }
 
-      // F. Direct Reach: 1-Click Clipboard Email Copy Tracking
-      const copyEmailBtn = document.getElementById('copy-email-btn');
-      if (copyEmailBtn) {
-        copyEmailBtn.addEventListener('click', function() {
-          trackEvent('email_copy', {
-            action: 'clipboard_copy'
-          });
-        });
-      }
+        // F. 1-Click Clipboard Email Copy
+        const copyEmailBtn = target.closest('#copy-email-btn');
+        if (copyEmailBtn) {
+          trackEvent('email_copy', { action: 'clipboard_copy' });
+          return;
+        }
 
-      // G. Theme & GPU Profile Toggles Tracking
-      const themeBtn = document.getElementById('theme-toggle-btn');
-      if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
+        // G. Theme & GPU Profile Toggles
+        const themeToggle = target.closest('#theme-toggle-btn, #theme-toggle-btn-mobile');
+        if (themeToggle) {
           const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
           trackEvent('theme_toggle', { theme_selected: nextTheme });
-        });
-      }
-      const themeBtnMobile = document.getElementById('theme-toggle-btn-mobile');
-      if (themeBtnMobile) {
-        themeBtnMobile.addEventListener('click', function() {
-          const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
-          trackEvent('theme_toggle', { theme_selected: nextTheme });
-        });
-      }
+          return;
+        }
 
-      const gpuToggleBtn = document.getElementById('toggle-gpu-btn');
-      if (gpuToggleBtn) {
-        gpuToggleBtn.addEventListener('click', function() {
+        const gpuToggle = target.closest('#toggle-gpu-btn');
+        if (gpuToggle) {
           const nextMode = (typeof currentProfile !== 'undefined' && currentProfile === 'PRO') ? 'ECO' : 'PRO';
           trackEvent('gpu_mode_toggle', { mode_selected: nextMode });
-        });
-      }
+          return;
+        }
+      });
 
-      // H. Scroll Depth Milestone Milestones (25%, 50%, 75%, 90%)
+      // Scroll Depth Milestones (25%, 50%, 75%, 90%)
       const scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
       window.addEventListener('scroll', function() {
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -3660,7 +3700,7 @@
         });
       }, { passive: true });
 
-      // I. Section In-View Telemetry (Reading & Exploration Tracking)
+      // Section In-View Telemetry (Reading & Exploration Tracking)
       if ('IntersectionObserver' in window) {
         const sectionsViewed = new Set();
         const sectionObserver = new IntersectionObserver(function(entries) {
@@ -3680,7 +3720,23 @@
           if (el) sectionObserver.observe(el);
         });
       }
-    });
+
+      // Startup Telemetry Log (Press F12 Console to inspect)
+      try {
+        const activeSessionId = getSessionId();
+        console.log(
+          '%c[Analytics Vault]%c Telemetry Engine Active | Session: %c' + activeSessionId + '%c | Google Sheets: %cCONNECTED',
+          'background: #0f172a; color: #d97736; border: 1px solid #d97736; font-weight: bold; border-radius: 4px; padding: 2px 6px;',
+          'color: #94a3b8; font-weight: bold; padding-left: 6px;',
+          'color: #38bdf8; font-weight: bold;',
+          'color: #94a3b8;',
+          'color: #34d399; font-weight: bold;'
+        );
+      } catch (e) {}
+    }
+
+    // Initialize trackers immediately
+    initInteractionTrackers();
 
     // ----------------------------------------------------------
     // 7. PRIVACY CONSENT BANNER & CONTROLLER
