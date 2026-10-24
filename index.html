@@ -3452,16 +3452,21 @@
             utm_source: enrichedParams.traffic_source || 'direct',
             site_theme: enrichedParams.site_theme || 'dark',
             gpu_profile: enrichedParams.gpu_profile || 'PRO',
-            screen: window.innerWidth + 'x' + window.innerHeight,
+            screen: (window.innerWidth || screen.width) + 'x' + (window.innerHeight || screen.height),
             url: window.location.href.split('#')[0] + (window.location.hash || '')
           };
 
-          fetch(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(analyticsPayload)
-          }).catch(function() {});
+          // Use sendBeacon or standard fetch
+          const payloadBlob = new Blob([JSON.stringify(analyticsPayload)], { type: 'text/plain' });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, payloadBlob);
+          } else {
+            fetch(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, {
+              method: 'POST',
+              mode: 'no-cors',
+              body: payloadBlob
+            }).catch(function() {});
+          }
         } catch (e) {}
       }
     }
