@@ -3247,10 +3247,15 @@
       // Real Clarity Project ID for Vighnesh Chopra Portfolio
       CLARITY_PROJECT_ID: 'z232mpdgxj',
 
-      // Google Apps Script Webhook Endpoint for Contact Logging
+      // Google Apps Script Webhook Endpoint for Contact Logging (Sheet 1: Inquiries)
       // Every form submission (Name, Email, Org, Subject, Message, UTM Source)
       // will be automatically appended to your private Google Sheet!
       GOOGLE_SHEET_ENDPOINT: 'https://script.google.com/macros/s/AKfycbxiBg6EOHd1kBrfeI7tgdrDFFZ0OV_rRq3cvJF94PEfaxRRPDWQa7Flw_s9ou2Wa1iiYA/exec',
+
+      // Google Apps Script Webhook Endpoint for Ad-Blocker Proof Analytics (Sheet 2: Portfolio Analytics)
+      // Every high-value engagement (Resume download, LinkedIn click, Credentials, Triage, Tabs)
+      // logs here immune to ad-blockers, Brave shields, and tracker blockers!
+      GOOGLE_ANALYTICS_SHEET_ENDPOINT: 'https://script.google.com/macros/s/AKfycbyBSFvks7s1-HcUBLylw9PQw30BufVSMKPCc8YG4DAj9V6Lvye_L-ItVsQuiKDEvGjd/exec',
 
       // Respect browser "Do Not Track" signal if active
       HONOR_DNT: false
@@ -3412,6 +3417,51 @@
       if (typeof window.clarity === 'function') {
         try {
           window.clarity("event", eventName);
+        } catch (e) {}
+      }
+
+      // 3. Dispatch to Ad-Blocker Proof Google Sheets Analytics Vault
+      // Logs high-value milestones (immune to ad-blockers, Brave Shields, and Firefox protection)
+      const highValueEvents = [
+        'resume_download',
+        'linkedin_click',
+        'credential_verify_click',
+        'triage_simulator_step',
+        'tab_switch',
+        'contact_form_submit',
+        'email_copy',
+        'theme_toggle'
+      ];
+
+      if (highValueEvents.includes(eventName) && ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT) {
+        try {
+          let detailLabel = '';
+          if (eventName === 'resume_download') detailLabel = 'Location: ' + (enrichedParams.link_location || 'unknown');
+          else if (eventName === 'linkedin_click') detailLabel = 'Destination: LinkedIn Profile (' + (enrichedParams.link_location || 'body') + ')';
+          else if (eventName === 'credential_verify_click') detailLabel = 'Credential: ' + (enrichedParams.credential_name || 'Anthropic AI');
+          else if (eventName === 'triage_simulator_step') detailLabel = 'Step ' + (enrichedParams.step_number || '') + ': ' + (enrichedParams.step_title || '');
+          else if (eventName === 'tab_switch') detailLabel = 'Switched to: ' + (enrichedParams.tab_name || '');
+          else if (eventName === 'contact_form_submit') detailLabel = 'Inquiry: ' + (enrichedParams.inquiry_type || 'General');
+          else if (eventName === 'theme_toggle') detailLabel = 'Theme: ' + (enrichedParams.theme_selected || '');
+          else if (eventName === 'email_copy') detailLabel = '1-Click Clipboard Email Copy';
+
+          const analyticsPayload = {
+            timestamp: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }),
+            eventName: eventName,
+            detail: detailLabel,
+            utm_source: enrichedParams.traffic_source || 'direct',
+            site_theme: enrichedParams.site_theme || 'dark',
+            gpu_profile: enrichedParams.gpu_profile || 'PRO',
+            screen: window.innerWidth + 'x' + window.innerHeight,
+            url: window.location.href.split('#')[0] + (window.location.hash || '')
+          };
+
+          fetch(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(analyticsPayload)
+          }).catch(function() {});
         } catch (e) {}
       }
     }
