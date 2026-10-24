@@ -24,17 +24,15 @@
           colors: {
             space: {
               950: '#02040a',
-              900: '#040712',
-              850: '#070b1a',
-              800: '#0b1226',
+              900: '#040714',
+              850: '#070c1e',
+              800: '#0b142d',
             },
             cognac: {
-              50: '#fff7ed',
               400: '#fb923c',
               500: '#f97316',
               600: '#ea580c',
               700: '#c2410c',
-              800: '#9a3412',
             },
             celestial: {
               cyan: '#00e5ff',
@@ -78,19 +76,19 @@
       pointer-events: none;
     }
 
-    /* 21st.dev Frosted Glass Bento Cards */
+    /* 21st.dev Frosted Glass Bento Cards with Enhanced Liquid Depth */
     .glass-bento {
-      background: rgba(7, 11, 26, 0.55);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      background: rgba(8, 14, 34, 0.62);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.14);
       transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
       position: relative;
     }
     .glass-bento:hover {
-      border-color: rgba(217, 119, 54, 0.35);
-      box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(217, 119, 54, 0.12);
+      border-color: rgba(217, 119, 54, 0.42);
+      box-shadow: 0 30px 70px -12px rgba(0, 0, 0, 0.85), 0 0 35px rgba(217, 119, 54, 0.15);
     }
 
     /* Dynamic Cursor Spotlight Effect */
@@ -102,7 +100,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(800px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(217, 119, 54, 0.14), transparent 45%);
+      background: radial-gradient(850px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(217, 119, 54, 0.16), transparent 45%);
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.4s ease;
@@ -135,16 +133,16 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: conic-gradient(from 0deg, transparent 0 340deg, #d97736 360deg);
-      animation: rotateBeam 6s linear infinite;
+      background: conic-gradient(from 0deg, transparent 0 330deg, #d97736 360deg);
+      animation: rotateBeam 5s linear infinite;
     }
     @keyframes rotateBeam {
       100% { transform: rotate(360deg); }
     }
 
-    /* High-Touch Hero Shimmer */
+    /* Kinetic Starlight Typography Shimmer */
     .starlight-shimmer {
-      background: linear-gradient(110deg, #ffffff 0%, #cbd5e1 25%, #f97316 48%, #ffffff 52%, #cbd5e1 75%, #ffffff 100%);
+      background: linear-gradient(110deg, #ffffff 0%, #cbd5e1 22%, #f97316 48%, #ffffff 52%, #cbd5e1 78%, #ffffff 100%);
       background-size: 250% 100%;
       -webkit-background-clip: text;
       background-clip: text;
@@ -156,14 +154,18 @@
       80%, 100% { background-position: -200% 0; }
     }
 
-    /* ECG Telemetry Sparkline Pulse */
-    @keyframes ecgTravel {
-      0% { stroke-dashoffset: 240; }
-      100% { stroke-dashoffset: 0; }
+    /* Terminal Telemetry Cursor */
+    @keyframes blinkCursor {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
-    .ecg-path {
-      stroke-dasharray: 240;
-      animation: ecgTravel 2.8s linear infinite;
+    .term-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 13px;
+      background-color: #f59e0b;
+      vertical-align: middle;
+      animation: blinkCursor 1s infinite;
     }
 
     /* Custom Scrollbar */
@@ -189,8 +191,8 @@
   <!-- ======================================================== -->
   <canvas id="space-canvas"></canvas>
 
-  <!-- Deep Space Ambient Atmospheric Vignette -->
-  <div class="fixed inset-0 pointer-events-none z-[1] bg-[radial-gradient(circle_at_center,transparent_30%,rgba(2,4,10,0.85)_100%)]"></div>
+  <!-- Deep Space Ambient Atmospheric Vignette (Calibrated for OLEDs) -->
+  <div class="fixed inset-0 pointer-events-none z-[1] bg-[radial-gradient(circle_at_center,transparent_35%,rgba(2,4,10,0.78)_100%)]"></div>
 
   <!-- ======================================================== -->
   <!-- 2. FLOATING COMMAND DOCK & TELEMETRY HEADER              -->
@@ -208,7 +210,7 @@
           <div class="text-xs sm:text-sm font-bold tracking-tight text-white group-hover:text-amber-400 transition-colors">
             VIGHNESH CHOPRA
           </div>
-          <div class="text-[10px] font-mono text-slate-400 flex items-center gap-1.5">
+          <div class="text-[10px] font-mono text-slate-300 flex items-center gap-1.5">
             <span>EMR SUPPORT LEAD</span>
             <span>•</span>
             <span class="text-amber-400 font-semibold">&lt;15m P1 SLA</span>
@@ -228,12 +230,20 @@
         <a href="#contact" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all">05 // TRANSMIT</a>
       </nav>
 
-      <!-- Right Action Hub: Resume Download & AI Craft Badge -->
+      <!-- Right Action Hub: Audio Feedback Toggle & Contact -->
       <div class="flex items-center gap-2.5">
+        
+        <!-- Tactile Web Audio Synthesizer Toggle -->
+        <button id="sound-toggle-btn" class="glass-bento px-3 py-2 rounded-2xl text-[11px] font-mono text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="Toggle Tactile Audio Feedback">
+          <span id="sound-icon">🔈</span>
+          <span id="sound-label" class="hidden sm:inline">AUDIO: OFF</span>
+        </button>
+
         <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download="Vighnesh_Chopra_Resume.pdf" class="glass-bento px-4 py-2.5 rounded-2xl text-xs font-mono font-medium hover:border-amber-500/40 text-slate-200 hover:text-white transition-all flex items-center gap-2 shadow-lg">
           <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           <span class="hidden sm:inline">RESUME</span> (PDF)
         </a>
+
         <a href="#contact" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-amber-500/20 active:scale-95 flex items-center gap-1.5">
           <span>CONNECT</span>
           <span>↗</span>
@@ -263,9 +273,9 @@
             <span>AVAILABLE FOR HEALTHCARE SAAS &amp; EMR LEADERSHIP</span>
           </div>
 
-          <!-- Main Kinetic Headline -->
+          <!-- Main Kinetic Headline with Text Decrypt -->
           <div class="space-y-3">
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight font-sans leading-[1.08] starlight-shimmer">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight font-sans leading-[1.08] starlight-shimmer decrypt-title" data-text="VIGHNESH CHOPRA">
               VIGHNESH CHOPRA
             </h1>
             <div class="text-xl sm:text-2xl lg:text-3xl font-mono text-amber-400 font-bold tracking-tight flex items-center gap-2">
@@ -294,7 +304,7 @@
             </a>
           </div>
 
-          <!-- 4-Card Bento Metric Grid with 21st.dev Spotlight -->
+          <!-- 4-Card Bento Metric Grid with Live Real-Time ECG Waveform -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-white/10">
             
             <div class="glass-bento spotlight-card p-4 rounded-2xl text-center sm:text-left">
@@ -315,13 +325,12 @@
               <div class="text-[10px] text-slate-400 mt-0.5">Feb 2019 – Present Tenured</div>
             </div>
 
-            <div class="glass-bento spotlight-card p-4 rounded-2xl text-center sm:text-left">
+            <!-- SLA Metric Card with Live Real-Time Canvas ECG Cardiac Waveform -->
+            <div class="glass-bento spotlight-card p-4 rounded-2xl text-center sm:text-left relative overflow-hidden">
               <div class="flex items-center justify-between">
                 <div class="text-3xl font-black font-mono text-white tracking-tight">&lt;15m</div>
-                <!-- Animated ECG Sparkline -->
-                <svg class="w-12 h-6 text-amber-400 hidden sm:block overflow-visible" viewBox="0 0 60 24" fill="none">
-                  <path class="ecg-path" d="M0 12 L16 12 L20 4 L24 20 L28 8 L32 15 L36 12 L60 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <!-- Real-Time HTML5 Canvas ECG Monitor -->
+                <canvas id="live-ecg-canvas" width="60" height="24" class="hidden sm:block opacity-90"></canvas>
               </div>
               <div class="text-[11px] font-mono text-amber-400 font-bold uppercase mt-1">P1 SLA Response</div>
               <div class="text-[10px] text-slate-400 mt-0.5">98.5% Compliance</div>
@@ -380,7 +389,7 @@
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
           <span>OPERATIONAL PHILOSOPHY</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white decrypt-title" data-text="BRIDGING CLINICAL REALITY &amp; ENGINEERING SYSTEMS">
           BRIDGING CLINICAL REALITY &amp; ENGINEERING SYSTEMS
         </h2>
         <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -434,7 +443,7 @@
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
           <span>CAREER TRAJECTORY</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white decrypt-title" data-text="7+ YEARS OF HIGH-STAKES HEALTHCARE INFORMATICS">
           7+ YEARS OF HIGH-STAKES HEALTHCARE INFORMATICS
         </h2>
         <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -503,7 +512,7 @@
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
           <span>VERIFIED CREDENTIALS</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white decrypt-title" data-text="ANTHROPIC AI ACADEMY VERIFICATIONS">
           ANTHROPIC AI ACADEMY VERIFICATIONS
         </h2>
         <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -566,7 +575,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- SCREEN 5: THE INCIDENT COMMAND DECK (TRIAGE SIMULATOR)   -->
+    <!-- SCREEN 5: THE INCIDENT COMMAND DECK (TRIAGE SIMULATOR 2.0) -->
     <!-- ======================================================== -->
     <section id="triage-simulator" class="space-y-12">
       
@@ -574,7 +583,7 @@
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
           <span>INTERACTIVE OPERATIONAL SCENARIO</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white decrypt-title" data-text="THE ANATOMY OF A RAPID P1 RESOLUTION">
           THE ANATOMY OF A RAPID P1 RESOLUTION
         </h2>
         <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -586,7 +595,7 @@
       <div class="glass-bento border-beam-container p-8 sm:p-12 rounded-3xl relative overflow-hidden">
         <div class="border-beam"></div>
 
-        <!-- 4-Phase Stepper Navigation Dock (Touch targets >= 52px) -->
+        <!-- 4-Phase Stepper Navigation Dock (Touch targets >= 54px) -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 pb-8 border-b border-white/10" role="tablist">
           <button class="triage-step-btn active min-h-[54px] p-3 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-left transition-all touch-manipulation cursor-pointer active:scale-[0.98]" data-step="1">
             <span class="text-[10px] font-mono text-amber-400 block font-bold">PHASE 01</span>
@@ -607,7 +616,7 @@
         </div>
 
         <!-- Dynamic Phase Display Box -->
-        <div id="sim-content" class="min-h-[200px] flex flex-col justify-between space-y-6">
+        <div id="sim-content" class="min-h-[220px] flex flex-col justify-between space-y-6">
           <div class="space-y-4">
             <div class="flex items-center gap-3">
               <span id="sim-tag" class="px-3 py-1 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 font-mono text-xs font-bold">
@@ -621,8 +630,19 @@
             <p id="sim-desc" class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
               Four senior physicians report that clicking "Authorize Prescription" hangs indefinitely with a loading spinner, preventing outpatient pharmacy dispensation. 45 patients are waiting in the clinic reception.
             </p>
-            <div id="sim-action" class="p-4 rounded-2xl bg-slate-950/80 border border-white/10 font-mono text-xs text-slate-200 leading-relaxed">
+            <div id="sim-action" class="p-4 rounded-2xl bg-slate-950/85 border border-white/10 font-mono text-xs text-slate-200 leading-relaxed">
               <strong class="text-amber-400">Initial Operational Response:</strong> Vighnesh acknowledges the incident ticket within 3 minutes (SLA target: 15 min), identifies that multiple physicians are experiencing the exact same freeze, and immediately issues a standardized offline order workaround to nursing supervisors to keep the patient queue moving.
+            </div>
+
+            <!-- Real-Time Mission Console Terminal Log -->
+            <div class="p-3.5 rounded-xl bg-black/60 border border-white/[0.08] font-mono text-[11px] text-slate-300 space-y-1">
+              <div class="text-slate-500 flex items-center justify-between border-b border-white/[0.06] pb-1 mb-1.5">
+                <span>INCIDENT_TELEMETRY_LOG // STREAM_01</span>
+                <span class="text-emerald-400">STATUS: LIVE</span>
+              </div>
+              <div id="sim-terminal-log" class="text-amber-300">
+                &gt; [09:14:12 UTC] P1_INGEST: 4x Outpatient OPD clinics reporting Rx Authorization deadlock.
+              </div>
             </div>
           </div>
 
@@ -653,7 +673,7 @@
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
           <span>GET IN TOUCH</span>
         </div>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white decrypt-title" data-text="LET'S CONNECT">
           LET'S CONNECT
         </h2>
         <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -711,7 +731,7 @@
         <span class="text-amber-400">⚡</span>
         <div>
           <span class="text-white font-semibold">Architected &amp; Directed by Vighnesh Chopra</span>
-          <span class="text-slate-400 block text-[10px]">Orchestrated via Autonomous AI Agent Pair-Programming &bull; 60fps WebGL Cosmos Engine</span>
+          <span class="text-slate-400 block text-[10px]">Orchestrated via Autonomous AI Agent Pair-Programming &bull; 60fps WebGL Cosmos &amp; Procedural Planetary Shaders</span>
         </div>
       </div>
 
@@ -726,7 +746,7 @@
   </main>
 
   <!-- ======================================================== -->
-  <!-- 3. THREE.JS PROCEDURAL VOLUMETRIC SPACE ENGINE            -->
+  <!-- 3. THREE.JS PROCEDURAL VOLUMETRIC SPACE & PLANET ENGINE   -->
   <!-- ======================================================== -->
   <script>
     // ----------------------------------------------------------
@@ -764,7 +784,196 @@
     }
 
     // ----------------------------------------------------------
-    // B. THREE.JS PROCEDURAL VOLUMETRIC SPACE & NEBULA ENGINE
+    // B. TACTILE WEB AUDIO API SYNTHESIZER
+    // ----------------------------------------------------------
+    let audioCtx = null;
+    let isSoundEnabled = false;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTactileClick() {
+      if (!isSoundEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1400, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(700, audioCtx.currentTime + 0.015);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.015);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.016);
+      } catch (err) {}
+    }
+
+    const soundToggleBtn = document.getElementById('sound-toggle-btn');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundLabel = document.getElementById('sound-label');
+
+    if (soundToggleBtn) {
+      soundToggleBtn.addEventListener('click', () => {
+        initAudio();
+        isSoundEnabled = !isSoundEnabled;
+        if (isSoundEnabled) {
+          soundIcon.textContent = '🔊';
+          soundLabel.textContent = 'AUDIO: ON';
+          soundToggleBtn.className = 'glass-bento px-3 py-2 rounded-2xl text-[11px] font-mono text-amber-400 border-amber-500/40 transition-all flex items-center gap-1.5 shadow-lg';
+          playTactileClick();
+        } else {
+          soundIcon.textContent = '🔈';
+          soundLabel.textContent = 'AUDIO: OFF';
+          soundToggleBtn.className = 'glass-bento px-3 py-2 rounded-2xl text-[11px] font-mono text-slate-300 hover:text-white transition-all flex items-center gap-1.5';
+        }
+      });
+    }
+
+    // Bind tactile sound to all interactive buttons
+    document.querySelectorAll('button, a').forEach(el => {
+      el.addEventListener('click', () => playTactileClick());
+    });
+
+    // ----------------------------------------------------------
+    // C. REAL-TIME CANVAS ECG WAVEFORM MONITOR
+    // ----------------------------------------------------------
+    const ecgCanvas = document.getElementById('live-ecg-canvas');
+    if (ecgCanvas) {
+      const ecgCtx = ecgCanvas.getContext('2d');
+      const ecgW = ecgCanvas.width;
+      const ecgH = ecgCanvas.height;
+      let ecgX = 0;
+      let ecgHistory = new Array(ecgW).fill(ecgH / 2);
+
+      // P-Q-R-S-T cardiac cycle generator
+      function getEcgY(t) {
+        const cycle = t % 1.2;
+        const mid = ecgH / 2;
+        if (cycle < 0.1) return mid - Math.sin(cycle / 0.1 * Math.PI) * 2; // P wave
+        if (cycle >= 0.15 && cycle < 0.18) return mid + 2; // Q dip
+        if (cycle >= 0.18 && cycle < 0.23) return mid - 10; // R spike
+        if (cycle >= 0.23 && cycle < 0.27) return mid + 4; // S dip
+        if (cycle >= 0.35 && cycle < 0.5) return mid - Math.sin((cycle - 0.35) / 0.15 * Math.PI) * 3; // T wave
+        return mid;
+      }
+
+      let ecgTimer = 0;
+      function renderEcg() {
+        requestAnimationFrame(renderEcg);
+        if (document.hidden) return;
+
+        ecgTimer += 0.018;
+        const y = getEcgY(ecgTimer);
+        ecgHistory[ecgX] = y;
+
+        ecgCtx.clearRect(0, 0, ecgW, ecgH);
+        ecgCtx.beginPath();
+        ecgCtx.strokeStyle = '#d97736';
+        ecgCtx.lineWidth = 1.6;
+        ecgCtx.lineJoin = 'round';
+
+        for (let i = 0; i < ecgW; i++) {
+          const idx = (ecgX + 1 + i) % ecgW;
+          const px = i;
+          const py = ecgHistory[idx];
+          if (i === 0) ecgCtx.moveTo(px, py);
+          else ecgCtx.lineTo(px, py);
+        }
+        ecgCtx.stroke();
+
+        // Lead indicator dot
+        ecgCtx.beginPath();
+        ecgCtx.arc(ecgW - 1, y, 2, 0, Math.PI * 2);
+        ecgCtx.fillStyle = '#f59e0b';
+        ecgCtx.fill();
+
+        ecgX = (ecgX + 1) % ecgW;
+      }
+      renderEcg();
+    }
+
+    // ----------------------------------------------------------
+    // D. TEXT SCRAMBLE / DECRYPT KINETIC EFFECT
+    // ----------------------------------------------------------
+    class TextDecrypt {
+      constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+      }
+      setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        for (let i = 0; i < length; i++) {
+          const from = oldText[i] || '';
+          const to = newText[i] || '';
+          const start = Math.floor(Math.random() * 14);
+          const end = start + Math.floor(Math.random() * 14);
+          this.queue.push({ from, to, start, end });
+        }
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+      }
+      update() {
+        let output = '';
+        let complete = 0;
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+          let { from, to, start, end, char } = this.queue[i];
+          if (this.frame >= end) {
+            complete++;
+            output += to;
+          } else if (this.frame >= start) {
+            if (!char || Math.random() < 0.28) {
+              char = this.randomChar();
+              this.queue[i].char = char;
+            }
+            output += `<span class="text-amber-400 font-mono">${char}</span>`;
+          } else {
+            output += from;
+          }
+        }
+        this.el.innerHTML = output;
+        if (complete === this.queue.length) {
+          this.resolve();
+        } else {
+          this.frameRequest = requestAnimationFrame(this.update);
+          this.frame++;
+        }
+      }
+      randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+      }
+    }
+
+    // Initialize decrypt on title elements
+    document.querySelectorAll('.decrypt-title').forEach(el => {
+      const orig = el.getAttribute('data-text') || el.innerText;
+      const scrambler = new TextDecrypt(el);
+      let animated = false;
+      window.addEventListener('scroll', () => {
+        if (!animated) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
+            animated = true;
+            scrambler.setText(orig);
+          }
+        }
+      }, { passive: true });
+    });
+
+    // ----------------------------------------------------------
+    // E. THREE.JS PROCEDURAL VOLUMETRIC SPACE, PLANET & FLARE ENGINE
     // ----------------------------------------------------------
     const canvas = document.getElementById('space-canvas');
     const renderer = new THREE.WebGLRenderer({
@@ -777,7 +986,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2500);
     camera.position.z = 400;
 
     // Responsive Canvas Resizing
@@ -791,7 +1000,7 @@
     }
     window.addEventListener('resize', onWindowResize, { passive: true });
 
-    // 1. Procedural Deep Cosmic Nebula Shader Plane
+    // 1. Procedural Deep Cosmic Nebula Shader (Calibrated for OLED mobile dynamic range)
     const nebulaVertexShader = `
       varying vec2 vUv;
       void main() {
@@ -855,7 +1064,6 @@
         return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
       }
 
-      // Fractional Brownian Motion (fBm)
       float fbm(vec3 p) {
         float total = 0.0;
         float amp = 0.55;
@@ -882,23 +1090,22 @@
 
         float n1 = fbm(pos);
         float n2 = fbm(pos + vec3(n1 * 1.5, u_time * 0.02, 0.5));
-        float cloud = smoothstep(-0.2, 0.8, n2);
 
-        // Cosmic Palette: Deep Void, Celestial Cyan, and Interstellar Warm Amber
-        vec3 voidColor = vec3(0.008, 0.015, 0.04);
-        vec3 indigoColor = vec3(0.04, 0.08, 0.22);
-        vec3 cyanColor = vec3(0.0, 0.45, 0.65);
-        vec3 amberColor = vec3(0.85, 0.46, 0.21); // Burnt Cognac Amber
-        vec3 goldColor = vec3(0.96, 0.62, 0.04);
+        // Enriched Celestial Palette (Lightened mid-tone blues for OLED mobile clarity)
+        vec3 voidColor = vec3(0.012, 0.022, 0.05);   // Elevated void base, prevents dark crush
+        vec3 indigoColor = vec3(0.07, 0.14, 0.36); // Luminous deep cobalt blue
+        vec3 cyanColor = vec3(0.0, 0.65, 0.95);     // Electric azure ion stream
+        vec3 amberColor = vec3(0.88, 0.46, 0.20);   // Radiant warm starlight cognac
+        vec3 goldColor = vec3(1.0, 0.75, 0.18);
 
-        vec3 color = mix(voidColor, indigoColor, smoothstep(0.1, 0.6, n1));
-        color = mix(color, cyanColor, smoothstep(0.4, 0.85, n2) * 0.65);
-        color = mix(color, amberColor, smoothstep(0.55, 0.95, n1 * n2) * 0.85);
+        vec3 color = mix(voidColor, indigoColor, smoothstep(0.08, 0.55, n1));
+        color = mix(color, cyanColor, smoothstep(0.35, 0.82, n2) * 0.72);
+        color = mix(color, amberColor, smoothstep(0.5, 0.92, n1 * n2) * 0.85);
 
-        // Add soft starlight glow centers
-        color += goldColor * pow(max(0.0, n2), 4.0) * 0.4;
+        // Soft starlight core glow
+        color += goldColor * pow(max(0.0, n2), 3.8) * 0.42;
 
-        gl_FragColor = vec4(color, 0.92);
+        gl_FragColor = vec4(color, 0.94);
       }
     `;
 
@@ -914,17 +1121,134 @@
       depthTest: false
     });
 
-    // Fullscreen quad for nebula
     const quadGeo = new THREE.PlaneGeometry(2, 2);
     const nebulaMesh = new THREE.Mesh(quadGeo, nebulaMaterial);
     scene.add(nebulaMesh);
 
-    // 2. Relativistic 3D Starfield Geometry (2,500 Stars in Z-Depth)
+    // 2. [EASTER EGG] Procedural Gas Giant & Fresnel Atmospheric Halo
+    const planetGroup = new THREE.Group();
+    // Positioned deep in upper right space coordinates
+    planetGroup.position.set(240, 95, -420);
+    scene.add(planetGroup);
+
+    // Gas Giant Sphere with Procedural Cloud Band Texture
+    function createGasGiantTexture() {
+      const c = document.createElement('canvas');
+      c.width = 512; c.height = 256;
+      const ctx = c.getContext('2d');
+      // Gas giant atmospheric bands
+      const grad = ctx.createLinearGradient(0, 0, 0, 256);
+      grad.addColorStop(0.0, '#0a163a');
+      grad.addColorStop(0.2, '#182f6a');
+      grad.addColorStop(0.35, '#3b2245');
+      grad.addColorStop(0.5, '#7c3b24'); // Copper band
+      grad.addColorStop(0.65, '#b45309'); // Amber band
+      grad.addColorStop(0.8, '#1e293b');
+      grad.addColorStop(1.0, '#0a163a');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
+
+      // Add subtle turbulence bands
+      for (let i = 0; i < 40; i++) {
+        ctx.fillStyle = (i % 2 === 0) ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.1)';
+        const y = Math.random() * 256;
+        ctx.fillRect(0, y, 512, Math.random() * 6 + 2);
+      }
+      return new THREE.CanvasTexture(c);
+    }
+
+    const planetGeo = new THREE.SphereGeometry(42, 64, 64);
+    const planetMat = new THREE.MeshStandardMaterial({
+      map: createGasGiantTexture(),
+      roughness: 0.7,
+      metalness: 0.1
+    });
+    const planetMesh = new THREE.Mesh(planetGeo, planetMat);
+    planetGroup.add(planetMesh);
+
+    // Fresnel Atmospheric Rim Wrap (BackSide Blending)
+    const atmosphereGeo = new THREE.SphereGeometry(45.5, 64, 64);
+    const atmosphereMat = new THREE.ShaderMaterial({
+      vertexShader: `
+        varying vec3 vNormal;
+        void main() {
+          vNormal = normalize(normalMatrix * normal);
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        varying vec3 vNormal;
+        void main() {
+          float intensity = pow(0.62 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.6);
+          vec3 rimColor = vec3(0.0, 0.85, 1.0); // Cyan atmospheric rim
+          gl_FragColor = vec4(rimColor, 1.0) * intensity;
+        }
+      `,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide,
+      transparent: true,
+      depthWrite: false
+    });
+    const atmosphereMesh = new THREE.Mesh(atmosphereGeo, atmosphereMat);
+    planetGroup.add(atmosphereMesh);
+
+    // Planetary Concentric Ice Rings
+    const ringGeo = new THREE.RingGeometry(54, 88, 80);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.45,
+      depthWrite: false
+    });
+    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+    ringMesh.rotation.x = Math.PI * 0.42;
+    ringMesh.rotation.y = Math.PI * 0.12;
+    planetGroup.add(ringMesh);
+
+    // Rare Coronal Flare Ring Mesh (Pulsates every 75-90 seconds)
+    const flareGeo = new THREE.RingGeometry(44, 110, 64);
+    const flareMat = new THREE.MeshBasicMaterial({
+      color: 0xf59e0b,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.0,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const flareMesh = new THREE.Mesh(flareGeo, flareMat);
+    flareMesh.position.z = -1;
+    planetGroup.add(flareMesh);
+
+    let flareActive = false;
+    function triggerCoronalFlare() {
+      if (flareActive) return;
+      flareActive = true;
+      gsap.to(flareMat, {
+        opacity: 0.85,
+        duration: 2.2,
+        ease: 'power2.out',
+        onComplete: () => {
+          gsap.to(flareMat, {
+            opacity: 0.0,
+            duration: 3.5,
+            ease: 'power2.in',
+            onComplete: () => { flareActive = false; }
+          });
+        }
+      });
+    }
+
+    // Trigger flare every 80 seconds
+    setInterval(() => {
+      if (!document.hidden) triggerCoronalFlare();
+    }, 80000);
+
+    // 3. Relativistic 3D Starfield Geometry (2,500 Stars in Z-Depth)
     const starCount = 2500;
     const starGeo = new THREE.BufferGeometry();
     const starPositions = new Float32Array(starCount * 3);
     const starColors = new Float32Array(starCount * 3);
-    const starSizes = new Float32Array(starCount);
 
     const cWhite = new THREE.Color(0xffffff);
     const cAmber = new THREE.Color(0xf59e0b);
@@ -935,7 +1259,6 @@
       starPositions[i * 3 + 1] = (Math.random() - 0.5) * 1600;
       starPositions[i * 3 + 2] = (Math.random() - 0.5) * 1200;
 
-      // Color spectral distribution
       const rand = Math.random();
       let col = cWhite;
       if (rand > 0.75) col = cAmber;
@@ -944,14 +1267,11 @@
       starColors[i * 3 + 0] = col.r;
       starColors[i * 3 + 1] = col.g;
       starColors[i * 3 + 2] = col.b;
-
-      starSizes[i] = Math.random() * 2.2 + 0.8;
     }
 
     starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
     starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
 
-    // Star point texture with soft Gaussian halo
     function createStarTexture() {
       const c = document.createElement('canvas');
       c.width = 32; c.height = 32;
@@ -978,7 +1298,7 @@
     const starField = new THREE.Points(starGeo, starMaterial);
     scene.add(starField);
 
-    // 3. Interactive Shooting Star / Meteor Engine
+    // 4. Interactive Shooting Star / Meteor Engine
     const meteors = [];
     function spawnMeteor() {
       const meteorGeo = new THREE.BufferGeometry();
@@ -1014,10 +1334,10 @@
 
     setInterval(() => {
       if (document.hidden) return;
-      if (Math.random() > 0.3) spawnMeteor();
-    }, 3800);
+      if (Math.random() > 0.35) spawnMeteor();
+    }, 4200);
 
-    // 4. Mouse Move & Parallax Tracking
+    // 5. Mouse Move & Parallax Tracking
     let targetMouseX = window.innerWidth / 2;
     let targetMouseY = window.innerHeight / 2;
     let currentMouseX = targetMouseX;
@@ -1036,8 +1356,7 @@
       });
     }, { passive: true });
 
-    // 5. Main 60fps Animation Loop
-    let lastTime = 0;
+    // 6. Main 60fps Animation Loop
     let isVisible = true;
     document.addEventListener('visibilitychange', () => {
       isVisible = !document.hidden;
@@ -1047,9 +1366,6 @@
       requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      const delta = (time - lastTime) * 0.001;
-      lastTime = time;
-
       // Smooth mouse lerping
       currentMouseX += (targetMouseX - currentMouseX) * 0.05;
       currentMouseY += (targetMouseY - currentMouseY) * 0.05;
@@ -1057,6 +1373,10 @@
       // Update nebula uniforms
       nebulaMaterial.uniforms.u_time.value = time * 0.0006;
       nebulaMaterial.uniforms.u_mouse.value.set(currentMouseX, window.innerHeight - currentMouseY);
+
+      // Rotate planet slowly
+      planetMesh.rotation.y = time * 0.00015;
+      planetGroup.rotation.y = time * 0.00008;
 
       // Rotate starfield slowly
       starField.rotation.y = time * 0.00004;
@@ -1089,7 +1409,7 @@
     requestAnimationFrame(animate);
 
     // ----------------------------------------------------------
-    // C. INTERACTIVE TRIAGE SIMULATOR MECHANICS
+    // F. INTERACTIVE TRIAGE SIMULATOR 2.0 (MISSION CONSOLE)
     // ----------------------------------------------------------
     const simPhases = [
       {
@@ -1098,7 +1418,8 @@
         time: '09:14 AM — Outpatient Hospital Branch',
         title: 'Prescription Workflow Freeze During Peak OPD Rush',
         desc: 'Four senior physicians report that clicking "Authorize Prescription" hangs indefinitely with a loading spinner, preventing outpatient pharmacy dispensation. 45 patients are waiting in the clinic reception.',
-        action: '<strong class="text-amber-400">Initial Operational Response:</strong> Vighnesh acknowledges the incident ticket within 3 minutes (SLA target: 15 min), identifies that multiple physicians are experiencing the exact same freeze, and immediately issues a standardized offline order workaround to nursing supervisors to keep the patient queue moving.'
+        action: '<strong class="text-amber-400">Initial Operational Response:</strong> Vighnesh acknowledges the incident ticket within 3 minutes (SLA target: 15 min), identifies that multiple physicians are experiencing the exact same freeze, and immediately issues a standardized offline order workaround to nursing supervisors to keep the patient queue moving.',
+        termLog: '> [09:14:12 UTC] P1_INGEST: 4x Outpatient OPD clinics reporting Rx Authorization deadlock.\n> [09:16:05 UTC] MITIGATION: Standardized offline order protocol issued to nursing staff.'
       },
       {
         tag: 'HIGH SEVERITY (P2)',
@@ -1106,7 +1427,8 @@
         time: '09:19 AM — Dedicated Staging Mirror',
         title: 'Workflow Simulation & Defect Verification in Staging',
         desc: 'Vighnesh replicates the physician workflow in the staging environment. He isolates the failure to a corrupted drug interaction database check triggered specifically when prescribing pediatric antibiotic suspensions alongside antihistamines.',
-        action: '<strong class="text-amber-400">Root-Cause Isolation:</strong> By inspecting the browser console and application event logs, Vighnesh captures a 504 Gateway Timeout on the external drug-interaction microservice, confirming this is not a hospital network issue.'
+        action: '<strong class="text-amber-400">Root-Cause Isolation:</strong> By inspecting the browser console and application event logs, Vighnesh captures a 504 Gateway Timeout on the external drug-interaction microservice, confirming this is not a hospital network issue.',
+        termLog: '> [09:19:42 UTC] TELEMETRY: 504 Gateway Timeout isolated on drug-interaction microservice.\n> [09:22:18 UTC] TRACE_CAPTURED: Pediatric suspension drug ID 4088 deadlocked table lock.'
       },
       {
         tag: 'ENGINEERING ESCALATION (P1)',
@@ -1114,7 +1436,8 @@
         time: '09:26 AM — Engineering Sprint Bridge',
         title: 'Escalation & Defect Telemetry for Software Engineering',
         desc: 'Rather than submitting a vague "EMR is broken" ticket, Vighnesh compiles a detailed defect package: exact steps to reproduce, network request/response headers, affected medication IDs, and a screen recording.',
-        action: '<strong class="text-amber-400">Development Bridge:</strong> Because the reproduction steps are completely mapped, developers isolate the root code bottleneck immediately and deploy a hotfix to bypass the deadlocked table check within 22 minutes.'
+        action: '<strong class="text-amber-400">Development Bridge:</strong> Because the reproduction steps are completely mapped, developers isolate the root code bottleneck immediately and deploy a hotfix to bypass the deadlocked table check within 22 minutes.',
+        termLog: '> [09:26:10 UTC] DEV_BRIDGE: Defect reproduction telemetry pushed to core sprint sprint-142.\n> [09:48:30 UTC] HOTFIX_STAGED: Engineering bypass patch validated in staging mirror.'
       },
       {
         tag: 'INCIDENT RESOLVED (POST-MORTEM)',
@@ -1122,7 +1445,8 @@
         time: '01:00 PM — Full Multi-Site Verification',
         title: 'Post-Release Verification & Operational Closure',
         desc: 'Following patch deployment during the low-traffic afternoon rotation, Vighnesh conducts end-to-end verification across multiple test accounts, confirms with outpatient physicians that responsiveness is fully restored, and verifies normal operation across all facility branches.',
-        action: '<strong class="text-amber-400">Permanent Governance:</strong> Vighnesh updates the clinic support knowledge base with symptom indicators and standard operating procedures (SOPs) for rapid recognition in future releases. Incident closed with 100% SLA compliance.'
+        action: '<strong class="text-amber-400">Permanent Governance:</strong> Vighnesh updates the clinic support knowledge base with symptom indicators and standard operating procedures (SOPs) for rapid recognition in future releases. Incident closed with 100% SLA compliance.',
+        termLog: '> [13:00:00 UTC] VERIFIED: Hotfix deployed; 100% SLA compliance recorded across 30+ sites.\n> [13:15:00 UTC] POST_MORTEM: Clinic support knowledge base SOP-88 updated and closed.'
       }
     ];
 
@@ -1143,6 +1467,7 @@
       document.getElementById('sim-title').textContent = data.title;
       document.getElementById('sim-desc').textContent = data.desc;
       document.getElementById('sim-action').innerHTML = data.action;
+      document.getElementById('sim-terminal-log').textContent = data.termLog;
 
       stepBtns.forEach((btn, i) => {
         if (i + 1 === idx) {
@@ -1189,7 +1514,7 @@
     }
 
     // ----------------------------------------------------------
-    // D. 1-CLICK EMAIL CLIPBOARD DISPATCH
+    // G. 1-CLICK EMAIL CLIPBOARD DISPATCH
     // ----------------------------------------------------------
     const copyBtn = document.getElementById('copy-email-btn');
     if (copyBtn) {
