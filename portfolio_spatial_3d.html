@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#02040a] text-slate-100 selection:bg-amber-500/30 selection:text-amber-200">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Vighnesh Chopra | Healthcare SaaS &amp; EMR Support Lead</title>
+  <meta name="description" content="Senior Healthcare SaaS & EMR Support Lead directing mission-critical L1/L2 clinical application continuity across 30+ hospital networks in UAE & globally. The Clinical-to-Engineering Bridge.">
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            space: {
+              950: '#02040a',
+              900: '#040712',
+              850: '#070b1a',
+              800: '#0b1226',
+            },
+            cognac: {
+              50: '#fff7ed',
+              400: '#fb923c',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+            },
+            celestial: {
+              cyan: '#00e5ff',
+              emerald: '#00f5a0',
+              amber: '#d97736',
+              gold: '#f59e0b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Three.js, GSAP, and Lenis CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <style>
+    /* 60fps Hardware Accelerated Styling & Lenis Harmony */
+    html {
+      scroll-behavior: auto !important;
+      background-color: #02040a;
+    }
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      color: #f1f5f9;
+    }
+
+    /* Fixed Cosmic WebGL Canvas */
+    #space-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* 21st.dev Frosted Glass Bento Cards */
+    .glass-bento {
+      background: rgba(7, 11, 26, 0.55);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      transition: border-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+      position: relative;
+    }
+    .glass-bento:hover {
+      border-color: rgba(217, 119, 54, 0.35);
+      box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), 0 0 35px rgba(217, 119, 54, 0.12);
+    }
+
+    /* Dynamic Cursor Spotlight Effect */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(800px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(217, 119, 54, 0.14), transparent 45%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+
+    /* 21st.dev Laser Border Beam */
+    .border-beam-container {
+      position: relative;
+      overflow: hidden;
+    }
+    .border-beam {
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      pointer-events: none;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      padding: 1px;
+    }
+    .border-beam::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 0 340deg, #d97736 360deg);
+      animation: rotateBeam 6s linear infinite;
+    }
+    @keyframes rotateBeam {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* High-Touch Hero Shimmer */
+    .starlight-shimmer {
+      background: linear-gradient(110deg, #ffffff 0%, #cbd5e1 25%, #f97316 48%, #ffffff 52%, #cbd5e1 75%, #ffffff 100%);
+      background-size: 250% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: starSheen 6s infinite ease-in-out;
+    }
+    @keyframes starSheen {
+      0%, 20% { background-position: 200% 0; }
+      80%, 100% { background-position: -200% 0; }
+    }
+
+    /* ECG Telemetry Sparkline Pulse */
+    @keyframes ecgTravel {
+      0% { stroke-dashoffset: 240; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .ecg-path {
+      stroke-dasharray: 240;
+      animation: ecgTravel 2.8s linear infinite;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #02040a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(217, 119, 54, 0.4);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(217, 119, 54, 0.8);
+    }
+  </style>
+</head>
+<body class="min-h-screen relative selection:bg-amber-500/30 selection:text-amber-200">
+
+  <!-- ======================================================== -->
+  <!-- 1. FULLSCREEN DEEP COSMOS & NEBULA WEBGL CANVAS           -->
+  <!-- ======================================================== -->
+  <canvas id="space-canvas"></canvas>
+
+  <!-- Deep Space Ambient Atmospheric Vignette -->
+  <div class="fixed inset-0 pointer-events-none z-[1] bg-[radial-gradient(circle_at_center,transparent_30%,rgba(2,4,10,0.85)_100%)]"></div>
+
+  <!-- ======================================================== -->
+  <!-- 2. FLOATING COMMAND DOCK & TELEMETRY HEADER              -->
+  <!-- ======================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 p-4 sm:p-6 pointer-events-none">
+    <div class="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
+      
+      <!-- Brand & Live SLA Monitor -->
+      <a href="#hero" class="glass-bento px-4 py-2.5 rounded-2xl flex items-center gap-3 group">
+        <div class="relative flex items-center justify-center">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping absolute"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 relative"></span>
+        </div>
+        <div>
+          <div class="text-xs sm:text-sm font-bold tracking-tight text-white group-hover:text-amber-400 transition-colors">
+            VIGHNESH CHOPRA
+          </div>
+          <div class="text-[10px] font-mono text-slate-400 flex items-center gap-1.5">
+            <span>EMR SUPPORT LEAD</span>
+            <span>•</span>
+            <span class="text-amber-400 font-semibold">&lt;15m P1 SLA</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Dock (21st.dev Style) -->
+      <nav class="hidden lg:flex items-center gap-1 glass-bento p-1.5 rounded-2xl font-mono text-xs shadow-2xl">
+        <a href="#philosophy" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all">01 // PHILOSOPHY</a>
+        <a href="#experience" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all">02 // CAREER</a>
+        <a href="#credentials" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all">03 // AI CREDENTIALS</a>
+        <a href="#triage-simulator" class="px-3.5 py-1.5 rounded-xl text-amber-400 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 transition-all flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+          <span>04 // TRIAGE COMMAND</span>
+        </a>
+        <a href="#contact" class="px-3.5 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all">05 // TRANSMIT</a>
+      </nav>
+
+      <!-- Right Action Hub: Resume Download & AI Craft Badge -->
+      <div class="flex items-center gap-2.5">
+        <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download="Vighnesh_Chopra_Resume.pdf" class="glass-bento px-4 py-2.5 rounded-2xl text-xs font-mono font-medium hover:border-amber-500/40 text-slate-200 hover:text-white transition-all flex items-center gap-2 shadow-lg">
+          <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span class="hidden sm:inline">RESUME</span> (PDF)
+        </a>
+        <a href="#contact" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-amber-500/20 active:scale-95 flex items-center gap-1.5">
+          <span>CONNECT</span>
+          <span>↗</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ======================================================== -->
+  <!-- MAIN CONTENT CONTAINER (FULL SCROLLING ENGINE)           -->
+  <!-- ======================================================== -->
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-32">
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 1: HERO COMMAND CORE                              -->
+    <!-- ======================================================== -->
+    <section id="hero" class="min-h-[85vh] flex items-center relative pt-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full">
+        
+        <!-- Left Column: Executive Mission & Narrative (7 cols) -->
+        <div class="lg:col-span-7 space-y-8 text-left">
+          
+          <!-- Live Telemetry Status Pill -->
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-bento border-amber-500/30 text-amber-400 text-xs font-mono font-semibold tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+            <span>AVAILABLE FOR HEALTHCARE SAAS &amp; EMR LEADERSHIP</span>
+          </div>
+
+          <!-- Main Kinetic Headline -->
+          <div class="space-y-3">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight font-sans leading-[1.08] starlight-shimmer">
+              VIGHNESH CHOPRA
+            </h1>
+            <div class="text-xl sm:text-2xl lg:text-3xl font-mono text-amber-400 font-bold tracking-tight flex items-center gap-2">
+              <span>Healthcare SaaS &amp; EMR Support Lead</span>
+            </div>
+            <div class="text-sm font-mono text-slate-400 tracking-wider">
+              DUBAI &amp; ABU DHABI, UAE • INTERNATIONAL DEPLOYMENTS
+            </div>
+          </div>
+
+          <!-- Executive Subtitle & Value Proposition -->
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-normal max-w-2xl">
+            Directing <strong class="text-white font-semibold">L1/L2 clinical application continuity</strong>, physician adoption, and multi-site incident command across <strong class="text-white font-semibold">30+ healthcare facilities</strong>. Serving as the dedicated <strong class="text-amber-400 font-semibold">Clinical-to-Engineering Bridge</strong>—translating doctor charting template blocks, e-prescription halts, and regional HIE syncs (<strong class="text-white">Malaffi &amp; NABIDH</strong>) into reproducible telemetry defect logs for core software development sprints.
+          </p>
+
+          <!-- Action CTA Group -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#triage-simulator" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-xl shadow-amber-500/25 active:scale-95 flex items-center gap-2">
+              <span>EXPLORE TRIAGE COMMAND SIMULATOR</span>
+              <span>↓</span>
+            </a>
+            <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="glass-bento px-5 py-3.5 rounded-2xl text-xs font-mono text-slate-200 hover:text-white transition-all flex items-center gap-2 group">
+              <svg class="w-4 h-4 fill-amber-400 group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.5a1.63 1.63 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63A1.63 1.63 0 0 0 7.86 6.5Z"/></svg>
+              <span>LINKEDIN</span>
+              <span class="text-amber-400">↗</span>
+            </a>
+          </div>
+
+          <!-- 4-Card Bento Metric Grid with 21st.dev Spotlight -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-white/10">
+            
+            <div class="glass-bento spotlight-card p-4 rounded-2xl text-center sm:text-left">
+              <div class="text-3xl font-black font-mono text-amber-400 tracking-tight">30+</div>
+              <div class="text-[11px] font-mono text-slate-300 font-bold uppercase mt-1">Facilities</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">UAE, US, Ghana &amp; India</div>
+            </div>
+
+            <div class="glass-bento spotlight-card p-4 rounded-2xl text-center sm:text-left">
+              <div class="text-3xl font-black font-mono text-emerald-400 tracking-tight">200+</div>
+              <div class="text-[11px] font-mono text-slate-300 font-bold uppercase mt-1">Clinicians</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Staff &amp; Doctors Trained</div>
+            </div>
+
+            <div class="glass-bento spotlight-card p-4 rounded-2xl text-center sm:text-left">
+              <div class="text-3xl font-black font-mono text-cyan-400 tracking-tight">7+ Yrs</div>
+              <div class="text-[11px] font-mono text-slate-300 font-bold uppercase mt-1">Experience</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Feb 2019 – Present Tenured</div>
+            </div>
+
+            <div class="glass-bento spotlight-card p-4 rounded-2xl text-center sm:text-left">
+              <div class="flex items-center justify-between">
+                <div class="text-3xl font-black font-mono text-white tracking-tight">&lt;15m</div>
+                <!-- Animated ECG Sparkline -->
+                <svg class="w-12 h-6 text-amber-400 hidden sm:block overflow-visible" viewBox="0 0 60 24" fill="none">
+                  <path class="ecg-path" d="M0 12 L16 12 L20 4 L24 20 L28 8 L32 15 L36 12 L60 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <div class="text-[11px] font-mono text-amber-400 font-bold uppercase mt-1">P1 SLA Response</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">98.5% Compliance</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Column: Precision Retouched Portrait in Cosmic Specimen Capsule (5 cols) -->
+        <div class="lg:col-span-5 flex justify-center items-center relative">
+          
+          <!-- Outer Cosmic Halo -->
+          <div class="absolute w-[440px] h-[440px] rounded-full bg-gradient-to-tr from-amber-600/20 via-orange-500/15 to-cyan-500/10 blur-[80px] pointer-events-none"></div>
+
+          <!-- Specimen Capsule Frame with Laser Border Beam -->
+          <div class="relative w-full max-w-[420px] aspect-[4/5] rounded-3xl glass-bento border-beam-container p-2 shadow-2xl flex items-end justify-center overflow-hidden">
+            <div class="border-beam"></div>
+            
+            <!-- High-Res Cutout Portrait (v13 retouched) -->
+            <picture class="relative z-10 w-full h-full flex items-end justify-center">
+              <source media="(max-width: 640px)" srcset="profile_cutout_v13_mobile.webp" type="image/webp">
+              <source srcset="profile_cutout_v13.webp" type="image/webp">
+              <img 
+                src="profile_cutout_v13.png" 
+                alt="Vighnesh Chopra - Healthcare SaaS & EMR Support Lead" 
+                width="448" 
+                height="560" 
+                fetchpriority="high"
+                class="w-auto h-full max-h-[540px] object-contain object-bottom filter drop-shadow-[0_12px_32px_rgba(0,0,0,0.6)]"
+              />
+            </picture>
+
+            <!-- Holographic Base Badge -->
+            <div class="absolute bottom-4 left-4 right-4 z-20 glass-bento p-3 rounded-2xl flex items-center justify-between border-white/10">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span class="text-xs font-mono font-semibold text-white">CLINICAL SPOC // ACTIVE</span>
+              </div>
+              <span class="text-[10px] font-mono text-amber-400 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">MALAFFI &bull; NABIDH</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 2: OPERATIONAL PHILOSOPHY PILLARS                 -->
+    <!-- ======================================================== -->
+    <section id="philosophy" class="space-y-12">
+      
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
+          <span>OPERATIONAL PHILOSOPHY</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+          BRIDGING CLINICAL REALITY &amp; ENGINEERING SYSTEMS
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          In healthcare, software friction directly imperils patient care. When an EMR freezes during an outpatient prescription authorization or insurance eligibility check, clinicians cannot wait for ticket queues. My role is protecting real-time clinical workflows while structuring pristine defect logs for core engineering releases.
+        </p>
+      </div>
+
+      <!-- 3-Pillar Spotlight Bento Matrix -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="glass-bento spotlight-card p-8 rounded-3xl space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-mono text-lg font-bold">
+            01
+          </div>
+          <h3 class="text-xl font-bold text-white tracking-tight">Mission-Critical Incident Command</h3>
+          <p class="text-sm text-slate-300 leading-relaxed font-light">
+            Sole point of contact for hospital departments (OPD, IPD, pharmacy, billing) across UAE and international sites. Maintaining a sub-15m P1 SLA with immediate standardized workarounds so patient queues never stop.
+          </p>
+        </div>
+
+        <div class="glass-bento spotlight-card p-8 rounded-3xl space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono text-lg font-bold">
+            02
+          </div>
+          <h3 class="text-xl font-bold text-white tracking-tight">Clinical-to-Engineering Translation</h3>
+          <p class="text-sm text-slate-300 leading-relaxed font-light">
+            Deconstructing chaotic clinician bug reports into high-fidelity reproducible defect logs, SQL database query logs, and network telemetry for software engineering leads during bi-weekly release sprints.
+          </p>
+        </div>
+
+        <div class="glass-bento spotlight-card p-8 rounded-3xl space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono text-lg font-bold">
+            03
+          </div>
+          <h3 class="text-xl font-bold text-white tracking-tight">Regulatory &amp; Regional HIE Sync</h3>
+          <p class="text-sm text-slate-300 leading-relaxed font-light">
+            Harmonizing multi-facility EMR data feeds with UAE regional Health Information Exchanges—<strong class="text-white">Malaffi</strong> (Abu Dhabi) and <strong class="text-white">NABIDH</strong> (Dubai)—ensuring strict DHA and HIPAA compliance.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 3: 7+ YEARS EXPERIENCE & CLINICAL SYSTEMS         -->
+    <!-- ======================================================== -->
+    <section id="experience" class="space-y-12">
+      
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
+          <span>CAREER TRAJECTORY</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+          7+ YEARS OF HIGH-STAKES HEALTHCARE INFORMATICS
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Deep tenured operational leadership at Medicworks Healthcare Informatics across the GCC and international hospital networks.
+        </p>
+      </div>
+
+      <!-- Experience Bento Container with Laser Border Beam -->
+      <div class="glass-bento border-beam-container p-8 sm:p-12 rounded-3xl relative overflow-hidden">
+        <div class="border-beam"></div>
+
+        <div class="flex flex-col lg:flex-row justify-between lg:items-center gap-4 pb-8 mb-8 border-b border-white/10">
+          <div>
+            <div class="text-xs font-mono text-amber-400 font-bold tracking-wider mb-1">FEB 2019 – PRESENT (7+ YEARS) • DUBAI, UAE</div>
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Medicworks Healthcare Informatics</h3>
+            <div class="text-sm font-mono text-slate-300 mt-1">Business Relations &amp; Customer Support Lead</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-xl glass-bento text-xs font-mono text-emerald-400">30+ SITES</span>
+            <span class="px-3 py-1 rounded-xl glass-bento text-xs font-mono text-cyan-400">200+ CLINICIANS</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300 leading-relaxed font-light">
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-amber-400 font-mono text-base font-bold">▸</span>
+              <div>
+                <strong class="text-white font-medium">Cross-Departmental SPOC:</strong> Directed L1/L2 application support across multi-site hospital EMR networks in UAE (Dubai/Abu Dhabi), US, Ghana, and India, achieving 98.5% SLA resolution compliance.
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-amber-400 font-mono text-base font-bold">▸</span>
+              <div>
+                <strong class="text-white font-medium">The Clinical-to-Engineering Bridge:</strong> Converted doctor complaints into detailed technical bug tickets with database traces and reproducible workflows for development sprints.
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-amber-400 font-mono text-base font-bold">▸</span>
+              <div>
+                <strong class="text-white font-medium">Clinical Template &amp; Workflow Architecture:</strong> Configured tailored physician charting templates, outpatient billing validation rules, and automated pharmacy dispensation gates.
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-amber-400 font-mono text-base font-bold">▸</span>
+              <div>
+                <strong class="text-white font-medium">Regional HIE Integration:</strong> Managed live clinical synchronization with Malaffi (Abu Dhabi) and NABIDH (Dubai), verifying patient identity matching and DHA compliance.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 4: VERIFIED AI CREDENTIALS (ANTHROPIC)            -->
+    <!-- ======================================================== -->
+    <section id="credentials" class="space-y-12">
+      
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
+          <span>VERIFIED CREDENTIALS</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+          ANTHROPIC AI ACADEMY VERIFICATIONS
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Demonstrated mastery of foundational LLM prompt structuring, context injection, multi-turn synthesis, and enterprise AI safety frameworks.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="glass-bento spotlight-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono text-amber-400 font-bold px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30">ANTHROPIC</span>
+            <h4 class="text-base font-bold text-white pt-2">AI Fluency Framework &amp; Foundations</h4>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">Core LLM fundamentals, prompt structuring, and practical workplace automation.</p>
+          </div>
+          <a href="https://verify.skilljar.com/c/9zmqmf6xzcke" target="_blank" rel="noopener noreferrer" class="glass-bento p-2.5 rounded-xl text-xs font-mono text-amber-400 flex items-center justify-between hover:border-amber-400">
+            <span>VERIFY CREDENTIAL</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <div class="glass-bento spotlight-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono text-amber-400 font-bold px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30">ANTHROPIC</span>
+            <h4 class="text-base font-bold text-white pt-2">Claude Cowork &amp; Capabilities</h4>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">Pairing with Claude for synthesizing operational runbooks and accelerating incident response.</p>
+          </div>
+          <a href="https://verify.skilljar.com/c/jv3xb5axts5w" target="_blank" rel="noopener noreferrer" class="glass-bento p-2.5 rounded-xl text-xs font-mono text-amber-400 flex items-center justify-between hover:border-amber-400">
+            <span>VERIFY CREDENTIAL</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <div class="glass-bento spotlight-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono text-amber-400 font-bold px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30">ANTHROPIC</span>
+            <h4 class="text-base font-bold text-white pt-2">Claude 101</h4>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">Structured prompt engineering, context optimization, and guided markdown formatting.</p>
+          </div>
+          <a href="https://verify.skilljar.com/c/n9jdknkaaaig" target="_blank" rel="noopener noreferrer" class="glass-bento p-2.5 rounded-xl text-xs font-mono text-amber-400 flex items-center justify-between hover:border-amber-400">
+            <span>VERIFY CREDENTIAL</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+        <div class="glass-bento spotlight-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
+          <div class="space-y-2">
+            <span class="text-[10px] font-mono text-amber-400 font-bold px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30">ANTHROPIC</span>
+            <h4 class="text-base font-bold text-white pt-2">AI Capabilities &amp; Limitations</h4>
+            <p class="text-xs text-slate-400 leading-relaxed font-light">Recognizing hallucination risks, model boundaries, and governance protocols.</p>
+          </div>
+          <a href="https://verify.skilljar.com/c/crjhy9a8eo6x" target="_blank" rel="noopener noreferrer" class="glass-bento p-2.5 rounded-xl text-xs font-mono text-amber-400 flex items-center justify-between hover:border-amber-400">
+            <span>VERIFY CREDENTIAL</span>
+            <span>↗</span>
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 5: THE INCIDENT COMMAND DECK (TRIAGE SIMULATOR)   -->
+    <!-- ======================================================== -->
+    <section id="triage-simulator" class="space-y-12">
+      
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
+          <span>INTERACTIVE OPERATIONAL SCENARIO</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+          THE ANATOMY OF A RAPID P1 RESOLUTION
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Step into a live operational incident scenario. See how clinical application freezes are stabilized, isolated, and permanently resolved without patient disruption.
+        </p>
+      </div>
+
+      <!-- Command Deck Card with 21st.dev Laser Border Beam -->
+      <div class="glass-bento border-beam-container p-8 sm:p-12 rounded-3xl relative overflow-hidden">
+        <div class="border-beam"></div>
+
+        <!-- 4-Phase Stepper Navigation Dock (Touch targets >= 52px) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 pb-8 border-b border-white/10" role="tablist">
+          <button class="triage-step-btn active min-h-[54px] p-3 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-left transition-all touch-manipulation cursor-pointer active:scale-[0.98]" data-step="1">
+            <span class="text-[10px] font-mono text-amber-400 block font-bold">PHASE 01</span>
+            <span class="text-xs font-bold text-white">09:14 AM // Alert</span>
+          </button>
+          <button class="triage-step-btn min-h-[54px] p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-left transition-all hover:bg-white/[0.07] touch-manipulation cursor-pointer active:scale-[0.98]" data-step="2">
+            <span class="text-[10px] font-mono text-slate-400 block font-bold">PHASE 02</span>
+            <span class="text-xs font-bold text-slate-300">09:19 AM // Triage</span>
+          </button>
+          <button class="triage-step-btn min-h-[54px] p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-left transition-all hover:bg-white/[0.07] touch-manipulation cursor-pointer active:scale-[0.98]" data-step="3">
+            <span class="text-[10px] font-mono text-slate-400 block font-bold">PHASE 03</span>
+            <span class="text-xs font-bold text-slate-300">09:26 AM // Bridge</span>
+          </button>
+          <button class="triage-step-btn min-h-[54px] p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-left transition-all hover:bg-white/[0.07] touch-manipulation cursor-pointer active:scale-[0.98]" data-step="4">
+            <span class="text-[10px] font-mono text-slate-400 block font-bold">PHASE 04</span>
+            <span class="text-xs font-bold text-slate-300">01:00 PM // Post-Mortem</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Phase Display Box -->
+        <div id="sim-content" class="min-h-[200px] flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <span id="sim-tag" class="px-3 py-1 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 font-mono text-xs font-bold">
+                CRITICAL SEVERITY (P1)
+              </span>
+              <span id="sim-time" class="text-xs font-mono text-slate-400">09:14 AM — Outpatient Hospital Branch</span>
+            </div>
+            <h3 id="sim-title" class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              Prescription Workflow Freeze During Peak OPD Rush
+            </h3>
+            <p id="sim-desc" class="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+              Four senior physicians report that clicking "Authorize Prescription" hangs indefinitely with a loading spinner, preventing outpatient pharmacy dispensation. 45 patients are waiting in the clinic reception.
+            </p>
+            <div id="sim-action" class="p-4 rounded-2xl bg-slate-950/80 border border-white/10 font-mono text-xs text-slate-200 leading-relaxed">
+              <strong class="text-amber-400">Initial Operational Response:</strong> Vighnesh acknowledges the incident ticket within 3 minutes (SLA target: 15 min), identifies that multiple physicians are experiencing the exact same freeze, and immediately issues a standardized offline order workaround to nursing supervisors to keep the patient queue moving.
+            </div>
+          </div>
+
+          <!-- Stepper Navigation Controls (Touch targets >= 48px) -->
+          <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+            <span class="text-xs font-mono text-slate-400">Tactile Incident Simulator</span>
+            <div class="flex items-center gap-2">
+              <button id="sim-prev-btn" class="glass-bento min-h-[48px] min-w-[48px] px-4 py-2.5 rounded-xl text-xs font-mono text-slate-400 opacity-50 cursor-not-allowed transition-all touch-manipulation">
+                ← PREV
+              </button>
+              <button id="sim-next-btn" class="px-5 py-2.5 min-h-[48px] rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-bold text-xs tracking-wider transition-all shadow-lg shadow-amber-500/20 active:scale-95 touch-manipulation">
+                NEXT PHASE →
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 6: SECURE TRANSMIT & CONNECT                      -->
+    <!-- ======================================================== -->
+    <section id="contact" class="space-y-12">
+      
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-bento text-amber-400 font-mono text-xs font-semibold">
+          <span>GET IN TOUCH</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-white">
+          LET'S CONNECT
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Discussing healthcare SaaS leadership roles, EMR migration operations, and multi-site clinical application support.
+        </p>
+      </div>
+
+      <div class="glass-bento p-8 sm:p-12 rounded-3xl border border-white/10 relative overflow-hidden space-y-8">
+        
+        <div class="p-6 rounded-2xl bg-white/[0.03] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="text-xs font-mono text-slate-400">DIRECT CLINICAL INQUIRY</div>
+            <div class="text-base sm:text-lg font-mono text-white font-semibold">vighnesh.chopra13@gmail.com</div>
+          </div>
+          <button id="copy-email-btn" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-bold text-xs tracking-wider transition-all shadow-lg active:scale-95">
+            COPY ADDRESS
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="glass-bento p-5 rounded-2xl flex items-center justify-between group hover:border-amber-400">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 fill-amber-400" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.5a1.63 1.63 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63A1.63 1.63 0 0 0 7.86 6.5Z"/></svg>
+              <div>
+                <div class="text-xs font-mono text-slate-400">PROFESSIONAL NETWORK</div>
+                <div class="text-sm font-bold text-white">Connect on LinkedIn</div>
+              </div>
+            </div>
+            <span class="text-amber-400 group-hover:translate-x-1 transition-transform">↗</span>
+          </a>
+
+          <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download class="glass-bento p-5 rounded-2xl flex items-center justify-between group hover:border-amber-400">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <div>
+                <div class="text-xs font-mono text-slate-400">OFFLINE CURRICULUM VITAE</div>
+                <div class="text-sm font-bold text-white">Download Resume (PDF)</div>
+              </div>
+            </div>
+            <span class="text-amber-400 group-hover:translate-x-1 transition-transform">↓</span>
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SCREEN 7: SYSTEM SPEC & AI ORCHESTRATION COLOPHON        -->
+    <!-- ======================================================== -->
+    <footer class="pt-12 border-t border-white/10 text-xs font-mono text-slate-400 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <!-- Craft & Orchestration Badge -->
+      <div class="flex items-center gap-3 glass-bento px-4 py-2.5 rounded-2xl">
+        <span class="text-amber-400">⚡</span>
+        <div>
+          <span class="text-white font-semibold">Architected &amp; Directed by Vighnesh Chopra</span>
+          <span class="text-slate-400 block text-[10px]">Orchestrated via Autonomous AI Agent Pair-Programming &bull; 60fps WebGL Cosmos Engine</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 text-[11px]">
+        <span>&copy; 2026 Vighnesh Chopra</span>
+        <span>•</span>
+        <span>Dubai, UAE</span>
+      </div>
+
+    </footer>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- 3. THREE.JS PROCEDURAL VOLUMETRIC SPACE ENGINE            -->
+  <!-- ======================================================== -->
+  <script>
+    // ----------------------------------------------------------
+    // A. LENIS BUTTERY SMOOTH SCROLL INITIALIZATION
+    // ----------------------------------------------------------
+    let lenis = null;
+    try {
+      if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          touchMultiplier: 1.2,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Smooth Anchor Click Interception
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target && lenis) {
+              lenis.scrollTo(target, { offset: -80 });
+            }
+          });
+        });
+      }
+    } catch (e) {
+      console.warn("Lenis init skipped, native scroll active:", e);
+    }
+
+    // ----------------------------------------------------------
+    // B. THREE.JS PROCEDURAL VOLUMETRIC SPACE & NEBULA ENGINE
+    // ----------------------------------------------------------
+    const canvas = document.getElementById('space-canvas');
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 2000);
+    camera.position.z = 400;
+
+    // Responsive Canvas Resizing
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (nebulaMaterial) {
+        nebulaMaterial.uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+      }
+    }
+    window.addEventListener('resize', onWindowResize, { passive: true });
+
+    // 1. Procedural Deep Cosmic Nebula Shader Plane
+    const nebulaVertexShader = `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = vec4(position, 1.0);
+      }
+    `;
+
+    const nebulaFragmentShader = `
+      uniform float u_time;
+      uniform vec2 u_resolution;
+      uniform vec2 u_mouse;
+      varying vec2 vUv;
+
+      // Simplex Noise Math
+      vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+      vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+      vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+
+      float snoise(vec3 v) {
+        const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+        const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+        vec3 i  = floor(v + dot(v, C.yyy));
+        vec3 x0 = v - i + dot(i, C.xxx);
+        vec3 g = step(x0.yzx, x0.xyz);
+        vec3 l = 1.0 - g;
+        vec3 i1 = min(g.xyz, l.zxy);
+        vec3 i2 = max(g.xyz, l.zxy);
+        vec3 x1 = x0 - i1 + C.xxx;
+        vec3 x2 = x0 - i2 + C.yyy;
+        vec3 x3 = x0 - D.yyy;
+        i = mod289(i);
+        vec4 p = permute(permute(permute(
+                  i.z + vec4(0.0, i1.z, i2.z, 1.0))
+                + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+                + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+        float n_ = 0.142857142857;
+        vec3 ns = n_ * D.wyz - D.xzx;
+        vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+        vec4 x_ = floor(j * ns.z);
+        vec4 y_ = floor(j - 7.0 * x_);
+        vec4 x = x_ *ns.x + ns.yyyy;
+        vec4 y = y_ *ns.x + ns.yyyy;
+        vec4 h = 1.0 - abs(x) - abs(y);
+        vec4 b0 = vec4(x.xy, y.xy);
+        vec4 b1 = vec4(x.zw, y.zw);
+        vec4 s0 = floor(b0)*2.0 + 1.0;
+        vec4 s1 = floor(b1)*2.0 + 1.0;
+        vec4 sh = -step(h, vec4(0.0));
+        vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+        vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+        vec3 p0 = vec3(a0.xy, h.x);
+        vec3 p1 = vec3(a0.zw, h.y);
+        vec3 p2 = vec3(a1.xy, h.z);
+        vec3 p3 = vec3(a1.zw, h.w);
+        vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+        p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
+        vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+        m = m * m;
+        return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
+      }
+
+      // Fractional Brownian Motion (fBm)
+      float fbm(vec3 p) {
+        float total = 0.0;
+        float amp = 0.55;
+        float freq = 1.0;
+        for (int i = 0; i < 4; i++) {
+          total += snoise(p * freq) * amp;
+          freq *= 2.05;
+          amp *= 0.48;
+        }
+        return total;
+      }
+
+      void main() {
+        vec2 st = gl_FragCoord.xy / u_resolution.xy;
+        st.x *= u_resolution.x / u_resolution.y;
+
+        // Subtle Gravitational Mouse Distortion
+        vec2 mouseNorm = (u_mouse / u_resolution.xy) * 2.0 - 1.0;
+        float mDist = length(vUv - (u_mouse / u_resolution.xy));
+        float warp = smoothstep(0.5, 0.0, mDist) * 0.12;
+
+        vec3 pos = vec3(st * 1.35, u_time * 0.035);
+        pos.xy += mouseNorm * warp;
+
+        float n1 = fbm(pos);
+        float n2 = fbm(pos + vec3(n1 * 1.5, u_time * 0.02, 0.5));
+        float cloud = smoothstep(-0.2, 0.8, n2);
+
+        // Cosmic Palette: Deep Void, Celestial Cyan, and Interstellar Warm Amber
+        vec3 voidColor = vec3(0.008, 0.015, 0.04);
+        vec3 indigoColor = vec3(0.04, 0.08, 0.22);
+        vec3 cyanColor = vec3(0.0, 0.45, 0.65);
+        vec3 amberColor = vec3(0.85, 0.46, 0.21); // Burnt Cognac Amber
+        vec3 goldColor = vec3(0.96, 0.62, 0.04);
+
+        vec3 color = mix(voidColor, indigoColor, smoothstep(0.1, 0.6, n1));
+        color = mix(color, cyanColor, smoothstep(0.4, 0.85, n2) * 0.65);
+        color = mix(color, amberColor, smoothstep(0.55, 0.95, n1 * n2) * 0.85);
+
+        // Add soft starlight glow centers
+        color += goldColor * pow(max(0.0, n2), 4.0) * 0.4;
+
+        gl_FragColor = vec4(color, 0.92);
+      }
+    `;
+
+    const nebulaMaterial = new THREE.ShaderMaterial({
+      vertexShader: nebulaVertexShader,
+      fragmentShader: nebulaFragmentShader,
+      uniforms: {
+        u_time: { value: 0.0 },
+        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        u_mouse: { value: new THREE.Vector2(window.innerWidth / 2, window.innerHeight / 2) }
+      },
+      depthWrite: false,
+      depthTest: false
+    });
+
+    // Fullscreen quad for nebula
+    const quadGeo = new THREE.PlaneGeometry(2, 2);
+    const nebulaMesh = new THREE.Mesh(quadGeo, nebulaMaterial);
+    scene.add(nebulaMesh);
+
+    // 2. Relativistic 3D Starfield Geometry (2,500 Stars in Z-Depth)
+    const starCount = 2500;
+    const starGeo = new THREE.BufferGeometry();
+    const starPositions = new Float32Array(starCount * 3);
+    const starColors = new Float32Array(starCount * 3);
+    const starSizes = new Float32Array(starCount);
+
+    const cWhite = new THREE.Color(0xffffff);
+    const cAmber = new THREE.Color(0xf59e0b);
+    const cCyan = new THREE.Color(0x38bdf8);
+
+    for (let i = 0; i < starCount; i++) {
+      starPositions[i * 3 + 0] = (Math.random() - 0.5) * 1600;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 1600;
+      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 1200;
+
+      // Color spectral distribution
+      const rand = Math.random();
+      let col = cWhite;
+      if (rand > 0.75) col = cAmber;
+      else if (rand > 0.55) col = cCyan;
+
+      starColors[i * 3 + 0] = col.r;
+      starColors[i * 3 + 1] = col.g;
+      starColors[i * 3 + 2] = col.b;
+
+      starSizes[i] = Math.random() * 2.2 + 0.8;
+    }
+
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+
+    // Star point texture with soft Gaussian halo
+    function createStarTexture() {
+      const c = document.createElement('canvas');
+      c.width = 32; c.height = 32;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.3, 'rgba(255,255,255,0.7)');
+      grad.addColorStop(0.8, 'rgba(255,255,255,0.15)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 32, 32);
+      return new THREE.CanvasTexture(c);
+    }
+
+    const starMaterial = new THREE.PointsMaterial({
+      size: 3.5,
+      map: createStarTexture(),
+      transparent: true,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    const starField = new THREE.Points(starGeo, starMaterial);
+    scene.add(starField);
+
+    // 3. Interactive Shooting Star / Meteor Engine
+    const meteors = [];
+    function spawnMeteor() {
+      const meteorGeo = new THREE.BufferGeometry();
+      const length = Math.random() * 80 + 60;
+      const pos = new Float32Array([
+        0, 0, 0,
+        -length * 0.7, length * 0.5, length * 0.3
+      ]);
+      meteorGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      
+      const meteorMat = new THREE.LineBasicMaterial({
+        color: Math.random() > 0.4 ? 0xf59e0b : 0x00e5ff,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending
+      });
+
+      const line = new THREE.Line(meteorGeo, meteorMat);
+      line.position.set(
+        (Math.random() - 0.5) * 800,
+        Math.random() * 400 + 100,
+        (Math.random() - 0.5) * 400
+      );
+      line.userData = {
+        vx: -(Math.random() * 8 + 12),
+        vy: -(Math.random() * 6 + 8),
+        life: 1.0,
+        decay: Math.random() * 0.025 + 0.015
+      };
+      scene.add(line);
+      meteors.push(line);
+    }
+
+    setInterval(() => {
+      if (document.hidden) return;
+      if (Math.random() > 0.3) spawnMeteor();
+    }, 3800);
+
+    // 4. Mouse Move & Parallax Tracking
+    let targetMouseX = window.innerWidth / 2;
+    let targetMouseY = window.innerHeight / 2;
+    let currentMouseX = targetMouseX;
+    let currentMouseY = targetMouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+      // Update 21st.dev spotlight cards
+      document.querySelectorAll('.spotlight-card').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    }, { passive: true });
+
+    // 5. Main 60fps Animation Loop
+    let lastTime = 0;
+    let isVisible = true;
+    document.addEventListener('visibilitychange', () => {
+      isVisible = !document.hidden;
+    });
+
+    function animate(time) {
+      requestAnimationFrame(animate);
+      if (!isVisible) return;
+
+      const delta = (time - lastTime) * 0.001;
+      lastTime = time;
+
+      // Smooth mouse lerping
+      currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+
+      // Update nebula uniforms
+      nebulaMaterial.uniforms.u_time.value = time * 0.0006;
+      nebulaMaterial.uniforms.u_mouse.value.set(currentMouseX, window.innerHeight - currentMouseY);
+
+      // Rotate starfield slowly
+      starField.rotation.y = time * 0.00004;
+      starField.rotation.x = time * 0.00002;
+
+      // Camera parallax tilt
+      const px = (currentMouseX / window.innerWidth - 0.5) * 40;
+      const py = (currentMouseY / window.innerHeight - 0.5) * -40;
+      camera.position.x += (px - camera.position.x) * 0.03;
+      camera.position.y += (py - camera.position.y) * 0.03;
+      camera.lookAt(0, 0, 0);
+
+      // Update meteors
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.position.x += m.userData.vx;
+        m.position.y += m.userData.vy;
+        m.userData.life -= m.userData.decay;
+        m.material.opacity = Math.max(0, m.userData.life);
+        if (m.userData.life <= 0) {
+          scene.remove(m);
+          m.geometry.dispose();
+          m.material.dispose();
+          meteors.splice(i, 1);
+        }
+      }
+
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(animate);
+
+    // ----------------------------------------------------------
+    // C. INTERACTIVE TRIAGE SIMULATOR MECHANICS
+    // ----------------------------------------------------------
+    const simPhases = [
+      {
+        tag: 'CRITICAL SEVERITY (P1)',
+        tagClass: 'bg-rose-500/10 border-rose-500/30 text-rose-400',
+        time: '09:14 AM — Outpatient Hospital Branch',
+        title: 'Prescription Workflow Freeze During Peak OPD Rush',
+        desc: 'Four senior physicians report that clicking "Authorize Prescription" hangs indefinitely with a loading spinner, preventing outpatient pharmacy dispensation. 45 patients are waiting in the clinic reception.',
+        action: '<strong class="text-amber-400">Initial Operational Response:</strong> Vighnesh acknowledges the incident ticket within 3 minutes (SLA target: 15 min), identifies that multiple physicians are experiencing the exact same freeze, and immediately issues a standardized offline order workaround to nursing supervisors to keep the patient queue moving.'
+      },
+      {
+        tag: 'HIGH SEVERITY (P2)',
+        tagClass: 'bg-amber-500/10 border-amber-500/30 text-amber-400',
+        time: '09:19 AM — Dedicated Staging Mirror',
+        title: 'Workflow Simulation & Defect Verification in Staging',
+        desc: 'Vighnesh replicates the physician workflow in the staging environment. He isolates the failure to a corrupted drug interaction database check triggered specifically when prescribing pediatric antibiotic suspensions alongside antihistamines.',
+        action: '<strong class="text-amber-400">Root-Cause Isolation:</strong> By inspecting the browser console and application event logs, Vighnesh captures a 504 Gateway Timeout on the external drug-interaction microservice, confirming this is not a hospital network issue.'
+      },
+      {
+        tag: 'ENGINEERING ESCALATION (P1)',
+        tagClass: 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400',
+        time: '09:26 AM — Engineering Sprint Bridge',
+        title: 'Escalation & Defect Telemetry for Software Engineering',
+        desc: 'Rather than submitting a vague "EMR is broken" ticket, Vighnesh compiles a detailed defect package: exact steps to reproduce, network request/response headers, affected medication IDs, and a screen recording.',
+        action: '<strong class="text-amber-400">Development Bridge:</strong> Because the reproduction steps are completely mapped, developers isolate the root code bottleneck immediately and deploy a hotfix to bypass the deadlocked table check within 22 minutes.'
+      },
+      {
+        tag: 'INCIDENT RESOLVED (POST-MORTEM)',
+        tagClass: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400',
+        time: '01:00 PM — Full Multi-Site Verification',
+        title: 'Post-Release Verification & Operational Closure',
+        desc: 'Following patch deployment during the low-traffic afternoon rotation, Vighnesh conducts end-to-end verification across multiple test accounts, confirms with outpatient physicians that responsiveness is fully restored, and verifies normal operation across all facility branches.',
+        action: '<strong class="text-amber-400">Permanent Governance:</strong> Vighnesh updates the clinic support knowledge base with symptom indicators and standard operating procedures (SOPs) for rapid recognition in future releases. Incident closed with 100% SLA compliance.'
+      }
+    ];
+
+    let currentSimStep = 1;
+    const stepBtns = document.querySelectorAll('.triage-step-btn');
+    const simPrevBtn = document.getElementById('sim-prev-btn');
+    const simNextBtn = document.getElementById('sim-next-btn');
+
+    function renderSim(idx) {
+      currentSimStep = idx;
+      const data = simPhases[idx - 1];
+
+      const tagEl = document.getElementById('sim-tag');
+      tagEl.className = `px-3 py-1 rounded-xl font-mono text-xs font-bold ${data.tagClass}`;
+      tagEl.textContent = data.tag;
+
+      document.getElementById('sim-time').textContent = data.time;
+      document.getElementById('sim-title').textContent = data.title;
+      document.getElementById('sim-desc').textContent = data.desc;
+      document.getElementById('sim-action').innerHTML = data.action;
+
+      stepBtns.forEach((btn, i) => {
+        if (i + 1 === idx) {
+          btn.className = 'triage-step-btn active min-h-[54px] p-3 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-left transition-all touch-manipulation cursor-pointer active:scale-[0.98]';
+          btn.querySelector('span:first-child').className = 'text-[10px] font-mono text-amber-400 block font-bold';
+          btn.querySelector('span:last-child').className = 'text-xs font-bold text-white';
+        } else {
+          btn.className = 'triage-step-btn min-h-[54px] p-3 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-left transition-all hover:bg-white/[0.07] touch-manipulation cursor-pointer active:scale-[0.98]';
+          btn.querySelector('span:first-child').className = 'text-[10px] font-mono text-slate-400 block font-bold';
+          btn.querySelector('span:last-child').className = 'text-xs font-bold text-slate-300';
+        }
+      });
+
+      if (idx === 1) {
+        simPrevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      } else {
+        simPrevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+      }
+
+      if (idx === simPhases.length) {
+        simNextBtn.textContent = '↺ RESTART';
+      } else {
+        simNextBtn.textContent = 'NEXT PHASE →';
+      }
+    }
+
+    stepBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        renderSim(parseInt(btn.getAttribute('data-step'), 10));
+      });
+    });
+
+    if (simPrevBtn) {
+      simPrevBtn.addEventListener('click', () => {
+        if (currentSimStep > 1) renderSim(currentSimStep - 1);
+      });
+    }
+
+    if (simNextBtn) {
+      simNextBtn.addEventListener('click', () => {
+        if (currentSimStep < simPhases.length) renderSim(currentSimStep + 1);
+        else renderSim(1);
+      });
+    }
+
+    // ----------------------------------------------------------
+    // D. 1-CLICK EMAIL CLIPBOARD DISPATCH
+    // ----------------------------------------------------------
+    const copyBtn = document.getElementById('copy-email-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const email = 'vighnesh.chopra13@gmail.com';
+        try {
+          await navigator.clipboard.writeText(email);
+          copyBtn.textContent = 'COPIED TO CLIPBOARD!';
+          copyBtn.className = 'px-5 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-mono font-bold text-xs tracking-wider transition-all shadow-lg';
+          setTimeout(() => {
+            copyBtn.textContent = 'COPY ADDRESS';
+            copyBtn.className = 'px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-mono font-bold text-xs tracking-wider transition-all shadow-lg active:scale-95';
+          }, 3000);
+        } catch (err) {
+          window.location.href = `mailto:${email}`;
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
