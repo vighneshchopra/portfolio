@@ -2203,10 +2203,7 @@
           <iframe name="hidden_form_relay" id="hidden_form_relay" class="hidden" style="display:none;" aria-hidden="true"></iframe>
 
           <!-- Functional FormSubmit Relay Form (Protected against spam & blockers) -->
-          <form id="contact-form" class="space-y-6">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_subject" value="New Portfolio Inquiry for Vighnesh Chopra">
+          <form id="contact-form" action="https://formsubmit.co/vighnesh.chopra13@gmail.com" method="POST" class="space-y-6">
 
             <!-- Name and Email Row -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -2291,6 +2288,14 @@
                 class="w-full px-4 py-3 rounded-xl bg-carbon-950/90 border border-white/[0.1] text-white text-sm focus:outline-none focus:border-amber-cognac focus:ring-1 focus:ring-amber-cognac transition-all placeholder-titanium-dark"
               ></textarea>
             </div>
+
+            <!-- Explicit FormSubmit Configuration Fields & Anti-Spam Honeypot -->
+            <input type="hidden" name="_next" value="https://vighneshchopra.github.io/portfolio/#contact">
+            <input type="hidden" name="_url" value="https://vighneshchopra.github.io/portfolio/">
+            <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
             <!-- Submit Button & Privacy Statement -->
             <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -2714,13 +2719,14 @@
         };
 
         try {
-          const formData = new FormData(contactForm);
+          const formEntries = Object.fromEntries(new FormData(contactForm).entries());
           const response = await fetch('https://formsubmit.co/ajax/' + targetEmail, {
             method: 'POST',
-            body: formData,
             headers: {
+              'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
+            body: JSON.stringify(formEntries),
             signal: controller.signal
           });
 
