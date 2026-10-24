@@ -3396,9 +3396,9 @@
     // 4. UNIFIED EVENT DISPATCHER
     // ----------------------------------------------------------
     function trackEvent(eventName, eventParams = {}) {
-      // Check Privacy Consent
+      // Check Privacy Consent (Only block commercial GA4 tracking if explicitly denied)
       const consent = localStorage.getItem('vc_analytics_consent');
-      if (consent === 'denied') return;
+      const isCommercialAllowed = (consent !== 'denied');
 
       // Enrich telemetry with real-time UI states
       const isLight = document.body.classList.contains('light-theme');
@@ -3412,12 +3412,12 @@
       };
 
       // 1. Dispatch to GA4
-      if (typeof window.gtag === 'function') {
+      if (isCommercialAllowed && typeof window.gtag === 'function') {
         window.gtag('event', eventName, enrichedParams);
       }
 
       // 2. Dispatch to Microsoft Clarity Custom Event
-      if (typeof window.clarity === 'function') {
+      if (isCommercialAllowed && typeof window.clarity === 'function') {
         try {
           window.clarity("event", eventName);
         } catch (e) {}
@@ -3459,15 +3459,26 @@
             url: window.location.href.split('#')[0] + (window.location.hash || '')
           };
 
-          // Use sendBeacon or standard fetch
-          const payloadBlob = new Blob([JSON.stringify(analyticsPayload)], { type: 'text/plain' });
+          const payloadString = JSON.stringify(analyticsPayload);
+
+          // 1. Try sendBeacon with text/plain blob (immune to ad-blockers and CORS)
+          let beaconSent = false;
           if (navigator.sendBeacon) {
-            navigator.sendBeacon(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, payloadBlob);
-          } else {
+            try {
+              const blob = new Blob([payloadString], { type: 'text/plain;charset=utf-8' });
+              beaconSent = navigator.sendBeacon(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, blob);
+            } catch (bErr) {
+              beaconSent = false;
+            }
+          }
+
+          // 2. Fallback to fetch with text/plain no-cors
+          if (!beaconSent) {
             fetch(ANALYTICS_CONFIG.GOOGLE_ANALYTICS_SHEET_ENDPOINT, {
               method: 'POST',
               mode: 'no-cors',
-              body: payloadBlob
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: payloadString
             }).catch(function() {});
           }
         } catch (e) {}
