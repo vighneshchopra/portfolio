@@ -223,3 +223,27 @@ Even before you enter your real Google and Microsoft IDs:
 6. Scroll down the page: you will see scroll depth milestones (`25%`, `50%`, `75%`, `90%`) firing smoothly!
 
 Once you paste your real IDs and push to GitHub, these same events will flow straight into your live GA4 and Clarity cloud dashboards.
+
+---
+
+## 8. Ad-Blocker Proof Telemetry Vault (Sheet 2: Portfolio Analytics)
+
+To guarantee that 100% of high-value recruiter interactions are logged even if visitors have Brave Shields, uBlock Origin, or privacy extensions enabled, your portfolio includes a secondary direct webhook to Google Sheets.
+
+### Session Clumping Architecture
+Every visitor session is automatically assigned an anonymous session identifier (e.g., `SES-7A9B`) and an auto-incrementing action sequence counter (`#1`, `#2`, `#3`, etc.):
+- **Interaction Detail Format**: `[SES-7A9B • #1] Switched to: systems_and_standards`
+- **Subsequent Actions**:
+  - `[SES-7A9B • #2] Switched to: deliverables`
+  - `[SES-7A9B • #3] Credential: Claude 101`
+  - `[SES-7A9B • #4] Downloaded Resume (hero_cta)`
+  - `[SES-7A9B • #5] Destination: LinkedIn Profile (hero_cta)`
+
+This makes your Google Sheet immediately readable at a glance: all rows sharing the same `[SES-XXXX]` prefix represent the exact journey of a single recruiter during one continuous visit.
+
+### Verifying Telemetry in Browser Console (F12)
+1. Open your portfolio in any browser: `https://vighneshchopra.github.io/portfolio/`
+2. Press `F12` and click **Console**.
+3. You will immediately see the telemetry banner:
+   `[Analytics Vault] Telemetry Engine Active | Session: SES-XXXX | Google Sheets: CONNECTED`
+4. Click any tab or download your CV: you will see real-time amber confirmation badges in the console indicating the payload was dispatched directly to Google Sheets!
