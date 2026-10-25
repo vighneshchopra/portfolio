@@ -37,3 +37,15 @@ All future contributions, agent instructions, and developer commits to this repo
 ## 5. Mandatory Double Confirmation for Destructive Actions
 - The agent must NEVER execute any deletion, purge, branch deletion, or destructive API call without explaining the consequences and obtaining explicit user confirmation twice.
 - Instructions to "edit", "format", or "clean" must never be interpreted as permission to delete historical records, deployments, or archives.
+
+## 6. STRICT ZERO-UNAPPROVED-PUSH POLICY (LOCAL-FIRST PROTOCOL)
+- **NEVER RUN `git push` WITHOUT EXPLICIT PERMISSION:** The agent must NEVER execute `git push` to `origin/main` (or any remote branch) without direct, affirmative approval from the user.
+- **TEST SITES ARE PUBLIC ON GITHUB PAGES:** Any push to `main` instantly publishes files to the public internet via `https://vighneshchopra.github.io/portfolio/`. Therefore, test versions (`portfolio_v*.html`, `versions/*.html`), experimental layouts, and drafts are considered "live" once pushed.
+- **LOCAL TESTING FIRST:** All testing, verification, and user review must strictly occur locally via the local dev server (`http://localhost:5500/...`).
+- **NO PRESUMPTION OF DEPLOYMENT:** Approval to "build a version" or "make changes" is strictly permission to edit locally. It is NEVER permission to push to Git or make changes public. Pushing requires a separate, explicit user command (e.g., "deploy this", "push to git", "make it live").
+
+## 7. SACROSANCT LIVE SITE PROTECTION & DOUBLE APPROVAL MANDATE
+- **NEVER OVERWRITE LIVE `index.html` WITHOUT DOUBLE EXPLICIT APPROVALS:** The live portfolio (`index.html`) is sacrosanct. The agent must NEVER overwrite, modify, replace, or merge into `index.html` unless:
+  1. The user explicitly requests to make the new version live (e.g., "push this to live", "update my live portfolio").
+  2. The agent explains the replacement in detail and receives a second explicit, affirmative confirmation from the user.
+- **VERSIONED TESTING DISCIPLINE:** All iterative changes, feedback experiments, and mobile responsiveness adjustments must only be applied to versioned test files (`portfolio_v*.html` and `versions/v*.html`). The user tests changes on version files first; only after the user verifies they are superior to the live site and provides two explicit approvals may `index.html` be updated.

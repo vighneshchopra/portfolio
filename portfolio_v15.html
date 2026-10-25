@@ -192,9 +192,6 @@
     html {
       scroll-behavior: smooth;
       background-color: #000000;
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100vw;
     }
     body {
       background-color: #000000;
@@ -1331,7 +1328,7 @@
       <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
         
         <!-- Brand / Identity -->
-        <a href="#hero" class="flex items-center gap-3.5 group shrink-0">
+        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="flex items-center gap-3.5 group shrink-0" title="Return to Top">
           <div class="w-10 h-10 rounded-xl bg-amber-soft border border-amber-cognac/30 flex items-center justify-center text-amber-cognac font-mono font-bold text-sm tracking-wider monogram-badge group-hover:scale-105 group-hover:border-amber-cognac transition-all shadow-[0_0_15px_rgba(217,119,54,0.18)]">
             VC
           </div>
@@ -1460,8 +1457,7 @@
 
             <!-- Action Pill Row with Above-the-Fold Direct Contact CTA -->
             <div class="flex flex-wrap items-center gap-3.5 pt-2">
-              <a href="#contact" class="btn-pill btn-pill-primary flex items-center gap-2 group order-first shadow-lg shadow-amber-950/20">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <a href="#contact" class="btn-pill btn-pill-primary flex items-center gap-2 group order-first">
                 <span>LET'S CONNECT</span>
                 <span class="group-hover:translate-x-0.5 transition-transform text-white font-bold">↗</span>
               </a>
@@ -2256,7 +2252,7 @@
             </div>
           </div>
           
-<!-- Top Alert banner relocated adjacent to submit button for immediate mobile viewport visibility -->
+<!-- Top Alert banner relocated directly below submit button for immediate mobile viewport visibility -->
 
           <!-- Hidden Iframe Fallback for Ad-Blocker Immunity -->
           <iframe name="hidden_form_relay" id="hidden_form_relay" class="hidden" style="display:none;" aria-hidden="true"></iframe>
@@ -2368,9 +2364,6 @@
               <input type="text" id="middle_name" name="middle_name" tabindex="-1" autocomplete="new-password">
             </div>
 
-            <!-- Alert notification banner for status feedback (Directly in viewport above submit button) -->
-            <div id="contact-alert" class="hidden my-4 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed shadow-lg"></div>
-
             <!-- Submit Button & Privacy Statement -->
             <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div class="text-[11px] font-mono text-titanium-muted text-center sm:text-left">
@@ -2386,6 +2379,9 @@
                 <span id="btn-spinner" class="hidden animate-spin">⟳</span>
               </button>
             </div>
+
+            <!-- Alert notification banner for status feedback (Directly BELOW send message button) -->
+            <div id="contact-alert" class="hidden mt-4 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed shadow-lg"></div>
 
           </form>
 
@@ -2451,7 +2447,7 @@
           <span class="text-carbon-750">•</span>
           <button id="reopen-consent-btn" type="button" class="text-titanium-muted hover:text-amber-cognac transition-colors underline cursor-pointer">Cookie &amp; Privacy</button>
           <span class="text-carbon-750">•</span>
-          <a href="#hero" class="text-amber-cognac hover:underline font-semibold">BACK TO TOP ↑</a>
+          <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="text-amber-cognac hover:underline font-semibold">BACK TO TOP ↑</a>
         </div>
       </div>
     </footer>
