@@ -21,8 +21,9 @@ All future contributions, agent instructions, and developer commits to this repo
 
 ## 2. Asset Segregation & Media Management
 - Never commit raw uncompressed images (`.png` > 500KB) or video renders (`.mp4`, `.mov`, `.gif` > 1MB) directly to Git history.
-- Only WebP/SVG optimized assets directly referenced by `index.html` may be staged in the production repository.
-- All drafting prompts, cutouts, 3D experiments, and reference files must remain in external directories excluded by `.gitignore`.
+- Only WebP/SVG optimized assets directly referenced by `index.html` or historical version sandbox pages (`autumn_qr.png`, `profile_cutout_v13.webp`, `og_preview.png`) may be staged in the production repository.
+- **PROTECTED VERSION ASSETS:** `autumn_qr.png` is the required Three.js plinth texture for the 3D Autumn Tree Diorama (`v12.html`). It must NEVER be deleted or treated as dead code.
+- All drafting prompts, raw cutouts, and unreferenced working files must remain in external directories excluded by `.gitignore`.
 
 ## 3. Application Security & Form Policies
 - **STRICT ANTI-SPAM RULE:** NEVER embed automated bot trap keywords in any HTML attribute, class name, ID, or developer code comment.
