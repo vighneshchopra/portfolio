@@ -33,3 +33,7 @@ All future contributions, agent instructions, and developer commits to this repo
 ## 4. Input Validation & Telemetry Separation
 - Always enforce strict HTML5 `maxlength`, `minlength`, and regex validation on all user form fields.
 - Keep analytics/telemetry decoupled from contact data storage to protect Google Apps Script execution quotas and prevent data pollution.
+
+## 5. Mandatory Double Confirmation for Destructive Actions
+- The agent must NEVER execute any deletion, purge, branch deletion, or destructive API call without explaining the consequences and obtaining explicit user confirmation twice.
+- Instructions to "edit", "format", or "clean" must never be interpreted as permission to delete historical records, deployments, or archives.
