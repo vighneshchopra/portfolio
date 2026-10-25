@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vighnesh Chopra | Technical Application Specialist & Healthcare SaaS Bridge</title>
+  <meta name="description" content="Executive portfolio of Vighnesh Chopra — Bridging clinical teams, hospital leadership, and software engineering through client onboarding, diagnostic triage, and product scoping.">
+  <meta name="keywords" content="Technical Application Specialist, Client Operations, Healthcare SaaS, Zero-Escalation Triage, Feature Scoping, AI Web Scraping">
+  <meta name="author" content="Vighnesh Chopra">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Vighnesh Chopra | Technical Application Specialist">
+  <meta property="og:description" content="Bridging clinical teams and engineering through onboarding, independent root-cause diagnostics, and custom product scoping.">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#06070a',
+              900: '#0a0d14',
+              800: '#101522',
+              700: '#182032',
+            },
+            cyber: {
+              cyan: '#00f2fe',
+              teal: '#05d5b7',
+              emerald: '#10b981',
+              violet: '#8b5cf6',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['Space Grotesk', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Menlo', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Inter, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #06070a;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    /* Subtle futuristic grid matrix overlay */
+    .cyber-grid-bg {
+      background-image: 
+        radial-gradient(rgba(20, 184, 166, 0.08) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 32px 32px, 96px 96px, 96px 96px;
+    }
+
+    /* High-end minimalist glass cards */
+    .bento-card {
+      background: rgba(12, 16, 25, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bento-card:hover {
+      border-color: rgba(0, 242, 254, 0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px -12px rgba(0, 242, 254, 0.12);
+    }
+
+    /* Scroll reveal transitions */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =====================================================================
+       RAZORPAY AI BUILDERS STYLE GLITCH EFFECT FOR HERO CHARACTER
+       ===================================================================== */
+    .hero-glitch-wrapper {
+      position: relative;
+      display: inline-block;
+      cursor: crosshair;
+      perspective: 1000px;
+    }
+
+    .hero-glitch-stage {
+      position: relative;
+      transition: transform 0.25s ease-out;
+      transform-style: preserve-3d;
+    }
+
+    /* Base Character Image - Crisp white shirt and sharp definition */
+    .hero-char-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 490px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.12));
+      transition: filter 0.3s ease;
+      -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+    }
+
+    /* Glitch layers */
+    .glitch-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      pointer-events: none;
+      opacity: 0;
+      -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+      transition: opacity 0.3s ease;
+    }
+
+    /* Toned-down, Elegant Hologram Glitch on Hover */
+    .hero-glitch-wrapper:hover .hero-char-img {
+      filter: drop-shadow(0 0 25px rgba(0, 242, 254, 0.22)) contrast(1.03);
+    }
+
+    .hero-glitch-wrapper:hover .glitch-red {
+      opacity: 0.35;
+      animation: glitchRedSoft 0.85s ease-in-out infinite;
+      mix-blend-mode: screen;
+      filter: drop-shadow(-1.5px 0 #ff0055);
+    }
+
+    .hero-glitch-wrapper:hover .glitch-cyan {
+      opacity: 0.35;
+      animation: glitchCyanSoft 0.85s ease-in-out infinite;
+      mix-blend-mode: screen;
+      filter: drop-shadow(1.5px 0 #00f2fe);
+    }
+
+    .hero-glitch-wrapper:hover .glitch-slice {
+      opacity: 0.22;
+      animation: glitchSliceSoft 1.3s ease-in-out infinite;
+    }
+
+    .hero-glitch-wrapper:hover .glitch-scanlines {
+      opacity: 0.2;
+    }
+
+    /* Scanlines Overlay */
+    .glitch-scanlines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0, 242, 254, 0.05) 3px,
+        rgba(0, 242, 254, 0.05) 5px
+      );
+      transition: opacity 0.3s ease;
+      z-index: 20;
+    }
+
+    /* Toned-down, Non-flashy Micro-Glitch Keyframes */
+    @keyframes glitchRedSoft {
+      0%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+      15% { transform: translate(-1.5px, 0.5px); clip-path: inset(20% 0 65% 0); }
+      30% { transform: translate(1px, -0.5px); clip-path: inset(55% 0 30% 0); }
+      45% { transform: translate(-1px, 0); clip-path: inset(10% 0 80% 0); }
+      60%, 85% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes glitchCyanSoft {
+      0%, 100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+      20% { transform: translate(1.5px, -0.5px); clip-path: inset(65% 0 15% 0); }
+      40% { transform: translate(-1px, 0.5px); clip-path: inset(30% 0 55% 0); }
+      55% { transform: translate(1px, 0); clip-path: inset(75% 0 10% 0); }
+      70%, 90% { transform: translate(0, 0); clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes glitchSliceSoft {
+      0%, 100% { transform: translateX(0); clip-path: inset(0 0 0 0); }
+      25% { transform: translateX(-2px); clip-path: inset(42% 0 48% 0); }
+      50% { transform: translateX(2px); clip-path: inset(18% 0 72% 0); }
+      75% { transform: translateX(-1px); clip-path: inset(68% 0 22% 0); }
+    }
+
+    /* Ambient telemetry ring rotation */
+    @keyframes radarSweep {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .radar-spin {
+      animation: radarSweep 28s linear infinite;
+    }
+
+    /* Gentle floating rhythm */
+    @keyframes subtleFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .float-idle {
+      animation: subtleFloat 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="selection:bg-cyan-500 selection:text-slate-950 cyber-grid-bg">
+
+  <!-- TOP HEADER / MINIMALIST LOGO (Adjusted: Removed "Client Ops & Technical Systems") -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-obsidian-900/80 backdrop-blur-xl border-b border-white/[0.06]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Brand: Just Vighnesh Chopra -->
+        <a href="#overview" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-cyber-cyan rounded-lg p-1">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-cyber-cyan to-cyber-emerald flex items-center justify-center font-bold text-obsidian text-sm shadow-md group-hover:scale-105 transition-transform">
+            VC
+          </div>
+          <span class="font-display font-bold text-slate-100 text-lg tracking-tight">Vighnesh Chopra</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm font-medium text-slate-300" aria-label="Main Navigation">
+          <a href="#overview" class="px-3.5 py-2 rounded-lg hover:text-white hover:bg-white/[0.04] transition-colors">Overview</a>
+          <a href="#pillars" class="px-3.5 py-2 rounded-lg hover:text-white hover:bg-white/[0.04] transition-colors">Core Pillars</a>
+          <a href="#toolkit" class="px-3.5 py-2 rounded-lg hover:text-white hover:bg-white/[0.04] transition-colors">Toolkit</a>
+          <a href="#contact" class="ml-4 px-4 py-2 rounded-lg bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 hover:bg-cyber-cyan hover:text-slate-950 font-semibold transition-all shadow-sm">
+            Connect
+          </a>
+        </nav>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="flex md:hidden">
+          <button id="mobile-menu-btn" type="button" aria-label="Toggle Navigation Menu" class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-obsidian-900 border-b border-white/[0.08] px-4 pt-2 pb-6 space-y-2">
+      <a href="#overview" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/[0.05]">Overview</a>
+      <a href="#pillars" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/[0.05]">Core Pillars</a>
+      <a href="#toolkit" class="mobile-link block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/[0.05]">Operational Toolkit</a>
+      <a href="#contact" class="mobile-link block px-3 py-2 rounded-lg text-cyber-cyan bg-cyber-cyan/10 border border-cyber-cyan/30 text-center font-semibold mt-3">Initiate Conversation</a>
+    </div>
+  </header>
+
+  <main id="main-content" class="pt-24 sm:pt-32">
+
+    <!-- HERO SECTION: MINIMALIST SCI-FI WITH RAZORPAY-STYLE INTERACTIVE GLITCH AVATAR -->
+    <section id="overview" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
+      
+      <!-- Ambient Glow Fields -->
+      <div class="absolute -top-10 left-1/4 w-[500px] h-[350px] bg-cyber-cyan/10 blur-[140px] rounded-full pointer-events-none -z-10"></div>
+      <div class="absolute top-1/3 -right-20 w-[450px] h-[350px] bg-cyber-violet/10 blur-[130px] rounded-full pointer-events-none -z-10"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+        <!-- Left Narrative Column (7 cols) -->
+        <div class="lg:col-span-7 text-left reveal">
+          
+          <!-- Monospaced Telemetry Tag -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-cyber-cyan font-mono text-xs tracking-wider mb-6">
+            <span class="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse"></span>
+            SYS://ACTIVE • HEALTHCARE SAAS BRIDGE
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08] mb-6">
+            Bridging Clinical Teams & <br class="hidden sm:inline">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-teal-300 to-cyber-violet">Software Engineering</span>
+          </h1>
+
+          <!-- Value Proposition -->
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-normal mb-8 max-w-2xl">
+            Delivering end-to-end user onboarding for hospital networks, protecting developer sprint cycles through independent root-cause triage, and translating client operational needs into custom product features.
+          </p>
+
+          <!-- Core Capability Badges -->
+          <div class="flex flex-wrap gap-2.5 mb-10">
+            <span class="px-3.5 py-1.5 rounded-lg text-xs font-mono bg-white/[0.03] border border-white/[0.08] text-slate-300 flex items-center gap-2">
+              <span class="text-cyber-cyan">01</span> Healthcare SaaS Adoption
+            </span>
+            <span class="px-3.5 py-1.5 rounded-lg text-xs font-mono bg-white/[0.03] border border-white/[0.08] text-slate-300 flex items-center gap-2">
+              <span class="text-cyber-emerald">02</span> Zero-Escalation Triage
+            </span>
+            <span class="px-3.5 py-1.5 rounded-lg text-xs font-mono bg-white/[0.03] border border-white/[0.08] text-slate-300 flex items-center gap-2">
+              <span class="text-cyber-violet">03</span> Feature Scoping & Delivery
+            </span>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#pillars" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-teal text-obsidian font-bold hover:brightness-110 shadow-lg shadow-cyber-cyan/20 transition-all flex items-center gap-2 group">
+              Explore 3 Core Pillars
+              <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </a>
+            <a href="#contact" class="px-6 py-3.5 rounded-xl bg-white/[0.04] text-slate-200 border border-white/[0.1] hover:bg-white/[0.08] hover:text-white font-medium transition-all">
+              Initiate Conversation
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Futuristic Interactive Glitch Column (5 cols) -->
+        <div class="lg:col-span-5 flex justify-center lg:justify-end reveal">
+          <div class="relative w-full max-w-sm sm:max-w-md float-idle">
+
+            <!-- Cyber Radar Ring Background -->
+            <div class="absolute -inset-4 sm:-inset-6 rounded-full border border-dashed border-cyber-cyan/25 radar-spin pointer-events-none -z-10"></div>
+            <div class="absolute -inset-10 rounded-full border border-white/[0.03] pointer-events-none -z-10"></div>
+
+            <!-- Ambient Holographic Radial Aura -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-cyber-cyan/20 via-cyber-teal/15 to-cyber-violet/20 blur-3xl rounded-full -z-10 transform scale-90"></div>
+
+            <!-- Top Telemetry Pill -->
+            <div class="absolute -top-3 left-4 z-20 flex items-center gap-2 px-3 py-1 rounded-md bg-obsidian-900/90 border border-cyber-cyan/30 text-[11px] font-mono text-cyber-cyan backdrop-blur-md">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-ping"></span>
+              NODE://ACTIVE_PORTRAIT
+            </div>
+
+            <!-- INTERACTIVE RAZORPAY-STYLE GLITCH AVATAR CONTAINER -->
+            <div id="glitch-card" class="hero-glitch-wrapper w-full flex justify-center">
+              <div id="glitch-stage" class="hero-glitch-stage relative">
+                
+                <!-- Base Portrait Cutout -->
+                <img 
+                  id="hero-cutout-img"
+                  src="profile_cutout.png" 
+                  alt="Vighnesh Chopra - Healthcare SaaS Bridge" 
+                  class="hero-char-img"
+                  onerror="this.onerror=null; this.src='profile.png';"
+                />
+
+                <!-- Layer 1: Red Glitch Offset -->
+                <div class="glitch-layer glitch-red" style="background-image: url('profile_cutout.png');"></div>
+
+                <!-- Layer 2: Cyan Glitch Offset -->
+                <div class="glitch-layer glitch-cyan" style="background-image: url('profile_cutout.png');"></div>
+
+                <!-- Layer 3: Slice Displacement Jitter -->
+                <div class="glitch-layer glitch-slice" style="background-image: url('profile_cutout.png');"></div>
+
+                <!-- Scanlines Grid -->
+                <div class="glitch-scanlines"></div>
+
+              </div>
+            </div>
+
+            <!-- Bottom Floating Cyber HUD Pill -->
+            <div class="mt-4 p-3.5 rounded-2xl bento-card flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyber-cyan/15 text-cyber-cyan flex items-center justify-center font-bold text-xs border border-cyber-cyan/30">
+                  VC
+                </div>
+                <div>
+                  <div class="text-xs font-semibold text-white">Vighnesh Chopra</div>
+                  <div class="text-[10px] font-mono text-slate-400">Technical Application Specialist</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> AVAILABLE
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- METRICS STRIP: CLEAN BENTO STAT CARDS -->
+      <div class="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-5 reveal">
+        <div class="bento-card p-6 rounded-2xl border-l-2 border-l-cyber-cyan">
+          <div class="font-display text-cyber-cyan font-bold text-3xl sm:text-4xl tracking-tight mb-1">3–6 Calls/Day</div>
+          <div class="text-white font-semibold text-sm sm:text-base">Live Interactive Engagements</div>
+          <p class="text-xs text-slate-400 mt-2">Daily 1-on-1 and department walkthroughs, onboarding doctors and clinic administrators across active facilities.</p>
+        </div>
+
+        <div class="bento-card p-6 rounded-2xl border-l-2 border-l-cyber-emerald">
+          <div class="font-display text-cyber-emerald font-bold text-3xl sm:text-4xl tracking-tight mb-1">Zero-Escalation</div>
+          <div class="text-white font-semibold text-sm sm:text-base">First-Line Diagnostic Intuition</div>
+          <p class="text-xs text-slate-400 mt-2">Isolating input discrepancies and configuration bottlenecks independently, protecting engineering sprint cycles.</p>
+        </div>
+
+        <div class="bento-card p-6 rounded-2xl border-l-2 border-l-cyber-violet">
+          <div class="font-display text-cyber-violet font-bold text-3xl sm:text-4xl tracking-tight mb-1">End-to-End</div>
+          <div class="text-white font-semibold text-sm sm:text-base">Requirements to Delivery</div>
+          <p class="text-xs text-slate-400 mt-2">Translating unformatted clinic wish-lists into formal dev specs, commercial alignment, and validated feature deployments.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: THE 3 CORE PILLARS (BENTO GRID DESIGN) -->
+    <section id="pillars" class="py-24 border-t border-white/[0.06] bg-obsidian-900/40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-16 reveal">
+          <div class="text-cyber-cyan text-xs font-mono uppercase tracking-widest mb-2">// METHODOLOGY & PROOF OF WORK</div>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">The Three Core Pillars</h2>
+          <p class="text-slate-400 text-base sm:text-lg mt-3">
+            A battle-tested triad connecting user empathy, technical root-cause triage, and commercial feature scoping.
+          </p>
+        </div>
+
+        <!-- Pillar 01: Implementation & Adoption -->
+        <div class="bento-card rounded-3xl p-6 sm:p-10 mb-8 reveal">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div class="lg:col-span-8 space-y-6">
+              <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-md text-xs font-mono bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30">
+                  PILLAR 01 // THE PEOPLE SIDE
+                </span>
+                <span class="text-xs font-mono text-slate-500">CLIENT ONBOARDING</span>
+              </div>
+
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-white leading-snug">
+                Driving Clinical SaaS Adoption Through Role-Tailored Onboarding Pathways
+              </h3>
+
+              <div class="space-y-3">
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">Context & Challenge</div>
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  Following high-stakes clinical software rollouts, medical personnel (hospital administrators, front-desk billing staff, and consulting doctors) faced high cognitive load. Generic training sessions led to panic tickets, appointment schedule bottlenecks, and adoption friction.
+                </p>
+              </div>
+
+              <div class="space-y-3">
+                <div class="text-xs font-mono uppercase tracking-wider text-cyber-cyan">Execution & Methodology</div>
+                <ul class="space-y-3 text-sm text-slate-300">
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan mt-2 flex-shrink-0"></span>
+                    <span><strong>Role-Segmented Modules:</strong> Replaced monolithic 2-hour overviews with 20-minute targeted drills (billing/intake workflows for front-desk; charting & e-prescriptions for doctors).</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan mt-2 flex-shrink-0"></span>
+                    <span><strong>High-Touch Live Walkthroughs:</strong> Led independent daily interactive screen-share sessions in a mirrored staging environment, tackling real clinic patient cases live.</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan mt-2 flex-shrink-0"></span>
+                    <span><strong>Visual Job Aids:</strong> Designed concise step-by-step visual cheat sheets placed at workstations, eliminating the need to read dense PDF handbooks.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Metrics -->
+              <div class="pt-6 border-t border-white/[0.08] grid grid-cols-3 gap-4">
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-cyan">&gt;40%</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">Day-1 Ticket Deflection</div>
+                </div>
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-cyan">Single-Digit</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">Days to Stabilization</div>
+                </div>
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-cyan">Zero Churn</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">Transition Retention</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workflow Box -->
+            <div class="lg:col-span-4 bg-obsidian-900/90 rounded-2xl p-5 border border-white/[0.06] space-y-3 font-mono text-xs">
+              <div class="text-[11px] text-slate-400 uppercase tracking-widest">// ADOPTION FRAMEWORK</div>
+              <div class="p-3 rounded-lg bg-white/[0.02] border border-white/[0.05]">
+                <span class="text-cyber-cyan font-bold block">01 Pre-Rollout Audit</span>
+                <span class="text-slate-400 text-[11px]">Map roles & existing clinic habits</span>
+              </div>
+              <div class="p-3 rounded-lg bg-white/[0.02] border border-white/[0.05]">
+                <span class="text-cyber-cyan font-bold block">02 Segmented Staging Drill</span>
+                <span class="text-slate-400 text-[11px]">Targeted 20-min practical simulations</span>
+              </div>
+              <div class="p-3 rounded-lg bg-white/[0.02] border border-white/[0.05]">
+                <span class="text-cyber-cyan font-bold block">03 Live Floor Support</span>
+                <span class="text-slate-400 text-[11px]">Immediate morning buffer</span>
+              </div>
+              <div class="p-3 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan">
+                <span class="font-bold block">✓ Autonomous Adoption</span>
+                <span class="text-[11px] text-slate-300">Staff operates with zero panic calls</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Pillar 02: Diagnostic Triage -->
+        <div class="bento-card rounded-3xl p-6 sm:p-10 mb-8 reveal">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div class="lg:col-span-8 space-y-6">
+              <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-md text-xs font-mono bg-cyber-emerald/10 text-cyber-emerald border border-cyber-emerald/30">
+                  PILLAR 02 // THE SYSTEMS SIDE
+                </span>
+                <span class="text-xs font-mono text-slate-500">ENGINEERING SHIELDING</span>
+              </div>
+
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-white leading-snug">
+                Resolving Urgent "System Outages" Through Independent Root-Cause Analysis
+              </h3>
+
+              <div class="space-y-3">
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">Context & Challenge</div>
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  During peak operating hours, a high-volume outpatient facility escalated that their billing and discharge pipeline had crashed. The client panicked and demanded immediate engineering intervention, threatening to disrupt an active product sprint.
+                </p>
+              </div>
+
+              <div class="space-y-3">
+                <div class="text-xs font-mono uppercase tracking-wider text-cyber-emerald">Execution & Methodology</div>
+                <ul class="space-y-3 text-sm text-slate-300">
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald mt-2 flex-shrink-0"></span>
+                    <span><strong>Rapid De-escalation:</strong> Jumped on a live session within minutes to calm the billing director and obtain exact timestamps and user session IDs.</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald mt-2 flex-shrink-0"></span>
+                    <span><strong>Methodical Reproduction:</strong> Replicated the exact patient record state in staging. Verified that backend services, database transactions, and network status were operating normally.</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald mt-2 flex-shrink-0"></span>
+                    <span><strong>Root-Cause Pinpointed:</strong> Discovered an unselected regional tariff dropdown caused by a confusing UI toggle default, blocking validation without an explicit error banner.</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald mt-2 flex-shrink-0"></span>
+                    <span><strong>Client Walkthrough & Product Ticket:</strong> Guided the clinic manager live to complete the billing flow, then filed a concise UI bug ticket with reproduction steps to improve error-handling banners.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Metrics -->
+              <div class="pt-6 border-t border-white/[0.08] grid grid-cols-3 gap-4">
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-emerald">Zero Dev Hours</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">Spent on False Alarms</div>
+                </div>
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-emerald">&lt;25 Minutes</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">From Panic to Resolution</div>
+                </div>
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-emerald">100% Retained</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">Client Trust Preserved</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workflow Box -->
+            <div class="lg:col-span-4 bg-obsidian-900/90 rounded-2xl p-5 border border-white/[0.06] space-y-3 font-mono text-xs">
+              <div class="text-[11px] text-slate-400 uppercase tracking-widest">// TRIAGE LOGIC</div>
+              <div class="p-3 rounded-lg bg-red-950/20 border border-red-500/20 text-red-300">
+                <span class="font-bold block">ALERT: "System Down!"</span>
+                Check server logs & auth state
+              </div>
+              <div class="p-3 rounded-lg bg-amber-950/20 border border-amber-500/20 text-amber-300">
+                <span class="font-bold block">SIMULATION: Staging Mimic</span>
+                Reproduce user inputs & role perms
+              </div>
+              <div class="p-3 rounded-lg bg-emerald-950/20 border border-emerald-500/20 text-emerald-300">
+                <span class="font-bold block">RESULT: User Guidance</span>
+                Isolated UI confusion; unblocked client
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Pillar 03: Product Scoping -->
+        <div class="bento-card rounded-3xl p-6 sm:p-10 reveal">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div class="lg:col-span-8 space-y-6">
+              <div class="flex items-center gap-3">
+                <span class="px-3 py-1 rounded-md text-xs font-mono bg-cyber-violet/10 text-cyber-violet border border-cyber-violet/30">
+                  PILLAR 03 // THE PRODUCT SIDE
+                </span>
+                <span class="text-xs font-mono text-slate-500">FEATURE DELIVERY</span>
+              </div>
+
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-white leading-snug">
+                Converting Client Operational Needs into Commercial Custom Feature Deployments
+              </h3>
+
+              <div class="space-y-3">
+                <div class="text-xs font-mono uppercase tracking-wider text-slate-400">Context & Challenge</div>
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  A multi-center hospital group required custom laboratory export integration and branch aggregation not present in the base software. The client struggled to formulate technical requirements, risking misalignment, scope creep, and stalled discussions.
+                </p>
+              </div>
+
+              <div class="space-y-3">
+                <div class="text-xs font-mono uppercase tracking-wider text-cyber-violet">Execution & Methodology</div>
+                <ul class="space-y-3 text-sm text-slate-300">
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet mt-2 flex-shrink-0"></span>
+                    <span><strong>Discovery & Needs Mapping:</strong> Led discovery sessions with medical directors to isolate true operational necessities from cosmetic preferences.</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet mt-2 flex-shrink-0"></span>
+                    <span><strong>Requirements Translation:</strong> Synthesized clinical requests into structured functional specifications for backend engineers (data flow, input/output structures, constraints).</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet mt-2 flex-shrink-0"></span>
+                    <span><strong>Cost Scoping & Management Alignment:</strong> Collaborated with management to estimate development effort, establish delivery milestones, and present transparent costing to the client.</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet mt-2 flex-shrink-0"></span>
+                    <span><strong>User Acceptance Testing (UAT):</strong> Validated intermediate dev builds against client workflow before conducting formal training and production deployment.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Metrics -->
+              <div class="pt-6 border-t border-white/[0.08] grid grid-cols-3 gap-4">
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-violet">Direct Revenue</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">From Custom Engagement</div>
+                </div>
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-violet">100% On-Time</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">Zero Scope Drift</div>
+                </div>
+                <div>
+                  <div class="font-display text-2xl font-bold text-cyber-violet">Multi-Year</div>
+                  <div class="text-xs font-mono text-slate-400 mt-1">Account Retention</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workflow Box -->
+            <div class="lg:col-span-4 bg-obsidian-900/90 rounded-2xl p-5 border border-white/[0.06] space-y-3 font-mono text-xs">
+              <div class="text-[11px] text-slate-400 uppercase tracking-widest">// LIFECYCLE</div>
+              <div class="p-2.5 rounded bg-white/[0.02] border border-white/[0.05]">
+                <span class="text-cyber-violet font-semibold block">01 Client Wish-List</span>
+                "Aggregate lab reports across clinics"
+              </div>
+              <div class="p-2.5 rounded bg-white/[0.02] border border-white/[0.05]">
+                <span class="text-cyber-cyan font-semibold block">02 Spec & Schema</span>
+                Draft fields, filters & permissions
+              </div>
+              <div class="p-2.5 rounded bg-white/[0.02] border border-white/[0.05]">
+                <span class="text-cyber-emerald font-semibold block">03 Dev Alignment</span>
+                Sprint cost estimate + sign-off
+              </div>
+              <div class="p-2.5 rounded bg-cyber-violet/10 border border-cyber-violet/30 text-cyber-violet">
+                <span class="font-bold block">04 UAT Rollout</span>
+                Validated in clinic live release
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: OPERATIONAL TOOLKIT (With Adjusted AI-Assisted Web Scraping) -->
+    <section id="toolkit" class="py-24 border-t border-white/[0.06]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-3xl mb-16 reveal">
+          <div class="text-cyber-cyan text-xs font-mono uppercase tracking-widest mb-2">// CAPABILITIES & TECH STACK</div>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">The Operational Toolkit</h2>
+          <p class="text-slate-400 text-base sm:text-lg mt-3">
+            A balanced skill set designed to streamline customer operations, accelerate adoption, and bridge cross-functional teams.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+          
+          <!-- Category 1 -->
+          <div class="bento-card p-7 rounded-2xl border-t-2 border-t-cyber-cyan">
+            <div class="text-xs font-mono text-cyber-cyan mb-2">CATEGORY 01</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Client Operations & Training</h3>
+            <p class="text-xs text-slate-400 mb-6">Mastering high-stakes human interactions and driving sustainable software adoption.</p>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                <span>High-Touch Client Onboarding</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                <span>Role-Segmented Live Walkthroughs</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                <span>Change Management & User Empathy</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                <span>Visual SOP & Job Aid Creation</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-cyan"></span>
+                <span>Account Retention & Satisfaction</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Category 2 -->
+          <div class="bento-card p-7 rounded-2xl border-t-2 border-t-cyber-emerald">
+            <div class="text-xs font-mono text-cyber-emerald mb-2">CATEGORY 02</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Systems Triage & Product Bridge</h3>
+            <p class="text-xs text-slate-400 mb-6">Protecting internal engineering hours while accurately translating customer needs.</p>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald"></span>
+                <span>User Input vs. Software Bug Triage</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald"></span>
+                <span>Staging Reproduction & Log Checking</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald"></span>
+                <span>Functional Requirement Authoring</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald"></span>
+                <span>Feature Scoping & Developer Costing</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-emerald"></span>
+                <span>User Acceptance Testing (UAT)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Category 3 (UPDATED: "AI Assisted Web Scraping") -->
+          <div class="bento-card p-7 rounded-2xl border-t-2 border-t-cyber-violet">
+            <div class="text-xs font-mono text-cyber-violet mb-2">CATEGORY 03</div>
+            <h3 class="font-display text-xl font-bold text-white mb-2">Technical Fluency & Automation</h3>
+            <p class="text-xs text-slate-400 mb-6">Leveraging side experiments, scripting, and tooling to eliminate manual drudgery.</p>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet"></span>
+                <span class="text-white font-medium">AI Assisted Web Scraping</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet"></span>
+                <span>Automated Data Extraction & Cleaning</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet"></span>
+                <span>AI Productivity & Prompt Workflows</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet"></span>
+                <span>EHR / EMR Clinical SaaS Workflows</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-violet"></span>
+                <span>Google Colab & Structured Spreadsheets</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CONTACT & CONNECT -->
+    <section id="contact" class="py-24 border-t border-white/[0.06] bg-obsidian-900/60">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16 reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 text-xs font-mono mb-3">
+            // OPEN FOR HIGH-IMPACT ROLES
+          </div>
+          <h2 class="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">Initiate Conversation</h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-lg mx-auto">
+            Seeking opportunities in Technical Application Support, Implementation Operations, Customer Success Engineering, or Technical Account Management.
+          </p>
+        </div>
+
+        <div class="bento-card rounded-3xl p-6 sm:p-10 reveal">
+          
+          <div id="contact-feedback" class="hidden mb-6 p-4 rounded-xl text-sm font-mono" role="alert"></div>
+
+          <!-- Contact Form with Web3Forms -->
+          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+            <input type="hidden" name="subject" value="New Portfolio Inquiry for Vighnesh Chopra">
+            <input type="hidden" name="from_name" value="Portfolio Visitor">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">Your Name</label>
+                <input type="text" id="name" name="name" required placeholder="e.g. Dr. Sarah Jenkins / Hiring Manager" class="w-full px-4 py-3 rounded-xl bg-obsidian-900 border border-white/[0.1] text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyber-cyan text-sm">
+              </div>
+              <div>
+                <label for="email" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="sarah@hospitalnetwork.org" class="w-full px-4 py-3 rounded-xl bg-obsidian-900 border border-white/[0.1] text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyber-cyan text-sm">
+              </div>
+            </div>
+
+            <div>
+              <label for="reason" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">Inquiry Type</label>
+              <select id="reason" name="inquiry_type" class="w-full px-4 py-3 rounded-xl bg-obsidian-900 border border-white/[0.1] text-white focus:outline-none focus:ring-2 focus:ring-cyber-cyan text-sm">
+                <option value="Career Opportunity">Recruitment / Job Opportunity (SaaS Ops / CSE / TAM)</option>
+                <option value="Consulting / Onboarding">Client Onboarding or Support Consultation</option>
+                <option value="General Networking">General Professional Connection</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-xs font-mono uppercase tracking-wider text-slate-300 mb-2">Message</label>
+              <textarea id="message" name="message" rows="4" required placeholder="Hi Vighnesh, I reviewed your work bridging clinical operations and engineering..." class="w-full px-4 py-3 rounded-xl bg-obsidian-900 border border-white/[0.1] text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyber-cyan text-sm"></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyber-cyan via-cyber-teal to-cyber-emerald text-obsidian font-bold text-base hover:brightness-110 active:scale-[0.99] transition-all shadow-lg shadow-cyber-cyan/20 flex items-center justify-center gap-2">
+              <span id="btn-text">Transmit Message</span>
+              <svg id="btn-spinner" class="hidden w-5 h-5 text-obsidian animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+          </form>
+
+          <div class="mt-8 pt-6 border-t border-white/[0.08] flex flex-wrap items-center justify-between text-xs text-slate-400 gap-4 font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span>Available for full-time & hybrid/remote roles</span>
+            </div>
+            <div class="flex items-center space-x-4">
+              <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="text-cyber-cyan hover:underline">LinkedIn Profile ↗</a>
+              <span class="text-slate-600">•</span>
+              <button onclick="copyEmail()" class="text-cyber-cyan hover:underline focus:outline-none">
+                Copy Direct Email
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-10 bg-obsidian border-t border-white/[0.06] text-center text-xs text-slate-500 font-mono">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
+      <p>© 2026 Vighnesh Chopra. Built for performance, minimal latency, and zero bloat.</p>
+    </div>
+  </footer>
+
+  <!-- INTERACTIVE SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Mobile Menu
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileLinks.forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+      }
+
+      // 2. Scroll Reveal Intersection Observer
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(el => observer.observe(el));
+
+      // 3. Interactive Razorpay AI Builders Mouse-Tracking & 3D Tilt Glitch
+      const glitchCard = document.getElementById('glitch-card');
+      const glitchStage = document.getElementById('glitch-stage');
+      const redLayer = document.querySelector('.glitch-red');
+      const cyanLayer = document.querySelector('.glitch-cyan');
+
+      if (glitchCard && glitchStage) {
+        glitchCard.addEventListener('mousemove', (e) => {
+          const rect = glitchCard.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          // Subtle, smooth 3D tilt
+          const tiltX = (y / (rect.height / 2)) * -5;
+          const tiltY = (x / (rect.width / 2)) * 5;
+          glitchStage.style.transform = `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+
+          // Subtle Chromatic Aberration offset based on cursor position
+          if (redLayer && cyanLayer) {
+            const offsetX = (x / (rect.width / 2)) * 2.5;
+            const offsetY = (y / (rect.height / 2)) * 1.5;
+            redLayer.style.transform = `translate(${-offsetX}px, ${offsetY}px)`;
+            cyanLayer.style.transform = `translate(${offsetX}px, ${-offsetY}px)`;
+          }
+        });
+
+        glitchCard.addEventListener('mouseleave', () => {
+          glitchStage.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+          if (redLayer && cyanLayer) {
+            redLayer.style.transform = '';
+            cyanLayer.style.transform = '';
+          }
+        });
+      }
+
+      // 4. Contact Form Handling
+      const form = document.getElementById('contact-form');
+      const feedback = document.getElementById('contact-feedback');
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+      const btnSpinner = document.getElementById('btn-spinner');
+
+      if (form) {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          btnText.textContent = 'Transmitting...';
+          btnSpinner.classList.remove('hidden');
+          submitBtn.disabled = true;
+
+          try {
+            const formData = new FormData(form);
+            const res = await fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            });
+
+            if (res.status === 200) {
+              feedback.className = 'mb-6 p-4 rounded-xl text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-300';
+              feedback.innerHTML = '<strong>TRANSMISSION LOGGED:</strong> Message routed to Vighnesh Chopra.';
+              feedback.classList.remove('hidden');
+              form.reset();
+            } else {
+              throw new Error('Endpoint error');
+            }
+          } catch (err) {
+            feedback.className = 'mb-6 p-4 rounded-xl text-sm font-mono bg-red-500/10 border border-red-500/30 text-red-300';
+            feedback.innerHTML = '<strong>NOTICE:</strong> Automatic dispatch unavailable. Please connect via LinkedIn or Direct Email.';
+            feedback.classList.remove('hidden');
+          } finally {
+            btnText.textContent = 'Transmit Message';
+            btnSpinner.classList.add('hidden');
+            submitBtn.disabled = false;
+          }
+        });
+      }
+    });
+
+    // Helper: Copy Email
+    function copyEmail() {
+      const email = 'vighneshchopra@example.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const feedback = document.getElementById('contact-feedback');
+        feedback.className = 'mb-6 p-4 rounded-xl text-sm font-mono bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan';
+        feedback.innerHTML = `<strong>COPIED TO CLIPBOARD:</strong> Direct email copied (${email}).`;
+        feedback.classList.remove('hidden');
+        feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    }
+  </script>
+</body>
+</html>

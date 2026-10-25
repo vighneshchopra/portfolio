@@ -15,7 +15,7 @@ All future contributions, agent instructions, and developer commits to this repo
   - `chore`: Build scripts, dependencies, configuration, routine maintenance
 - STRICTLY FORBIDDEN IN COMMITS:
   - Conversational comments (*"I updated...", "Trying to get this working..."*).
-  - Physical appearance or facial modifications (*"hair follicles", "nose edits"*).
+  - Personal cosmetic alterations or physical retouching notes.
   - Raw AI prompt dumps or intermediate generation logs.
   - Vague titles (*"Update", "Fix bug", "Changes", "Upload files"*).
 

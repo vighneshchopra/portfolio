@@ -21,6 +21,8 @@ node_modules/
 __pycache__/
 *.py[cod]
 .venv/
+# Local Marketing Media & Scratch Assets (Keep offline)
+marketing_assets/
 experiments/
 scratch/
 
