@@ -2731,7 +2731,7 @@
         if (rawFormData.get('middle_name')) {
           contactForm.reset();
           contactAlert.className = 'mb-6 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 shadow-sm';
-          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out! I\'ve received your note and will review it and get back to you shortly.</span>';
+          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out! I shall get back to you shortly.</span>';
           contactAlert.classList.remove('hidden');
           contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
@@ -2787,7 +2787,7 @@
           clearTimeout(timeoutId);
           localStorage.setItem('vc_last_contact_ts', Date.now().toString());
           contactAlert.className = 'mb-6 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 shadow-sm';
-          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out! I\'ve received your note and will review it and get back to you shortly.</span>';
+          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out! I shall get back to you shortly.</span>';
           contactAlert.classList.remove('hidden');
 
           contactForm.reset();
