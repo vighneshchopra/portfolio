@@ -49,3 +49,13 @@ All future contributions, agent instructions, and developer commits to this repo
   1. The user explicitly requests to make the new version live (e.g., "push this to live", "update my live portfolio").
   2. The agent explains the replacement in detail and receives a second explicit, affirmative confirmation from the user.
 - **VERSIONED TESTING DISCIPLINE:** All iterative changes, feedback experiments, and mobile responsiveness adjustments must only be applied to versioned test files (`portfolio_v*.html` and `versions/v*.html`). The user tests changes on version files first; only after the user verifies they are superior to the live site and provides two explicit approvals may `index.html` be updated.
+
+## 8. MANDATORY DUAL-URL ARCHITECTURE & VERSION HUB MAINTENANCE
+- **DUAL-URL INTEGRITY FOR ALL VERSIONS:** Every version $N$ must always exist and be kept synchronized in BOTH formats:
+  1. Root level: `portfolio_v{N}.html` (e.g. `portfolio_v13.html`, `portfolio_v15.html`)
+  2. Subfolder: `versions/v{N}.html` (e.g. `versions/v13.html`, `versions/v15.html`)
+  Never delete root version files when archiving to `/versions/`. Both paths must always load with 100% of their assets intact.
+- **CENTRAL VERSION HUB ("PORTFOLIO DESIGN SYSTEM VERSION CONTROL"):** The version hub is the central mission-control dashboard. It must be named **"Portfolio Design System Version Control"** and maintained at both:
+  1. `versions/index.html` (accessible via `https://vighneshchopra.github.io/portfolio/versions/`)
+  2. `portfolio_versions.html` (accessible via `https://vighneshchopra.github.io/portfolio/portfolio_versions.html`)
+  The Hub MUST be updated every single time a new version or prototype is built, adding a direct card with live links before any push. All version cards must remain active and accessible.
