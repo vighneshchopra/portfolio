@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Git Pre-Commit Security & Quality Guardrail
+
+echo "Running pre-commit security and quality checks..."
+
+# 1. Block large media files (> 1MB)
+LARGE_FILES=$(git diff --cached --name-only --diff-filter=AM | while read file; do
+  if [ -f "$file" ]; then
+    size=$(wc -c < "$file")
+    if [ "$size" -gt 1048576 ]; then
+      echo "$file ($(( size / 1024 / 1024 )) MB)"
+    fi
+  fi
+done)
+
+if [ -n "$LARGE_FILES" ]; then
+  echo "ERROR: Attempting to commit files larger than 1MB:"
+  echo "$LARGE_FILES"
+  echo "Please compress assets to WebP or store media externally."
+  exit 1
+fi
+
+# 2. Block newly added sensitive spreadsheet IDs and bot trap keywords in code files
+FORBIDDEN_REGEX="(docs\.google\.com/spreadsheets/d/|honeypot|_honey)"
+
+STAGED_CODE_VIOLATIONS=$(git diff --cached --diff-filter=AM -U0 -- "*.html" "*.js" "*.css" "*.ts" "*.py" | grep -E "^\+[[:space:]]*.*${FORBIDDEN_REGEX}")
+
+if [ -n "$STAGED_CODE_VIOLATIONS" ]; then
+  echo "SECURITY ERROR: Staged code contains newly added forbidden patterns or spreadsheet IDs."
+  echo "$STAGED_CODE_VIOLATIONS"
+  exit 1
+fi
+
+# 3. Block disallowed file extensions
+ILLEGAL_EXT=$(git diff --cached --name-only --diff-filter=AM | grep -E '\.(env|mp4|mov|avi|bak|tmp)$')
+if [ -n "$ILLEGAL_EXT" ]; then
+  echo "ERROR: Disallowed file extensions staged for commit:"
+  echo "$ILLEGAL_EXT"
+  exit 1
+fi
+
+echo "All pre-commit security gates passed successfully."
+exit 0

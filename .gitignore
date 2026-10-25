@@ -1,5 +1,38 @@
+# Operating System Artifacts
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Local Backups & Archival Dumps
+*-backup/
+*Backup*
+*.bak
+*.old
+
+# Node / Python / Scratch Artifacts
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+experiments/
+scratch/
+
+# Local Testing Scripts & Logs
 serve.ps1
-*.tmp
-body.json
 rename_repo.ps1
 test_links.ps1
+*.tmp
+*.log
+body.json
+
+# Environment & Secret Credentials
+.env
+.env.*
+!.env.example

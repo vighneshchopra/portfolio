@@ -185,21 +185,51 @@ If you would like every person who reaches out to be automatically cataloged in 
 2. Add these column headers in row 1:
    - `Timestamp` | `Name` | `Email` | `Organization` | `Subject` | `Message` | `UTM Source`
 3. Click **Extensions** → **Apps Script**.
-4. Paste this code:
+4. Paste this hardened security code (mitigates Formula/CSV injection and rejects unauthenticated GET data harvesting):
 ```javascript
+// Hardened Google Apps Script Endpoint for Portfolio Inquiries
+
+function sanitizeCell(val) {
+  if (typeof val !== 'string') return val;
+  var trimmed = val.trim();
+  // Prevent Formula / CSV Injection (prepend single apostrophe to execution tokens)
+  if (/^[=+\-@\t\r]/.test(trimmed)) {
+    return "'" + trimmed;
+  }
+  return trimmed;
+}
+
+// 1. Enforce POST only — Strictly block GET requests from exposing stored contact rows
+function doGet(e) {
+  return ContentService.createTextOutput(
+    JSON.stringify({ error: "405 Method Not Allowed. POST requests only." })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+// 2. Handle POST with strict input sanitization
 function doPost(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var data = JSON.parse(e.postData.contents);
-  sheet.appendRow([
-    data.timestamp || new Date(),
-    data.name || '',
-    data.email || '',
-    data.organization || '',
-    data.subject || '',
-    data.message || '',
-    data.utm_source || 'direct'
-  ]);
-  return ContentService.createTextOutput(JSON.stringify({result: "success"})).setMimeType(ContentService.MimeType.JSON);
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+
+    sheet.appendRow([
+      sanitizeCell(data.timestamp || new Date()),
+      sanitizeCell(data.name || ''),
+      sanitizeCell(data.email || ''),
+      sanitizeCell(data.organization || ''),
+      sanitizeCell(data.subject || ''),
+      sanitizeCell(data.message || ''),
+      sanitizeCell(data.utm_source || 'direct')
+    ]);
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ result: "success" })
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ error: "Processing failed: " + err.message })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
 }
 ```
 5. Click **Deploy** → **New Deployment** → Select type **Web app**.
