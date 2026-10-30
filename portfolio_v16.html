@@ -55,17 +55,17 @@
   <meta property="og:description" content="Healthcare SaaS & EMR Application Support Manager directing L1/L2 application support, clinical user adoption, and engineering bridges across 30+ healthcare facilities in UAE and internationally.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vighneshchopra.github.io/portfolio/">
-  <meta property="og:image" content="./assets/og-light-preview.webp">
+  <meta property="og:image" content="https://vighneshchopra.github.io/portfolio/og_preview.jpg">
+  <meta property="og:image:secure_url" content="https://vighneshchopra.github.io/portfolio/og_preview.jpg">
+  <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:secure_url" content="./assets/og-light-preview.webp">
-  <meta property="og:image:type" content="image/webp">
   <meta property="og:site_name" content="Vighnesh Chopra Portfolio">
   <meta property="og:image:alt" content="Vighnesh Chopra — Healthcare SaaS & EMR Application Support Manager">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Application Support Manager">
   <meta name="twitter:description" content="Healthcare SaaS & EMR Application Support Manager directing L1/L2 application support, clinical user adoption, and engineering bridges across 30+ healthcare facilities in UAE and internationally.">
-  <meta name="twitter:image" content="./assets/og-light-preview.webp">
+  <meta name="twitter:image" content="https://vighneshchopra.github.io/portfolio/og_preview.jpg">
   <link rel="canonical" href="https://vighneshchopra.github.io/portfolio/">
 
   <!-- Inline Executive Monogram Favicon (Clean Orange V on Pitch Black) -->
@@ -1223,17 +1223,98 @@
       color: #9a3412 !important;
     }
 
-    /* Theme Toggle Button Header Styling in Light Mode */
+    /* Official LinkedIn Brand Button Styling */
+    .btn-linkedin-brand {
+      background-color: #0a66c2 !important;
+      color: #ffffff !important;
+      border: 1px solid #0a66c2 !important;
+      box-shadow: 0 3px 10px rgba(10, 102, 194, 0.28) !important;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .btn-linkedin-brand:hover {
+      background-color: #004182 !important;
+      border-color: #004182 !important;
+      color: #ffffff !important;
+      transform: scale(1.06) !important;
+      box-shadow: 0 5px 16px rgba(10, 102, 194, 0.45) !important;
+    }
+    .btn-linkedin-brand svg {
+      fill: #ffffff !important;
+    }
+
+    /* Tactile OLED Pitch-Black Button for Dark Mode Switch */
+    #theme-toggle-btn {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #theme-toggle-btn:hover {
+      transform: scale(1.06);
+    }
     body.light-theme #theme-toggle-btn {
-      background-color: rgba(241, 245, 249, 0.8) !important;
-      border-color: rgba(203, 213, 225, 0.9) !important;
-      color: #475569 !important;
+      background-color: #000000 !important;
+      border: 1.5px solid #1e293b !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.2) !important;
     }
     body.light-theme #theme-toggle-btn:hover {
-      background-color: rgba(154, 52, 18, 0.08) !important;
+      background-color: #09090b !important;
       border-color: #c2410c !important;
-      color: #9a3412 !important;
+      color: #fed7aa !important;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45) !important;
     }
+    body.light-theme #theme-toggle-btn #theme-icon-moon {
+      stroke: #ffffff !important;
+      color: #ffffff !important;
+      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.75));
+    }
+    /* In Dark Mode: Crisp Solid White Button with High-Contrast Amber-Cognac Sun */
+    body:not(.light-theme) #theme-toggle-btn {
+      background-color: #ffffff !important;
+      border: 1.5px solid #e2e8f0 !important;
+      color: #9a3412 !important;
+      box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+    }
+    body:not(.light-theme) #theme-toggle-btn:hover {
+      background-color: #f8fafc !important;
+      border-color: #ea580c !important;
+      color: #c2410c !important;
+      box-shadow: 0 6px 18px rgba(255, 255, 255, 0.45) !important;
+    }
+    body:not(.light-theme) #theme-toggle-btn #theme-icon-sun {
+      stroke: #9a3412 !important;
+      color: #9a3412 !important;
+      stroke-width: 2.3 !important;
+      filter: drop-shadow(0 1px 2px rgba(154, 52, 18, 0.35));
+    }
+    body:not(.light-theme) #theme-toggle-btn:hover #theme-icon-sun {
+      stroke: #c2410c !important;
+      color: #c2410c !important;
+    }
+
+    /* Mobile theme toggle button */
+    body:not(.light-theme) #theme-toggle-btn-mobile {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border: 1.5px solid #e2e8f0 !important;
+      font-weight: 700 !important;
+    }
+    body:not(.light-theme) #theme-toggle-btn-mobile:hover {
+      background-color: #f8fafc !important;
+      border-color: #ea580c !important;
+      color: #c2410c !important;
+    }
+    body.light-theme #theme-toggle-btn-mobile {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+      border: 1.5px solid #1e293b !important;
+      font-weight: 700 !important;
+    }
+    body.light-theme #theme-toggle-btn-mobile:hover {
+      background-color: #09090b !important;
+      border-color: #c2410c !important;
+      color: #fed7aa !important;
+    }
+
+
 
     /* Footer in Light Mode */
     body.light-theme footer {
@@ -1351,8 +1432,8 @@
 
         <!-- Header CTA & LinkedIn Quick Connect -->
         <div class="hidden sm:flex items-center gap-2.5 shrink-0">
-          <!-- Theme Toggle Pill Button (Futuristic Dark / Light Switch) -->
-          <button id="theme-toggle-btn" type="button" class="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.1] hover:border-amber-cognac/60 hover:bg-amber-soft text-titanium-muted hover:text-amber-cognac flex items-center justify-center transition-all shadow-sm group cursor-pointer" aria-label="Switch to Dark Mode" title="Switch to Dark Mode">
+          <!-- Tactile OLED Black Dark Mode Switch Button -->
+          <button id="theme-toggle-btn" type="button" class="w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer active:scale-95 group" aria-label="Switch to Dark Mode" title="Switch to Dark Mode">
             <svg id="theme-icon-sun" class="w-4 h-4 fill-none stroke-current hidden" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="4" stroke-width="2"/>
               <path stroke-linecap="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
@@ -1362,8 +1443,9 @@
             </svg>
           </button>
 
-          <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile of Vighnesh Chopra" class="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.1] hover:border-amber-cognac/60 hover:bg-amber-soft text-titanium-muted hover:text-amber-cognac flex items-center justify-center transition-all shadow-sm group" title="Connect with Vighnesh on LinkedIn">
-            <svg class="w-4 h-4 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+          <!-- Authentic Vibrant LinkedIn Blue Button -->
+          <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile of Vighnesh Chopra" class="w-9 h-9 rounded-xl btn-linkedin-brand flex items-center justify-center cursor-pointer group" title="Connect with Vighnesh on LinkedIn">
+            <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24">
               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.5a1.63 1.63 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63A1.63 1.63 0 0 0 7.86 6.5Z"/>
             </svg>
           </a>
@@ -1399,11 +1481,11 @@
             <span id="theme-mobile-icon">&#x1F319;</span>
             <span id="theme-mobile-label">Switch to Dark Mode</span>
           </button>
-          <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary text-center text-xs justify-center flex items-center gap-2">
-            <svg class="w-4 h-4 fill-amber-cognac" viewBox="0 0 24 24">
+          <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="btn-pill btn-linkedin-brand text-center text-xs justify-center flex items-center gap-2 font-bold">
+            <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24">
               <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.5a1.63 1.63 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63A1.63 1.63 0 0 0 7.86 6.5Z"/>
             </svg>
-            Connect on LinkedIn
+            <span>Connect on LinkedIn</span>
           </a>
           <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download class="btn-pill btn-pill-secondary text-center text-xs justify-center">
             Download Resume (PDF)
@@ -1467,12 +1549,12 @@
                 <span>RESUME (PDF)</span>
               </a>
 
-              <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary flex items-center gap-2 group">
-                <svg class="w-3.5 h-3.5 fill-amber-cognac group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+              <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="btn-pill btn-linkedin-brand flex items-center gap-2 group font-semibold shadow-md">
+                <svg class="w-3.5 h-3.5 fill-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
                   <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.5a1.63 1.63 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63A1.63 1.63 0 0 0 7.86 6.5Z"/>
                 </svg>
                 <span>LINKEDIN</span>
-                <span class="text-amber-cognac">↗</span>
+                <span class="text-white/80">↗</span>
               </a>
 
               <a href="#experience" class="btn-pill btn-pill-secondary">
@@ -1995,26 +2077,113 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- SCREEN 4: ANTHROPIC AI CERTIFICATIONS GALLERY            -->
+    <!-- SCREEN 4: CERTIFICATIONS & CREDENTIALS                   -->
     <!-- ======================================================== -->
     <section id="certifications" class="py-24 sm:py-32 relative">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-16">
         
-        <div class="max-w-5xl lg:max-w-6xl mb-16 space-y-4">
+        <!-- Main Section Header -->
+        <div class="max-w-5xl lg:max-w-6xl space-y-4">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-soft border border-amber-cognac/30 text-amber-cognac font-mono text-xs font-semibold">
-            <span>ARTIFICIAL INTELLIGENCE &amp; MODERN OPS</span>
+            <span>03 // PROFESSIONAL CERTIFICATIONS</span>
           </div>
           <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black uppercase tracking-[0.03em] [word-spacing:0.2em] text-white font-display leading-[1.2]">
-            <span class="decrypt-text inline-block">VERIFIED ANTHROPIC</span>
-            <span class="decrypt-text inline-block text-transparent bg-clip-text bg-gradient-to-r from-amber-cognac to-amber-ochre">AI CREDENTIALS</span>
+            <span class="inline-block">CERTIFICATIONS</span>
           </h2>
           <p class="text-base sm:text-lg text-titanium-muted leading-relaxed font-normal max-w-4xl lg:max-w-5xl">
-            Leveraging modern generative AI and Claude’s reasoning architecture to synthesize complex clinical log files, accelerate SOP generation, and enhance frontline incident triage.
+            Formal professional credentials across healthcare informatics systems, luxury hospitality operational leadership, and verified generative AI competencies.
           </p>
         </div>
 
-        <!-- 4 Credential Cards Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- TIER 1: HEALTHCARE INFORMATICS & OPERATIONAL LEADERSHIP (2 RECTANGULAR BENTO CARDS) -->
+        <div class="space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-amber-cognac">01 // HEALTHCARE INFORMATICS &amp; OPERATIONAL LEADERSHIP</span>
+            <div class="h-px bg-white/[0.08] flex-1"></div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Card 1: Medicworks Healthcare Informatics -->
+            <div class="spotlight-card p-6 sm:p-8 flex flex-col justify-between space-y-6 relative overflow-hidden">
+              <span class="chamfer-glint"></span>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <span class="text-[10px] font-mono text-amber-cognac font-bold px-2.5 py-1 rounded-full bg-amber-soft border border-amber-cognac/30">
+                    MEDICWORKS HEALTHCARE INFORMATICS • DUBAI, UAE (2019)
+                  </span>
+                  <span class="w-2 h-2 rounded-full bg-amber-ochre"></span>
+                </div>
+                <div>
+                  <h3 class="text-xl sm:text-2xl font-bold text-white font-display tracking-tight leading-snug">
+                    Healthcare Informatics &amp; Clinical Systems Onboarding Program
+                  </h3>
+                  <div class="text-xs font-mono text-titanium-light mt-1">
+                    Dubai, UAE • 2019
+                  </div>
+                </div>
+                <p class="text-sm text-titanium-muted leading-relaxed">
+                  Operational enablement across hospital EMR workflow architecture, doctor charting continuity, prescription and billing exception triage, and frontline clinician onboarding across high-volume healthcare facilities in the UAE.
+                </p>
+              </div>
+
+              <div class="pt-5 border-t border-white/[0.08] space-y-2.5">
+                <div class="text-[11px] font-mono uppercase tracking-wider text-amber-cognac font-bold">Key Competencies:</div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">Clinical Systems Architecture</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">EMR Go-Live Readiness</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">Clinician Workflow Enablement</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">Health Data Compliance</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: ITC Hospitality Management Institute -->
+            <div class="spotlight-card p-6 sm:p-8 flex flex-col justify-between space-y-6 relative overflow-hidden">
+              <span class="chamfer-glint"></span>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                  <span class="text-[10px] font-mono text-amber-cognac font-bold px-2.5 py-1 rounded-full bg-amber-soft border border-amber-cognac/30">
+                    ITC HOSPITALITY MANAGEMENT INSTITUTE • GURGAON, INDIA (2018)
+                  </span>
+                  <span class="w-2 h-2 rounded-full bg-amber-ochre"></span>
+                </div>
+                <div>
+                  <h3 class="text-xl sm:text-2xl font-bold text-white font-display tracking-tight leading-snug">
+                    WelcomLEAD Operational Leadership Program
+                  </h3>
+                  <div class="text-xs font-mono text-titanium-light mt-1">
+                    Gurgaon, India • 2018
+                  </div>
+                </div>
+                <p class="text-sm text-titanium-muted leading-relaxed">
+                  Foundational three-year management and operational development covering high-availability service delivery, rigorous SOP governance, high-pressure crisis de-escalation, and frontline data integrity across luxury retreat networks (ITC Grand Bharat).
+                </p>
+              </div>
+
+              <div class="pt-5 border-t border-white/[0.08] space-y-2.5">
+                <div class="text-[11px] font-mono uppercase tracking-wider text-amber-cognac font-bold">Key Competencies:</div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">White-Glove Stakeholder Care</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">Crisis De-escalation</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">Mission-Critical SLAs</span>
+                  <span class="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-titanium-light whitespace-normal sm:whitespace-nowrap">Cross-Functional Command</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TIER 2: VERIFIED ANTHROPIC AI CREDENTIALS -->
+        <div class="space-y-6">
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-amber-cognac">02 // VERIFIED ANTHROPIC AI CREDENTIALS</span>
+            <div class="h-px bg-white/[0.08] flex-1"></div>
+          </div>
+
+          <!-- 4 Credential Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           <!-- Cert 1 -->
           <div class="spotlight-card p-6 flex flex-col justify-between space-y-6 relative overflow-hidden">
@@ -2387,15 +2556,21 @@
           <div class="mt-10 pt-8 border-t border-white/[0.07] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
             <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
               <span class="text-titanium-muted">CONNECT ON VERIFIED PLATFORMS:</span>
-              <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="text-amber-cognac hover:underline flex items-center gap-1 font-bold">
-                <span>LINKEDIN</span>
+              <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg btn-linkedin-brand font-bold text-xs">
+                <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.5a1.63 1.63 0 0 0-1.63 1.63c0 .9.73 1.63 1.63 1.63.9 0 1.63-.73 1.63-1.63A1.63 1.63 0 0 0 7.86 6.5Z"/>
+                </svg>
+                <span>LINKEDIN PROFILE</span>
                 <span>↗</span>
               </a>
             </div>
             <div>
-              <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download class="text-titanium-light hover:text-white flex items-center gap-1">
+              <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download="Vighnesh_Chopra_Resume.pdf" class="btn-pill btn-pill-secondary inline-flex items-center gap-2 group font-semibold text-xs shadow-sm cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-amber-cognac group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
                 <span>DOWNLOAD CV (PDF)</span>
-                <span>↓</span>
+                <span class="text-amber-cognac group-hover:translate-y-0.5 transition-transform">↓</span>
               </a>
             </div>
           </div>
