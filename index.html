@@ -1,12 +1,38 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth light-theme">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vighnesh Chopra | Healthcare SaaS & EMR Support Manager</title>
-  <meta name="description" content="Executive portfolio of Vighnesh Chopra — Healthcare SaaS & EMR Support Manager with 7+ years directing L1/L2 application support, clinical user adoption, and engineering escalation bridges across 30+ healthcare facilities in UAE and internationally.">
+  <meta name="description" content="Executive portfolio of Vighnesh Chopra — Healthcare SaaS & EMR Application Support Manager with 7+ years directing L1/L2 application support, clinical user adoption, and engineering escalation bridges across 30+ healthcare facilities in UAE and internationally.">
   <meta name="author" content="Vighnesh Chopra">
   <meta name="referrer" content="no-referrer-when-downgrade">
+  <meta name="theme-color" content="#f8fafc">
+
+  <!-- Early Theme Engine Initialization: Strict Light Mode Default (Zero-FOUC) -->
+  <script>
+    (function() {
+      try {
+        var theme = localStorage.getItem('vc_portfolio_theme_v16');
+        if (!theme) {
+          // Strict Light Mode Default for all visitors upon v16 rollout
+          theme = 'light';
+          localStorage.setItem('vc_portfolio_theme_v16', 'light');
+          localStorage.setItem('vc_portfolio_theme', 'light');
+        }
+        if (theme === 'dark') {
+          document.documentElement.classList.remove('light-theme');
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.add('light-theme');
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {
+        document.documentElement.classList.add('light-theme');
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
 
   <!-- Preconnect & Resource Discovery (High Performance - Immediate Early Handshake) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,19 +50,22 @@
   <link rel="dns-prefetch" href="https://www.clarity.ms">
   <link rel="dns-prefetch" href="https://c.bing.com">
 
-  <!-- Open Graph & Meta Identity (Apple / WhatsApp / LinkedIn Luxury Rich Card) -->
-  <meta property="og:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Support Manager">
-  <meta property="og:description" content="Directing L1/L2 application support, clinical workflow deadlocks, and engineering bridges across 30+ health facilities worldwide.">
+  <!-- Open Graph & Meta Identity (Synchronized Light Theme Preview) -->
+  <meta property="og:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Application Support Manager">
+  <meta property="og:description" content="Healthcare SaaS & EMR Application Support Manager directing L1/L2 application support, clinical user adoption, and engineering bridges across 30+ healthcare facilities in UAE and internationally.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://vighneshchopra.github.io/portfolio/">
-  <meta property="og:image" content="https://vighneshchopra.github.io/portfolio/og_preview.png">
+  <meta property="og:image" content="./assets/og-light-preview.webp">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Vighnesh Chopra — Healthcare SaaS & EMR Support Manager">
+  <meta property="og:image:secure_url" content="./assets/og-light-preview.webp">
+  <meta property="og:image:type" content="image/webp">
+  <meta property="og:site_name" content="Vighnesh Chopra Portfolio">
+  <meta property="og:image:alt" content="Vighnesh Chopra — Healthcare SaaS & EMR Application Support Manager">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Support Manager">
-  <meta name="twitter:description" content="Directing L1/L2 application support, clinical workflow deadlocks, and engineering bridges across 30+ health facilities worldwide.">
-  <meta name="twitter:image" content="https://vighneshchopra.github.io/portfolio/og_preview.png">
+  <meta name="twitter:title" content="Vighnesh Chopra | Healthcare SaaS & EMR Application Support Manager">
+  <meta name="twitter:description" content="Healthcare SaaS & EMR Application Support Manager directing L1/L2 application support, clinical user adoption, and engineering bridges across 30+ healthcare facilities in UAE and internationally.">
+  <meta name="twitter:image" content="./assets/og-light-preview.webp">
   <link rel="canonical" href="https://vighneshchopra.github.io/portfolio/">
 
   <!-- Inline Executive Monogram Favicon (Clean Orange V on Pitch Black) -->
@@ -182,19 +211,32 @@
       object-position: bottom;
     }
 
-    /* Base resets & typography */
+    /* Base resets & typography (Light Mode Default Baseline) */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     html {
       scroll-behavior: smooth;
+      background-color: #f8fafc;
+    }
+    html.dark {
       background-color: #000000;
     }
     body {
-      background-color: #000000;
-      color: #e4e4e7;
+      background-color: #f8fafc;
+      color: #0f172a;
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
       margin: 0;
       padding: 0;
       -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }
+    body.dark {
+      background-color: #000000;
+      color: #e4e4e7;
     }
 
     /* Reading Progress Bar (Warm Cognac Gradient - GPU Composited) */
@@ -212,15 +254,30 @@
       will-change: transform;
     }
 
-    /* Fixed Canvas: Warm Mineral Dust & Ambient Mesh */
-    #bg-canvas {
+
+
+    /* Mobile Sticky Floating Action Button (FAB) */
+    #mobile-sticky-cta {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 45;
+      transform-origin: center bottom;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-fab-pill {
+      background: rgba(18, 18, 18, 0.94);
+      color: #ffffff;
+      border: 1px solid rgba(217, 119, 54, 0.55);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.75), 0 0 20px rgba(217, 119, 54, 0.28);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+    .mobile-fab-pill:active {
+      transform: scale(0.95);
+      border-color: #d97736;
     }
 
     /* Continuous Mineral Gradient Fade Overlay (Pure Pitch Black Void) */
@@ -346,53 +403,22 @@
       }
     }
 
-    /* Brushed Titanium Metric Shimmer (Hardware Accelerated) */
+    /* Clean Solid Executive Metrics (Static Zero-Jank Rendering) */
     .metric-shimmer {
-      background: linear-gradient(110deg, #ffffff 0%, #ffffff 22%, #f59e0b 42%, #ea580c 50%, #f59e0b 58%, #ffffff 78%, #ffffff 100%);
-      background-size: 240% 100%;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      color: transparent !important;
-      animation: metricSheen 4.5s infinite linear;
-      will-change: background-position;
-      transform: translateZ(0);
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background: none !important;
+      animation: none !important;
       display: inline-block;
-    }
-    @keyframes metricSheen {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
     }
 
-    /* Specular Reflection & Radiant Amber Sheen for Hero Executive Name */
+    /* Clean Solid Executive Name (Static Zero-Jank Rendering) */
     .hero-name-shimmer {
-      background: linear-gradient(
-        110deg,
-        #ffffff 0%,
-        #ffffff 22%,
-        #f59e0b 42%,
-        #ea580c 50%,
-        #f59e0b 58%,
-        #ffffff 78%,
-        #ffffff 100%
-      );
-      background-size: 240% 100%;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      color: transparent !important;
-      animation: heroNameSheen 5.5s infinite linear;
-      will-change: background-position;
-      transform: translateZ(0);
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      background: none !important;
+      animation: none !important;
       display: inline-block;
-    }
-    @keyframes heroNameSheen {
-      0% {
-        background-position: 200% 0;
-      }
-      100% {
-        background-position: -200% 0;
-      }
     }
 
     /* ECO Mode Dynamic Overrides (Zero GPU Load for Low-End Devices) */
@@ -888,27 +914,21 @@
       filter: blur(60px) !important;
     }
 
-    /* Hero Name Shimmer in Light Mode (Active linear loop with deep burnt cognac glide) */
+    /* Hero Name in Light Mode (Crisp Charcoal Slate - Static & Focused) */
     body.light-theme .hero-name-shimmer {
-      background: linear-gradient(110deg, #0f172a 0%, #1e293b 22%, #c2410c 42%, #ea580c 50%, #9a3412 58%, #1e293b 78%, #0f172a 100%) !important;
-      background-size: 240% 100% !important;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      color: transparent !important;
-      animation: heroNameSheen 5.5s infinite linear !important;
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      background: none !important;
+      animation: none !important;
       display: inline-block;
     }
 
-    /* Hero KPI Metrics Shimmer in Light Mode (Active linear loop with vibrant burnt sienna glide) */
+    /* Hero KPI Metrics in Light Mode (Crisp Charcoal Slate - Static & Focused) */
     body.light-theme .metric-shimmer {
-      background: linear-gradient(110deg, #0f172a 0%, #1e293b 22%, #c2410c 42%, #ea580c 50%, #9a3412 58%, #1e293b 78%, #0f172a 100%) !important;
-      background-size: 240% 100% !important;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      -webkit-text-fill-color: transparent !important;
-      color: transparent !important;
-      animation: metricSheen 4.5s infinite linear !important;
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      background: none !important;
+      animation: none !important;
       display: inline-block;
     }
 
@@ -1169,6 +1189,40 @@
       box-shadow: 0 0 8px rgba(154, 52, 18, 0.4) !important;
     }
 
+    /* Mobile Sticky FAB Styling in Light Mode */
+    body.light-theme .mobile-fab-pill {
+      background: rgba(255, 255, 255, 0.96) !important;
+      color: #0f172a !important;
+      border: 1px solid rgba(194, 65, 12, 0.45) !important;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.16), 0 0 18px rgba(194, 65, 12, 0.18) !important;
+    }
+    body.light-theme .mobile-fab-pill:active {
+      background: rgba(248, 250, 252, 0.98) !important;
+      border-color: #c2410c !important;
+      color: #9a3412 !important;
+    }
+
+    /* Contact Alert High-Contrast Feedback in Light Mode */
+    body.light-theme #contact-alert.bg-emerald-500\/10 {
+      background-color: rgba(16, 185, 129, 0.12) !important;
+      border-color: rgba(5, 150, 105, 0.45) !important;
+      color: #065f46 !important;
+    }
+    body.light-theme #contact-alert.bg-rose-500\/10 {
+      background-color: rgba(254, 226, 226, 0.98) !important;
+      border-color: rgba(239, 68, 68, 0.7) !important;
+      color: #991b1b !important;
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.12) !important;
+    }
+    body.light-theme #contact-alert.bg-rose-500\/10 strong {
+      color: #7f1d1d !important;
+    }
+    body.light-theme #contact-alert.bg-amber-soft {
+      background-color: rgba(254, 243, 199, 0.98) !important;
+      border-color: rgba(217, 119, 54, 0.6) !important;
+      color: #9a3412 !important;
+    }
+
     /* Theme Toggle Button Header Styling in Light Mode */
     body.light-theme #theme-toggle-btn {
       background-color: rgba(241, 245, 249, 0.8) !important;
@@ -1252,13 +1306,12 @@
   </style>
 </head>
 
-<body class="selection:bg-amber-cognac selection:text-black">
+<body class="light-theme selection:bg-amber-cognac selection:text-black">
 
   <!-- Top Reading Progress Indicator -->
   <div id="progress-bar"></div>
 
-  <!-- Background Particle & Proximity Canvas Engine (Warm Amber Mineral Ambient) -->
-  <canvas id="bg-canvas"></canvas>
+
 
   <!-- Ambient Dark Gradient Fade Overlay -->
   <div class="bg-gradient-overlay"></div>
@@ -1273,7 +1326,7 @@
       <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
         
         <!-- Brand / Identity -->
-        <a href="#hero" class="flex items-center gap-3.5 group shrink-0">
+        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="flex items-center gap-3.5 group shrink-0" title="Return to Top">
           <div class="w-10 h-10 rounded-xl bg-amber-soft border border-amber-cognac/30 flex items-center justify-center text-amber-cognac font-mono font-bold text-sm tracking-wider monogram-badge group-hover:scale-105 group-hover:border-amber-cognac transition-all shadow-[0_0_15px_rgba(217,119,54,0.18)]">
             VC
           </div>
@@ -1299,12 +1352,12 @@
         <!-- Header CTA & LinkedIn Quick Connect -->
         <div class="hidden sm:flex items-center gap-2.5 shrink-0">
           <!-- Theme Toggle Pill Button (Futuristic Dark / Light Switch) -->
-          <button id="theme-toggle-btn" type="button" class="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.1] hover:border-amber-cognac/60 hover:bg-amber-soft text-titanium-muted hover:text-amber-cognac flex items-center justify-center transition-all shadow-sm group cursor-pointer" aria-label="Switch to Light Mode" title="Switch to Light Mode">
-            <svg id="theme-icon-sun" class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24">
+          <button id="theme-toggle-btn" type="button" class="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.1] hover:border-amber-cognac/60 hover:bg-amber-soft text-titanium-muted hover:text-amber-cognac flex items-center justify-center transition-all shadow-sm group cursor-pointer" aria-label="Switch to Dark Mode" title="Switch to Dark Mode">
+            <svg id="theme-icon-sun" class="w-4 h-4 fill-none stroke-current hidden" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="4" stroke-width="2"/>
               <path stroke-linecap="round" stroke-width="2" d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
             </svg>
-            <svg id="theme-icon-moon" class="w-4 h-4 fill-none stroke-current hidden" viewBox="0 0 24 24">
+            <svg id="theme-icon-moon" class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
             </svg>
           </button>
@@ -1343,8 +1396,8 @@
         <a href="#contact" class="block text-sm font-mono text-titanium-muted hover:text-amber-cognac mobile-nav-link">05 // LET'S CONNECT</a>
         <div class="pt-4 border-t border-white/[0.08] flex flex-col gap-3">
           <button id="theme-toggle-btn-mobile" type="button" class="btn-pill btn-pill-secondary text-center text-xs justify-center flex items-center gap-2 cursor-pointer">
-            <span id="theme-mobile-icon">☀️</span>
-            <span id="theme-mobile-label">Switch to Light Mode</span>
+            <span id="theme-mobile-icon">&#x1F319;</span>
+            <span id="theme-mobile-label">Switch to Dark Mode</span>
           </button>
           <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary text-center text-xs justify-center flex items-center gap-2">
             <svg class="w-4 h-4 fill-amber-cognac" viewBox="0 0 24 24">
@@ -1400,13 +1453,18 @@
               Managing <strong class="text-white font-semibold">L1/L2 application support</strong>, clinical onboarding, and issue escalation across <strong class="text-white font-semibold">30+ healthcare facilities</strong>, with specialized expertise in the <strong class="text-white font-semibold">UAE (Dubai &amp; Abu Dhabi)</strong> alongside international project deliveries across <strong class="text-white font-semibold">Ghana, the United States, and India</strong>. Ensuring reliable day-to-day EMR adoption, smooth charting workflows, and collaborative defect resolution with software engineering teams.
             </p>
 
-            <!-- Action Pill Row -->
+            <!-- Action Pill Row with Above-the-Fold Direct Contact CTA -->
             <div class="flex flex-wrap items-center gap-3.5 pt-2">
-              <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download="Vighnesh_Chopra_Resume.pdf" class="btn-pill btn-pill-primary">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <a href="#contact" class="btn-pill btn-pill-primary flex items-center gap-2 group order-first">
+                <span>LET'S CONNECT</span>
+                <span class="group-hover:translate-x-0.5 transition-transform text-white font-bold">↗</span>
+              </a>
+
+              <a href="Vighnesh_Chopra_Resume.pdf" target="_blank" download="Vighnesh_Chopra_Resume.pdf" class="btn-pill btn-pill-secondary flex items-center gap-2">
+                <svg class="w-4 h-4 text-amber-cognac" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
-                <span>DOWNLOAD RESUME (PDF)</span>
+                <span>RESUME (PDF)</span>
               </a>
 
               <a href="https://www.linkedin.com/in/vighneshchopra/" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill-secondary flex items-center gap-2 group">
@@ -2192,14 +2250,13 @@
             </div>
           </div>
           
-          <!-- Alert notification banner for status feedback -->
-          <div id="contact-alert" class="hidden mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed"></div>
+<!-- Top Alert banner relocated directly below submit button for immediate mobile viewport visibility -->
 
           <!-- Hidden Iframe Fallback for Ad-Blocker Immunity -->
           <iframe name="hidden_form_relay" id="hidden_form_relay" class="hidden" style="display:none;" aria-hidden="true"></iframe>
 
           <!-- Functional FormSubmit Relay Form (Protected against spam & blockers) -->
-          <form id="contact-form" action="https://formsubmit.co/vighnesh.chopra13@gmail.com" method="POST" class="space-y-6">
+          <form id="contact-form" novalidate action="https://formsubmit.co/vighnesh.chopra13@gmail.com" method="POST" class="space-y-6">
 
             <!-- Name and Email Row -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -2306,7 +2363,7 @@
             </div>
 
             <!-- Submit Button & Privacy Statement -->
-            <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div class="text-[11px] font-mono text-titanium-muted text-center sm:text-left">
                 🔒 Direct transmission to Vighnesh Chopra. Form protected against automated spam.
               </div>
@@ -2320,6 +2377,9 @@
                 <span id="btn-spinner" class="hidden animate-spin">⟳</span>
               </button>
             </div>
+
+            <!-- Alert notification banner for status feedback (Directly BELOW send message button) -->
+            <div id="contact-alert" class="hidden mt-4 p-4 rounded-xl text-xs sm:text-sm font-mono leading-relaxed shadow-lg"></div>
 
           </form>
 
@@ -2385,7 +2445,7 @@
           <span class="text-carbon-750">•</span>
           <button id="reopen-consent-btn" type="button" class="text-titanium-muted hover:text-amber-cognac transition-colors underline cursor-pointer">Cookie &amp; Privacy</button>
           <span class="text-carbon-750">•</span>
-          <a href="#hero" class="text-amber-cognac hover:underline font-semibold">BACK TO TOP ↑</a>
+          <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" class="text-amber-cognac hover:underline font-semibold">BACK TO TOP ↑</a>
         </div>
       </div>
     </footer>
@@ -2641,6 +2701,14 @@
     }
 
     const contactForm = document.getElementById('contact-form');
+    const emailField = document.getElementById('email');
+    if (emailField) {
+      emailField.addEventListener('input', () => {
+        if (emailField.value.includes('@')) {
+          emailField.classList.remove('border-rose-500', 'ring-1', 'ring-rose-500');
+        }
+      });
+    }
     const contactAlert = document.getElementById('contact-alert');
     const submitBtn = document.getElementById('submit-btn');
     const btnLabel = document.getElementById('btn-label');
@@ -2655,7 +2723,48 @@
           contactAlert.className = 'mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono bg-amber-soft border border-amber-cognac/30 text-amber-cognac';
           contactAlert.innerHTML = '<strong>LOCAL FILE PROTOCOL DETECTED:</strong> Web forms require an HTTP/HTTPS server to transmit. Please launch this page via a web server or email directly at <a href="mailto:vighnesh.chopra13@gmail.com" class="text-white underline font-bold hover:text-amber-cognac">vighnesh.chopra13@gmail.com</a>.';
           contactAlert.classList.remove('hidden');
-          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const nameVal = nameInput ? nameInput.value.trim() : '';
+        const emailVal = emailInput ? emailInput.value.trim() : '';
+        const messageVal = messageInput ? messageInput.value.trim() : '';
+
+        // Robust Field Validation: Name
+        if (!nameVal || nameVal.length < 2) {
+          contactAlert.className = 'mt-4 p-4 rounded-xl text-xs sm:text-sm font-mono bg-rose-500/10 border border-rose-500/40 text-rose-400 flex items-center gap-2.5 shadow-sm';
+          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-400 shrink-0"></span><span><strong>Please enter your name</strong> (minimum 2 characters).</span>';
+          contactAlert.classList.remove('hidden');
+          if (nameInput) nameInput.focus();
+          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        // Robust Field Validation: Email (Explicit "@" and format check)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        if (!emailVal || !emailVal.includes('@') || !emailRegex.test(emailVal)) {
+          contactAlert.className = 'mt-4 p-4 rounded-xl text-xs sm:text-sm font-mono bg-rose-500/10 border border-rose-500/40 text-rose-400 flex items-center gap-2.5 shadow-sm';
+          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-400 shrink-0"></span><span><strong>Invalid email address:</strong> Please enter a valid work email including an "@" and domain (e.g. name@hospital.com).</span>';
+          contactAlert.classList.remove('hidden');
+          if (emailInput) {
+            emailInput.focus();
+            emailInput.classList.add('border-rose-500', 'ring-1', 'ring-rose-500');
+          }
+          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        // Robust Field Validation: Message
+        if (!messageVal || messageVal.length < 10) {
+          contactAlert.className = 'mt-4 p-4 rounded-xl text-xs sm:text-sm font-mono bg-rose-500/10 border border-rose-500/40 text-rose-400 flex items-center gap-2.5 shadow-sm';
+          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-400 shrink-0"></span><span><strong>Please include a brief message</strong> (minimum 10 characters).</span>';
+          contactAlert.classList.remove('hidden');
+          if (messageInput) messageInput.focus();
+          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
 
@@ -2665,9 +2774,9 @@
         if (rawFormData.get('middle_name')) {
           contactForm.reset();
           contactAlert.className = 'mb-6 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 shadow-sm';
-          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out, Vighnesh will get back to you soon.</span>';
+          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out! I shall get back to you shortly.</span>';
           contactAlert.classList.remove('hidden');
-          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
 
@@ -2678,7 +2787,7 @@
           contactAlert.className = 'mb-6 p-4 rounded-xl text-xs sm:text-sm font-mono bg-amber-soft border border-amber-cognac/30 text-amber-cognac';
           contactAlert.textContent = 'Please wait 45 seconds before submitting another inquiry.';
           contactAlert.classList.remove('hidden');
-          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
 
@@ -2721,14 +2830,14 @@
           clearTimeout(timeoutId);
           localStorage.setItem('vc_last_contact_ts', Date.now().toString());
           contactAlert.className = 'mb-6 py-3.5 px-4 rounded-xl text-xs sm:text-sm font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 shadow-sm';
-          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out, Vighnesh will get back to you soon.</span>';
+          contactAlert.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span><strong>Message sent successfully!</strong> Thank you for reaching out! I shall get back to you shortly.</span>';
           contactAlert.classList.remove('hidden');
 
           contactForm.reset();
           submitBtn.disabled = false;
           btnLabel.textContent = 'SEND MESSAGE';
           btnSpinner.classList.add('hidden');
-          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          contactAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
         };
 
         try {
@@ -2785,307 +2894,10 @@
     }
 
     // ----------------------------------------------------------
-    // 7. QUANTUM ADAPTIVE CANVAS ENGINE (60Hz PRO / 30Hz ECO CLAMP)
-    // ----------------------------------------------------------
-    let currentProfile = 'PRO'; // 'PRO' (60Hz) or 'ECO' (30Hz)
-    let isAutoProfile = true;
-    let animId = null;
-
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas ? canvas.getContext('2d', { alpha: true }) : null;
-    let w = 0;
-    let h = 0;
-    let isVisible = true;
-    let mouseX = -1000, mouseY = -1000;
-
-    function resizeCanvas() {
-      if (!canvas) return;
-      w = canvas.width = window.innerWidth || document.documentElement.clientWidth || 1920;
-      h = canvas.height = window.innerHeight || document.documentElement.clientHeight || 1080;
-    }
-    resizeCanvas();
-
-    window.addEventListener('resize', resizeCanvas, { passive: true });
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    }, { passive: true });
-
-    document.addEventListener('visibilitychange', () => {
-      isVisible = !document.hidden;
-      if (isVisible) {
-        if (animId) cancelAnimationFrame(animId);
-        animId = requestAnimationFrame(loop);
-      } else {
-        if (animId) cancelAnimationFrame(animId);
-        animId = null;
-      }
-    });
-
-    // Ripples for click interactions
-    const ripples = [];
-    window.addEventListener('click', (e) => {
-      if (currentProfile === 'ECO') return;
-      if (e.target.closest('button, a, input, textarea, select')) return;
-      ripples.push({
-        x: e.clientX,
-        y: e.clientY,
-        radius: 4,
-        maxRadius: 75,
-        alpha: 0.45,
-        color: '245, 158, 11',
-        speed: 1.6
-      });
-    }, { passive: true });
-
-    // Particles system with Serene Drift Physics (Exact Version 9 Spec)
-    const PRO_PARTICLE_COUNT = 38;
-    const ECO_PARTICLE_COUNT = 14;
-    let particles = [];
-
-    function initParticles() {
-      const count = currentProfile === 'PRO' ? PRO_PARTICLE_COUNT : ECO_PARTICLE_COUNT;
-      particles = [];
-      const currentW = w || window.innerWidth || 1920;
-      const currentH = h || window.innerHeight || 1080;
-      for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = currentProfile === 'PRO' ? 0.18 : 0.12;
-        particles.push({
-          x: Math.random() * currentW,
-          y: Math.random() * currentH,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed,
-          radius: Math.random() * 1.5 + 0.8,
-          alpha: Math.random() * 0.35 + 0.15,
-          color: Math.random() > 0.35 ? '217, 119, 54' : '245, 158, 11'
-        });
-      }
-    }
-    initParticles();
-
-    // Fixed Framerate Clock (60 FPS Pro / 30 FPS Eco)
-    let targetFrameInterval = 1000 / 60; // 16.66ms for 60Hz
-    let lastRenderTime = performance.now();
-    let frameCount = 0;
-    let lastFpsUpdate = performance.now();
-
-    function loop(now = performance.now()) {
-      if (!isVisible || !ctx) {
-        if (animId) cancelAnimationFrame(animId);
-        animId = null;
-        return;
-      }
-
-      if (animId) cancelAnimationFrame(animId);
-      animId = requestAnimationFrame(loop);
-
-      // Frame Throttle: Skip rendering if invoked sooner than target interval (clamps 240Hz screens to 60/30)
-      const elapsed = now - lastRenderTime;
-      if (elapsed < targetFrameInterval - 1) {
-        return;
-      }
-      lastRenderTime = now - (elapsed % targetFrameInterval);
-
-      // Telemetry FPS Calculation
-      frameCount++;
-      if (now - lastFpsUpdate >= 1000) {
-        const measuredFps = Math.round((frameCount * 1000) / (now - lastFpsUpdate));
-        frameCount = 0;
-        lastFpsUpdate = now;
-
-        const fpsEl = document.getElementById('fps-counter');
-        const fpsDot = document.getElementById('fps-dot');
-        if (fpsEl) {
-          fpsEl.textContent = `${measuredFps} FPS`;
-          if (currentProfile === 'PRO') {
-            fpsEl.className = 'text-titanium-light font-bold';
-            if (fpsDot) fpsDot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
-          } else {
-            fpsEl.className = 'text-titanium-muted font-bold';
-            if (fpsDot) fpsDot.className = 'w-1.5 h-1.5 rounded-full bg-amber-500/70';
-          }
-        }
-      }
-
-      ctx.clearRect(0, 0, w, h);
-
-      // 1. Draw Acoustic Click Ripples (PRO mode only)
-      if (currentProfile === 'PRO') {
-        for (let k = ripples.length - 1; k >= 0; k--) {
-          const rip = ripples[k];
-          rip.radius += rip.speed;
-          const life = 1 - (rip.radius / rip.maxRadius);
-          if (life <= 0) {
-            ripples.splice(k, 1);
-            continue;
-          }
-          ctx.beginPath();
-          ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${rip.color}, ${rip.alpha * life})`;
-          ctx.lineWidth = Math.max(0.4, 1.0 * life);
-          ctx.stroke();
-        }
-      }
-
-      // 2. Update & Draw Particles with Aerodynamic Friction & Slingshot Interaction
-      const pCount = particles.length;
-      for (let i = 0; i < pCount; i++) {
-        const p = particles[i];
-
-        // Aerodynamic Drag: Decelerate back to serene cruising speed
-        const currentSpeed = Math.hypot(p.vx, p.vy);
-        if (currentSpeed > 0.28) {
-          p.vx *= 0.96;
-          p.vy *= 0.96;
-        } else if (currentSpeed < 0.05) {
-          p.vx += (Math.random() - 0.5) * 0.02;
-          p.vy += (Math.random() - 0.5) * 0.02;
-        }
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0) p.x = w;
-        if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h;
-        if (p.y > h) p.y = 0;
-
-        let currentAlpha = p.alpha;
-        let currentRadius = p.radius;
-
-        // Mouse Proximity Halo in PRO mode
-        if (currentProfile === 'PRO') {
-          const mDist = Math.hypot(p.x - mouseX, p.y - mouseY);
-          if (mDist < 120) {
-            const prox = 1 - (mDist / 120);
-            currentAlpha = Math.min(0.85, p.alpha + 0.25 * prox);
-            currentRadius = p.radius + 0.5 * prox;
-            ctx.shadowColor = `rgba(217, 119, 54, ${0.6 * prox})`;
-            ctx.shadowBlur = 6 * prox;
-          } else {
-            ctx.shadowBlur = 0;
-          }
-        } else {
-          ctx.shadowBlur = 0;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, currentRadius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color}, ${currentAlpha})`;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-
-        // Gravitational Slingshot & Filaments (PRO mode only)
-        if (currentProfile === 'PRO') {
-          for (let j = i + 1; j < pCount; j++) {
-            const p2 = particles[j];
-            const dx = p.x - p2.x;
-            const dy = p.y - p2.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-
-            // True Slingshot: subtle orbital impulse with speed ceiling
-            if (dist < 40 && dist > 12) {
-              const impulse = (1 - dist / 40) * 0.045;
-              const nx = dx / dist;
-              const ny = dy / dist;
-
-              p.vx += (ny * 0.7 + nx * 0.3) * impulse;
-              p.vy += (-nx * 0.7 + ny * 0.3) * impulse;
-              p2.vx -= (ny * 0.7 + nx * 0.3) * impulse;
-              p2.vy -= (-nx * 0.7 + ny * 0.3) * impulse;
-
-              // Speed ceiling (prevents any uncontrolled acceleration)
-              const maxAllowed = 0.95;
-              const s1 = Math.hypot(p.vx, p.vy);
-              if (s1 > maxAllowed) {
-                p.vx = (p.vx / s1) * maxAllowed;
-                p.vy = (p.vy / s1) * maxAllowed;
-              }
-              const s2 = Math.hypot(p2.vx, p2.vy);
-              if (s2 > maxAllowed) {
-                p2.vx = (p2.vx / s2) * maxAllowed;
-                p2.vy = (p2.vy / s2) * maxAllowed;
-              }
-            }
-
-            // Silky connection filament
-            if (dist < 100) {
-              const filamentAlpha = (1 - dist / 100) * 0.12;
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = `rgba(217, 119, 54, ${filamentAlpha})`;
-              ctx.lineWidth = 0.5;
-              ctx.stroke();
-            }
-          }
-        }
-      }
-    }
-
-    loop();
-
-    // ----------------------------------------------------------
-    // 8. PROFILE CONTROLLER (PRO 60Hz vs ECO 30Hz)
-    // ----------------------------------------------------------
-    function setProfile(profile, isManual = true) {
-      currentProfile = profile;
-      if (isManual) isAutoProfile = false;
-
-      const body = document.body;
-      const gpuIcon = document.getElementById('gpu-icon');
-      const gpuLabel = document.getElementById('gpu-label');
-      const toggleBtn = document.getElementById('toggle-gpu-btn');
-
-      if (profile === 'ECO') {
-        body.classList.add('eco-mode');
-        targetFrameInterval = 1000 / 30; // Clamp to 30 FPS
-        if (gpuIcon) gpuIcon.textContent = '🍃';
-        if (gpuLabel) gpuLabel.textContent = 'ECO (30Hz)';
-        if (toggleBtn) {
-          toggleBtn.className = 'px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold hover:bg-emerald-500 hover:text-carbon-950 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95';
-        }
-      } else {
-        body.classList.remove('eco-mode');
-        targetFrameInterval = 1000 / 60; // Clamp to 60 FPS
-        if (gpuIcon) gpuIcon.textContent = '⚡';
-        if (gpuLabel) gpuLabel.textContent = 'PRO (60Hz)';
-        if (toggleBtn) {
-          toggleBtn.className = 'px-3 py-1 rounded-full bg-amber-soft border border-amber-cognac/40 text-amber-cognac font-mono text-[11px] font-bold hover:bg-amber-cognac hover:text-carbon-950 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95';
-        }
-      }
-
-      initParticles();
-    }
-
-    // Bind Toggle Button with Full DOM Safety
-    const toggleBtn = document.getElementById('toggle-gpu-btn');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setProfile(currentProfile === 'PRO' ? 'ECO' : 'PRO', true);
-      });
-    }
-
-    // URL parameter check
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('mode') === 'eco') {
-      setProfile('ECO', true);
-    } else if (urlParams.get('mode') === 'pro') {
-      setProfile('PRO', true);
-    } else {
-      setProfile('PRO', false);
-    }
-
-    // ----------------------------------------------------------
     // 9. 3D MICRO-PARALLAX TILT ON CARDS (PRO MODE ONLY)
     // ----------------------------------------------------------
     document.querySelectorAll('.spotlight-card').forEach(card => {
       card.addEventListener('mousemove', e => {
-        if (currentProfile === 'ECO') return;
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
@@ -3103,7 +2915,6 @@
     // ----------------------------------------------------------
     document.querySelectorAll('.btn-pill-primary').forEach(btn => {
       btn.addEventListener('mousemove', e => {
-        if (currentProfile === 'ECO') return;
         const rect = btn.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
@@ -3167,9 +2978,9 @@
     // 12. CONCEPT 3: MICRO-DECRYPTION ALPHANUMERIC TEXT DECODE (ONCE ON SCROLL + HOVER RE-TRIGGER)
     // ----------------------------------------------------------
     const decodeGlyphs = '01#_<>[]*+~X7';
-    function decryptElement(el, force = false) {
+    function decryptElement(el) {
       if (el.dataset.animating === 'true') return;
-      if (!force && el.dataset.decoded === 'true') return;
+      if (el.dataset.decoded === 'true') return;
       el.dataset.decoded = 'true';
       el.dataset.animating = 'true';
 
@@ -3217,27 +3028,10 @@
       decryptObserver.observe(el);
     });
 
-    // Unified Heading Hover: hovering anywhere over a section heading re-scrambles both parts together
-    document.querySelectorAll('h2').forEach(heading => {
-      const childSpans = heading.querySelectorAll('.decrypt-text');
-      if (childSpans.length > 0) {
-        heading.addEventListener('mouseenter', () => {
-          childSpans.forEach(span => decryptElement(span, true));
-        });
-      }
-    });
-
-    // Standalone decrypt elements (like 01 // CONTINUITY tags in pillar cards)
-    document.querySelectorAll('.decrypt-text').forEach(el => {
-      if (!el.closest('h2')) {
-        el.addEventListener('mouseenter', () => {
-          decryptElement(el, true);
-        });
-      }
-    });
+    // Text scramble runs strictly once upon scroll per reload. Mouse hover re-scramble permanently disabled.
 
     // ----------------------------------------------------------
-    // 13. FUTURISTIC DUAL THEME CONTROLLER (DARK / LIGHT ARCHITECTURE)
+    // 13. ENTERPRISE LIGHT THEME ENGINE (LIGHT DEFAULT / DARK TOGGLE ARCHITECTURE)
     // ----------------------------------------------------------
     function updateThemeUI(isLight) {
       const sunIcon = document.getElementById('theme-icon-sun');
@@ -3255,7 +3049,7 @@
           desktopBtn.setAttribute('aria-label', 'Switch to Dark Mode');
         }
         if (mobileLabel) mobileLabel.textContent = 'Switch to Dark Mode';
-        if (mobileIcon) mobileIcon.textContent = '🌙';
+        if (mobileIcon) mobileIcon.textContent = '\u{1F319}';
       } else {
         // Active mode is Dark: show Sun icon to switch to Light Mode
         if (sunIcon) sunIcon.classList.remove('hidden');
@@ -3265,7 +3059,7 @@
           desktopBtn.setAttribute('aria-label', 'Switch to Light Mode');
         }
         if (mobileLabel) mobileLabel.textContent = 'Switch to Light Mode';
-        if (mobileIcon) mobileIcon.textContent = '☀️';
+        if (mobileIcon) mobileIcon.textContent = '\u{2600}\u{FE0F}';
       }
     }
 
@@ -3273,18 +3067,23 @@
       const isLight = theme === 'light';
       if (isLight) {
         document.documentElement.classList.add('light-theme');
+        document.documentElement.classList.remove('dark');
         document.body.classList.add('light-theme');
+        document.body.classList.remove('dark');
       } else {
         document.documentElement.classList.remove('light-theme');
+        document.documentElement.classList.add('dark');
         document.body.classList.remove('light-theme');
+        document.body.classList.add('dark');
       }
       if (save) {
         try {
+          localStorage.setItem('vc_portfolio_theme_v16', theme);
           localStorage.setItem('vc_portfolio_theme', theme);
         } catch (e) {}
       }
       updateThemeUI(isLight);
-      initParticles();
+
     }
 
     function toggleTheme() {
@@ -3308,16 +3107,18 @@
       });
     }
 
-    // Initial Theme Detection (LocalStorage -> Default Dark)
+    // Initial Theme Detection (Strict Light Mode Default - Ignore prefers-color-scheme)
     try {
-      const savedTheme = localStorage.getItem('vc_portfolio_theme');
-      if (savedTheme) {
-        setTheme(savedTheme, false);
-      } else {
-        setTheme('dark', false);
+      let savedTheme = localStorage.getItem('vc_portfolio_theme_v16');
+      if (!savedTheme) {
+        // First load of updated version: strictly enforce light mode default
+        savedTheme = 'light';
+        localStorage.setItem('vc_portfolio_theme_v16', 'light');
+        localStorage.setItem('vc_portfolio_theme', 'light');
       }
+      setTheme(savedTheme, false);
     } catch (e) {
-      setTheme('dark', false);
+      setTheme('light', false);
     }
   </script>
 
@@ -3554,7 +3355,7 @@
       const enrichedParams = {
         ...eventParams,
         site_theme: isLight ? 'light' : 'dark',
-        gpu_profile: typeof currentProfile !== 'undefined' ? currentProfile : 'PRO',
+
         traffic_source: utmData.source || 'direct',
         traffic_medium: utmData.medium || 'none'
       };
@@ -3791,12 +3592,7 @@
           return;
         }
 
-        const gpuToggle = target.closest('#toggle-gpu-btn');
-        if (gpuToggle) {
-          const nextMode = (typeof currentProfile !== 'undefined' && currentProfile === 'PRO') ? 'ECO' : 'PRO';
-          trackEvent('gpu_mode_toggle', { mode_selected: nextMode });
-          return;
-        }
+
       });
 
       // Scroll Depth Milestones (25%, 50%, 75%, 90%)
@@ -3937,7 +3733,68 @@
 
     // Execute Initial Privacy Check
     checkConsentStatus();
+  
+    // ========================================================
+    // MOBILE STICKY FLOATING ACTION BUTTON (FAB) CONTROLLER
+    // ========================================================
+    function initMobileStickyFab() {
+      const mobileFab = document.getElementById('mobile-sticky-cta');
+      const heroSection = document.getElementById('hero');
+      const contactSection = document.getElementById('contact');
+
+      if (!mobileFab) return;
+
+      let isTicking = false;
+      function updateFabState() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const heroHeight = heroSection ? heroSection.offsetHeight : 450;
+        const contactTop = contactSection ? contactSection.offsetTop : document.body.scrollHeight;
+        const windowHeight = window.innerHeight;
+
+        // Display FAB only after scrolling past 50% of hero, and auto-hide when entering contact section
+        const hasPassedHero = scrollY > Math.min(320, heroHeight * 0.5);
+        const isInContact = (scrollY + windowHeight) >= (contactTop + 140);
+
+        if (hasPassedHero && !isInContact) {
+          mobileFab.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+          mobileFab.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          mobileFab.setAttribute('aria-hidden', 'false');
+        } else {
+          mobileFab.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+          mobileFab.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+          mobileFab.setAttribute('aria-hidden', 'true');
+        }
+        isTicking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!isTicking) {
+          window.requestAnimationFrame(updateFabState);
+          isTicking = true;
+        }
+      }, { passive: true });
+
+      // Run on resize & initial load
+      window.addEventListener('resize', updateFabState, { passive: true });
+      updateFabState();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMobileStickyFab);
+    } else {
+      initMobileStickyFab();
+    }
+
   </script>
+
+  <!-- Mobile Sticky Floating Action Button (FAB) (Scroll-Activated, Auto-Hiding in Contact Section) -->
+  <div id="mobile-sticky-cta" class="fixed bottom-5 right-5 z-40 sm:hidden transition-all duration-300 opacity-0 translate-y-4 pointer-events-none" aria-hidden="true">
+    <a href="#contact" class="mobile-fab-pill flex items-center gap-2 py-2.5 px-4 rounded-full text-xs font-mono font-bold tracking-wider uppercase">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>GET IN TOUCH</span>
+      <span class="text-amber-cognac font-bold">↗</span>
+    </a>
+  </div>
 
 </body>
 </html>
